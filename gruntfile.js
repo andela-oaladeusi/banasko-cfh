@@ -66,6 +66,14 @@ module.exports = function(grunt) {
             },
             src: ['test/**/*.js']
         },
+        mochaIstanbul:{
+            coveralls: {
+                src: 'test/**/*.js',
+                options: {
+                    coverage:true
+                }
+            }
+        }, 
         sass: {
             dist: {
                 options: {
@@ -92,7 +100,7 @@ module.exports = function(grunt) {
     //Load NPM tasks 
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-mocha-test');
+    grunt.loadNpmTasks('grunt-mocha-istanbul');
     grunt.loadNpmTasks('grunt-nodemon');
     grunt.loadNpmTasks('grunt-concurrent');
     grunt.loadNpmTasks('grunt-contrib-sass');
@@ -105,7 +113,7 @@ module.exports = function(grunt) {
     grunt.registerTask('default', ['jshint', 'concurrent', 'sass']);
 
     //Test task.
-    grunt.registerTask('test', ['mochaTest']);
+    grunt.registerTask('test', ['mochaIstanbul']);
 
     //Bower task.
     grunt.registerTask('install', ['bower']);
