@@ -1,5 +1,6 @@
 'use strict';
 
+
 // Karma configuration
 // Generated on Mon Nov 14 2016 18:07:44 GMT+0100 (WAT)
 
@@ -19,6 +20,7 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       'public/lib/angular/angular.js',
+
       'test/client/**/*.js',
       'test/client/*.js',
       'jasmine/spec/**/*.js',
@@ -63,13 +65,14 @@ module.exports = function(config) {
 
 
 
-    // enable / disable watching file and executing tests
-    // whenever any file changes
+    // enable / disable watching file and
+    // executing tests whenever any file changes
     autoWatch: true,
 
 
     // start these browsers
-    // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
+    // available browser launchers:
+    // https://npmjs.org/browse/keyword/karma-launcher
     browsers: ['Chrome', 'PhantomJS', 'Firefox'],
 
 
@@ -80,5 +83,6 @@ module.exports = function(config) {
     // Concurrency level
     // how many browser should be started simultaneous
     concurrency: Infinity
+
   });
 };
