@@ -1,5 +1,4 @@
 'use strict';
-
 /**
  * Module dependencies.
  */
@@ -58,6 +57,7 @@ require('./config/express')(app, passport, mongoose);
 require('./config/routes')(app, passport, auth);
 
 //Start the app by listening on <port>
+
 var server = app.listen(config.port);
 var ioObj = io.listen(server, { log: false });
 //game logic handled here
