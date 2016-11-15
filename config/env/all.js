@@ -3,6 +3,7 @@ const path = require('path'),
       rootPath = path.normalize(__dirname + '/../..');
 
 
+
 let db = null;
 
 if (process.env.NODE_ENV === 'development') {
