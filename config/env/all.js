@@ -17,7 +17,6 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 
-
 module.exports = {
   root: rootPath,
   port: process.env.PORT || 3000,
