@@ -1,3 +1,4 @@
+'use strict';
 /**
  * Module dependencies.
  */
@@ -6,6 +7,7 @@ var express = require('express'),
     passport = require('passport'),
     logger = require('mean-logger'),
     io = require('socket.io');
+    require('dotenv').config();
 
 /**
  * Main application entry file.
@@ -56,7 +58,7 @@ require('./config/routes')(app, passport, auth);
 
 //Start the app by listening on <port>
 var port = config.port;
-var server = app.listen(port);
+var server = app.listen(9000);
 var ioObj = io.listen(server, { log: false });
 //game logic handled here
 require('./config/socket/socket')(ioObj);

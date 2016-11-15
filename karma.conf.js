@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+'use strict';
+=======
+>>>>>>> 9ac67ed... chore( front-end testing): environment setup adding karma and jasmine for unit testing Finishes #134249123
 // Karma configuration
 // Generated on Mon Nov 14 2016 18:07:44 GMT+0100 (WAT)
 
@@ -9,7 +13,12 @@ module.exports = function(config) {
 
 
     // frameworks to use
+<<<<<<< HEAD
+    // available frameworks:
+    // https://npmjs.org/browse/keyword/karma-adapter
+=======
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
+>>>>>>> 9ac67ed... chore( front-end testing): environment setup adding karma and jasmine for unit testing Finishes #134249123
     frameworks: ['jasmine'],
 
 
@@ -29,14 +38,24 @@ module.exports = function(config) {
 
 
     // preprocess matching files before serving them to the browser
+<<<<<<< HEAD
+    // available preprocessors:
+    // https://npmjs.org/browse/keyword/karma-preprocessor
+=======
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
+>>>>>>> 9ac67ed... chore( front-end testing): environment setup adding karma and jasmine for unit testing Finishes #134249123
     preprocessors: {
     },
 
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
+<<<<<<< HEAD
+    // available reporters:
+    // https://npmjs.org/browse/keyword/karma-reporter
+=======
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
+>>>>>>> 9ac67ed... chore( front-end testing): environment setup adding karma and jasmine for unit testing Finishes #134249123
     reporters: ['progress'],
 
 
@@ -49,11 +68,22 @@ module.exports = function(config) {
 
 
     // level of logging
+<<<<<<< HEAD
+    // possible values: config.LOG_DISABLE ||
+    // config.LOG_ERROR || config.LOG_WARN ||
+    // config.LOG_INFO || config.LOG_DEBUG
+    logLevel: config.LOG_INFO,
+
+
+    // enable / disable watching file and executing tests
+    // whenever any file changes
+=======
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
     logLevel: config.LOG_INFO,
 
 
     // enable / disable watching file and executing tests whenever any file changes
+>>>>>>> 9ac67ed... chore( front-end testing): environment setup adding karma and jasmine for unit testing Finishes #134249123
     autoWatch: true,
 
 
@@ -69,5 +99,10 @@ module.exports = function(config) {
     // Concurrency level
     // how many browser should be started simultaneous
     concurrency: Infinity
+<<<<<<< HEAD
+  });
+};
+=======
   })
 }
+>>>>>>> 9ac67ed... chore( front-end testing): environment setup adding karma and jasmine for unit testing Finishes #134249123
