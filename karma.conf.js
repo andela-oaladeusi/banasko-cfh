@@ -1,5 +1,6 @@
 'use strict';
 
+
 // Karma configuration
 // Generated on Mon Nov 14 2016 18:07:44 GMT+0100 (WAT)
 
@@ -80,4 +81,4 @@ module.exports = function(config) {
     concurrency: Infinity
 
   });
-};
+}
