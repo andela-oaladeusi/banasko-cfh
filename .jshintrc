@@ -12,7 +12,7 @@
   "bitwise": true,
   "camelcase": true,
   "curly": true,
-  "eqeqeq": true,
+  "eqeqeq": true;
   "indent": 2,
   "regexp": true,
   "undef": true,
