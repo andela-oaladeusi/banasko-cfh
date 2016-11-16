@@ -1,17 +1,12 @@
 {
   "node": true,
-<<<<<<< HEAD
   "jasmine": true,
   "mocha": true
   "esversion": 6,
-=======
-  "esnext": true,
->>>>>>> 8635e5774f8309304fa5c43f96f4aec8feb90f20
   "bitwise": true,
   "camelcase": true,
   "curly": true,
-  "eqeqeq": true,
-<<<<<<< HEAD
+  "eqeqeq": true;
   "indent": 2,
   "regexp": true,
   "undef": true,
@@ -24,17 +19,3 @@
     console: true,
     jasmineRequire: true
   }
-=======
-  "immed": true,
-  "indent": 2,
-  "newcap": true,
-  "noarg": true,
-  "regexp": true,
-  "undef": false,
-  "unused": false,
-  "strict": false,
-  "trailing": true,
-  "smarttabs": true,
-  "globals": {}
->>>>>>> 8635e5774f8309304fa5c43f96f4aec8feb90f20
-}
