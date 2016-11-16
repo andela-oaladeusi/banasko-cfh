@@ -1,16 +1,12 @@
 {
   "node": true,
   "jasmine": true,
-  "mocha": true,
-  "esversion": 6,
-  "esnext": true,
   "mocha": true
   "esversion": 6,
-  "esnext": true,
   "bitwise": true,
   "camelcase": true,
   "curly": true,
-  "eqeqeq": true,
+  "eqeqeq": true;
   "indent": 2,
   "regexp": true,
   "undef": true,
