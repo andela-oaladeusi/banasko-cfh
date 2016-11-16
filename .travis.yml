@@ -2,6 +2,8 @@ language: node_js
 node_js:
  - 5
  - 4
+notifications:
+  slack: andela:VM5JOkV0tR1M1X8BfCMgMusY
 services:
  - MongoDB
 after_script: 
