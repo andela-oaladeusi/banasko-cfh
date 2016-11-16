@@ -61,6 +61,7 @@ module.exports = function(config) {
     logLevel: config.LOG_INFO,
 
 
+
     // executing tests whenever any file changes
     // enable / disable watching file and executing tests
     // whenever any file changes
