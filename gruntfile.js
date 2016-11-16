@@ -68,7 +68,7 @@ module.exports = function(grunt) {
         },
         mochaIstanbul:{
             coveralls: {
-                src: 'test/**/*.js',
+                src: ['public/js/**/*.js','app/**/*.js'],
                 options: {
                     coverage:true
                 }
