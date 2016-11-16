@@ -4,10 +4,8 @@
   "mocha": true,
   "esversion": 6,
   "esnext": true,
-  "bitwise": true,
-  "camelcase": true,
-  "curly": true,
-  "eqeqeq": true,
+  "mocha": true
+  "esversion": 6,
   "bitwise": true,
   "camelcase": true,
   "curly": true,

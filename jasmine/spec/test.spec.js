@@ -7,5 +7,4 @@ describe('simple test ' , function() {
     var root = sqrt(4);
     expect(root).toEqual(16);
   });
-  return x * x
 })
