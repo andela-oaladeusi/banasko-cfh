@@ -28,11 +28,7 @@ module.exports = function(config) {
       'public/js/**/*.js',
     ],
 
-<<<<<<< HEAD
-=======
 
-
->>>>>>> chore(frontend-testing) should fix HoundCI error
     // list of files to exclude
     exclude: [
     ],
