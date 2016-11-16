@@ -14,7 +14,6 @@ if (process.env.NODE_ENV === 'production') {
   db = process.env.MONGOHQ_URL;
 }
 
-
 module.exports = {
   root: rootPath,
   port: process.env.PORT || 3000,
