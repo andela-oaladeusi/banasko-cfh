@@ -9,4 +9,3 @@ describe('simple test ' , function() {
     expect(root).toEqual(16);
   });
 });
-
