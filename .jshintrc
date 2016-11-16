@@ -3,6 +3,7 @@
   "jasmine": true,
   "mocha": true,
   "esversion": 6,
+  "esnext": true,
   "bitwise": true,
   "camelcase": true,
   "curly": true,
