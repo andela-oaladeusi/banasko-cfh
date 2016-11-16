@@ -1,6 +1,5 @@
 'use strict';
 
-
 // Karma configuration
 // Generated on Mon Nov 14 2016 18:07:44 GMT+0100 (WAT)
 
@@ -12,7 +11,8 @@ module.exports = function(config) {
 
 
     // frameworks to use
-    // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
+    // available frameworks:
+    // https://npmjs.org/browse/keyword/karma-adapter
     frameworks: ['jasmine'],
 
 
@@ -35,7 +35,7 @@ module.exports = function(config) {
 
     // preprocess matching files before serving them to the browser
     // available preprocessors:
-    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
+    // https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
     },
 
@@ -63,7 +63,8 @@ module.exports = function(config) {
 
 
 
-    // enable / disable watching file and executing tests whenever any file changes
+    // enable / disable watching file and executing tests
+    // whenever any file changes
     autoWatch: true,
 
 
@@ -79,6 +80,5 @@ module.exports = function(config) {
     // Concurrency level
     // how many browser should be started simultaneous
     concurrency: Infinity
-
   });
-}
+};
