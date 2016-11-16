@@ -1,12 +1,12 @@
 {
   "node": true,
   "jasmine": true,
-  "mocha": true
+  "mocha": true,
   "esversion": 6,
   "bitwise": true,
   "camelcase": true,
   "curly": true,
-  "eqeqeq": true;
+  "eqeqeq": true,
   "indent": 2,
   "regexp": true,
   "undef": true,
@@ -17,5 +17,5 @@
     requirejs: true,
     require: true,
     console: true,
-    jasmineRequire: true
+    jasmineRequire: true,
   }
