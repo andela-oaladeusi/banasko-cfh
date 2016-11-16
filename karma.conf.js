@@ -2,7 +2,6 @@
 
 // Karma configuration
 // Generated on Mon Nov 14 2016 18:07:44 GMT+0100 (WAT)
-
 module.exports = function(config) {
   config.set({
 
@@ -34,7 +33,6 @@ module.exports = function(config) {
     ],
 
 
-    // preprocess matching files before serving them to the browser
     // available preprocessors:
     // https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
@@ -43,7 +41,6 @@ module.exports = function(config) {
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
-    // available reporters:
     // https://npmjs.org/browse/keyword/karma-reporter
     reporters: ['progress'],
 
@@ -63,7 +60,6 @@ module.exports = function(config) {
     logLevel: config.LOG_INFO,
 
 
-    // enable / disable watching file and 
     // executing tests whenever any file changes
     // enable / disable watching file and executing tests
     // whenever any file changes
