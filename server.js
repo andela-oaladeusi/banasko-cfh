@@ -57,6 +57,9 @@ require('./config/express')(app, passport, mongoose);
 //Bootstrap routes
 require('./config/routes')(app, passport, auth);
 
+// api route
+require('./config/api.js')(app, express);
+
 //Start the app by listening on <port>
 const server = app.listen(config.port);
 const ioObj = io.listen(server, { log: false });
