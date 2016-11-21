@@ -89,13 +89,13 @@ describe("Game Server",function() {
       });
       setTimeout(disconnect,200);
     };
-    client1.on('connect', function(data) {
+    client1.on('connect', function() {
       client1.emit('joinGame',{userID:'unauthenticated',room: '', createPrivate: false});
       client2 = io.connect(socketURL, options);
-      client2.on('connect', function(data) {
+      client2.on('connect', function() {
         client2.emit('joinGame',{userID:'unauthenticated',room: '', createPrivate: false});
         client3 = io.connect(socketURL, options);
-        client3.on('connect', function(data) {
+        client3.on('connect', function() {
           client3.emit('joinGame',{userID:'unauthenticated',room: '', createPrivate: false});
           setTimeout(expectStartGame,100);
         });

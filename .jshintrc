@@ -13,7 +13,8 @@
   "unused": true,
   "strict": "global",
   "trailing": true,
-  "maxlen": 80,
+  "maxlen": 90,
+  "nonbsp": false,
   "globals": {
     "requirejs": true,
     "require": true,
