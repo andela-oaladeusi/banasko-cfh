@@ -1,15 +1,16 @@
+'use strict';
 /**
  * Module dependencies.
  */
-var should = require('should'),
-    app = require('../../server'),
+const should = require('should'),
+    app = require('../../../server'),
     mongoose = require('mongoose'),
     User = mongoose.model('User'),
     Article = mongoose.model('Article');
 
 //Globals
-var user;
-var article;
+let user;
+let article;
 
 //The tests
 describe('<Unit Test>', function() {
@@ -22,7 +23,7 @@ describe('<Unit Test>', function() {
                 password: 'password'
             });
 
-            user.save(function(err) {                
+            user.save(function(err) {
                 article = new Article({
                     title: 'Article Title',
                     content: 'Article Content',

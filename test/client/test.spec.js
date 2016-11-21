@@ -1,3 +1,4 @@
+
 function square(x) {
   return x * x;
 }
@@ -8,4 +9,3 @@ describe('simple test ' , function() {
     expect(root).toEqual(16);
   });
 })
-
