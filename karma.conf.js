@@ -19,7 +19,8 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       'public/lib/angular/angular.js',
-      'jasmine/spec/**/*.js',
+      'test/client/**/*.js',
+      'test/client/*.js',
       'public/js/**/*.js',
       'public/js/app.js'
     ],
