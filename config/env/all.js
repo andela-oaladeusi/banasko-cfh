@@ -7,10 +7,9 @@ const path = require('path'),
 let db = null;
 
 if (process.env.NODE_ENV === 'development') {
-  db= process.env.MONGODEV_URL;
+  db = process.env.MONGODEV_URL;
 }
 if (process.env.NODE_ENV === 'test') {
-
   db = process.env.MONGOTEST_URL;
 }
 if (process.env.NODE_ENV === 'production') {
