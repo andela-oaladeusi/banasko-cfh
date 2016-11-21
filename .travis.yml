@@ -1,5 +1,6 @@
 language: node_js
 node_js:
+<<<<<<< HEAD
  - 5
  - 4
 notifications:
@@ -8,3 +9,9 @@ services:
  - MongoDB
 after_script: 
  - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+=======
+ - "stable"
+
+notifications:
+  slack: andela:VM5JOkV0tR1M1X8BfCMgMusY
+>>>>>>> 9d3f59caf9f6a1b9b8718fac39e8908fde5878b2

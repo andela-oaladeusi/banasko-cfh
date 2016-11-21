@@ -42,6 +42,7 @@
     "passport-twitter": "~1.0.2",
     "sinon": "~1.7.3",
     "socket.io": "~0.9.16",
+<<<<<<< HEAD
     "underscore": "~1.5.2",
     "async": "~0.2.9",
     "view-helpers": "~0.1.3",
@@ -52,6 +53,8 @@
     "grunt-bower-task": "~0.4.0",
     "socket.io": "~1.4.5",
     "bcryptjs": "~1.0.4",
+=======
+>>>>>>> 9d3f59caf9f6a1b9b8718fac39e8908fde5878b2
     "socket.io-client": "~0.9.16",
     "underscore": "~1.5.2",
     "view-helpers": "~0.1.3"
