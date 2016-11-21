@@ -1,12 +1,10 @@
-'use strict';
-
-function square(x) {
+function sqrt(x) {
   return x * x;
 }
 
 describe('simple test ' , function() {
-  it('should return square of 4', function() {
-    let sqr = square(4);
-    expect(sqr).toEqual(16);
+  it('should return sqrt ', function() {
+    var root = sqrt(4);
+    expect(root).toEqual(16);
   });
 })
