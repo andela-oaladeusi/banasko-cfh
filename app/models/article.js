@@ -4,7 +4,6 @@
  */
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
-  
 
 /**
  * Article Schema
@@ -14,8 +13,8 @@ var ArticleSchema = new Schema({
         type: String,
         default: '',
         trim: true,
-        required: true 
-    }, 
+        required: true
+    },
     content: {
         type: String,
         default: '',

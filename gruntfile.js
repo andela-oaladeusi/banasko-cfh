@@ -75,7 +75,7 @@ module.exports = function(grunt) {
                     coverage:true
                 }
             }
-        }, 
+        },
         sass: {
             dist: {
                 options: {
@@ -99,7 +99,7 @@ module.exports = function(grunt) {
         },
     });
 
-    //Load NPM tasks 
+    //Load NPM tasks
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-mocha-istanbul');

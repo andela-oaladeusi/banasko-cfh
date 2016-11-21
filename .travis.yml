@@ -6,7 +6,5 @@ notifications:
   slack: andela:VM5JOkV0tR1M1X8BfCMgMusY
 services:
  - MongoDB
-after_script: 
+after_script:
  - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
-notifications:
-  slack: andela:VM5JOkV0tR1M1X8BfCMgMusY
