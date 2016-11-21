@@ -3,8 +3,6 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-    config = require('../../config/config'),
-    User = require('./user.js'),
     Schema = mongoose.Schema;
   
 
