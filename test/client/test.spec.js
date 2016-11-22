@@ -6,7 +6,7 @@ function squareRoot(x) {
 
 describe('simple test ' , function() {
   it('should return sqrt ', function() {
-    let root = sqrt(4);
+    let root = squareRoot(4);
     expect(root).toEqual(16);
   });
 })
