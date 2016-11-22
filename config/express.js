@@ -2,7 +2,9 @@
  * Module dependencies.
  */
 var express = require('express'),
-    mongoStore = require('connect-mongo')(express),
+    session=require('express-session'),
+    mongoStore = require('connect-mongo')(session),
+        // mongoStore = require('connect-mongo')(express),   // replace with the top vaiable mongoStore
     flash = require('connect-flash'),
     helpers = require('view-helpers'),
     config = require('./config');
