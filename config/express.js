@@ -51,9 +51,6 @@ module.exports = function(app, passport, mongoose) {
                 url: config.db,
                 collection: 'sessions',
                 mongoose_connection: mongoose.connection
-                host: '127.0.0.1',
-                port: '27017',
-                url: 'mongodb://localhost:27017'
             })
         }));
 
