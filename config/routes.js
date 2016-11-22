@@ -1,10 +1,19 @@
+<<<<<<< 59bb706c221d8bbf512b7c06573d4430371886f6
 'use strict';
+=======
+let async = require('async');
+>>>>>>> feature(jwt_tokens): integrate signup with jwt token feature
 
 
 module.exports = function (app, passport, auth) {
     //User Routes
+<<<<<<< 59bb706c221d8bbf512b7c06573d4430371886f6
     const users = require('../app/controllers/users');
     const jwtAuth = require('../app/controllers/auth');
+=======
+    let users = require('../app/controllers/users');
+    let jwtAuth = require('../app/controllers/auth');
+>>>>>>> feature(jwt_tokens): integrate signup with jwt token feature
 
     app.get('/signin', users.signin);
     app.get('/signup', users.signup);
@@ -71,28 +80,48 @@ module.exports = function (app, passport, auth) {
     app.param('userId', users.user);
 
     // Answer Routes
+<<<<<<< 59bb706c221d8bbf512b7c06573d4430371886f6
     const answers = require('../app/controllers/answers');
+=======
+    let answers = require('../app/controllers/answers');
+>>>>>>> feature(jwt_tokens): integrate signup with jwt token feature
     app.get('/answers', answers.all);
     app.get('/answers/:answerId', answers.show);
     // Finish with setting up the answerId param
     app.param('answerId', answers.answer);
 
     // Question Routes
+<<<<<<< 59bb706c221d8bbf512b7c06573d4430371886f6
     const questions = require('../app/controllers/questions');
+=======
+    let questions = require('../app/controllers/questions');
+>>>>>>> feature(jwt_tokens): integrate signup with jwt token feature
     app.get('/questions', questions.all);
     app.get('/questions/:questionId', questions.show);
     // Finish with setting up the questionId param
     app.param('questionId', questions.question);
 
     // Avatar Routes
+<<<<<<< 59bb706c221d8bbf512b7c06573d4430371886f6
     const avatars = require('../app/controllers/avatars');
     app.get('/avatars', avatars.allJSON);
 
     //Home route
     const index = require('../app/controllers/index');
+=======
+    let avatars = require('../app/controllers/avatars');
+    app.get('/avatars', avatars.allJSON);
+
+    //Home route
+    let index = require('../app/controllers/index');
+>>>>>>> feature(jwt_tokens): integrate signup with jwt token feature
     app.get('/play', index.play);
     app.get('/', index.render);
 
     //JWT Token (Signup and Login)
+<<<<<<< 59bb706c221d8bbf512b7c06573d4430371886f6
+=======
+    app.post('/api/auth/signup', jwtAuth.signUp);
+>>>>>>> feature(jwt_tokens): integrate signup with jwt token feature
     app.post('/api/auth/login', jwtAuth.login);
 };
