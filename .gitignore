@@ -4,5 +4,7 @@ public/lib
 .DS_store
 c4h_keys.txt
 .env
+<<<<<<< cd98de907b38140af476c4c6b81dccb706060f57
 jasmine
 coverage
+=======
