@@ -1,5 +1,6 @@
 'use strict';
 
+
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 const config = require('../../config/env/all');
@@ -27,5 +28,38 @@ exports.login = (req, res) => {
       message: 'login successful',
       token: token,
     });
+  });
+};
+
+exports.signUp = (req, res) => {
+
+  User.findOne({
+    email: email
+  }, function (err, registeredUser) {
+    if (err) {
+      throw err;
+    }
+
+    if (!registeredUser) {
+      if (name && email && username && pwd) {
+        let user = new User();
+        user.name = name;
+        user.email = email;
+        user.password = pwd;
+        user.avatar = avatar;
+
+        user.save({
+          function(err) {
+            if (err) { throw err; }
+            let jwttoken = jwt.sign(user, config.secret, { expiresInMinutes: 1440 });
+            res.json({ success: true, message: 'Thank you for signing up!.', token: token });
+          }
+        });
+      }
+    } else if (user) {
+      res.json({ message: 'Incomplete SignUp Details Provided.' });
+    } else {
+      res.json({ message: 'User already exists!' });
+    }
   });
 };
