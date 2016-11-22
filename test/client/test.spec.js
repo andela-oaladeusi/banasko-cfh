@@ -5,7 +5,7 @@ function square(x) {
 
 describe('simple test ' , function() {
   it('should return sqrt ', function() {
-    var root = square(4);
+    const root = square(4);
     expect(root).toEqual(16);
   });
 })
