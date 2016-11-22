@@ -1,7 +1,6 @@
 'use strict';
 const path = require('path'),
-      rootPath = path.normalize(__dirname + '/../..'),
-      keys = rootPath + '/keys.txt';
+      rootPath = path.normalize(__dirname + '/../..')
 
 module.exports = {
   root: rootPath,

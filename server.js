@@ -8,7 +8,6 @@ const express = require('express'),
     passport = require('passport'),
     logger = require('mean-logger'),
     io = require('socket.io');
-    require('dotenv').config();
 
 /**
  * Main application entry file.
@@ -17,29 +16,30 @@ const express = require('express'),
 
 //Load configurations
 //if test env, load example file
-let env = process.env.NODE_ENV = process.env.NODE_ENV || 'development',
-    config = require('./config/config'),
-    auth = require('./config/middlewares/authorization'),
-    mongoose = require('mongoose');
+process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+const config = require('./config/config'),
+      auth = require('./config/middlewares/authorization'),
+      mongoose = require('mongoose');
 
 //Bootstrap db connection
-const db = mongoose.connect(config.db);
+mongoose.connect(config.db);
 
 //Bootstrap models
 const models_path = __dirname + '/app/models';
 const walk = function(path) {
-    fs.readdirSync(path).forEach(function(file) {
-        let newPath = path + '/' + file;
-        let stat = fs.statSync(newPath);
-        if (stat.isFile()) {
-            if (/(.*)\.(js|coffee)/.test(file)) {
-                require(newPath);
-            }
-        } else if (stat.isDirectory()) {
-            walk(newPath);
-        }
-    });
+  fs.readdirSync(path).forEach(function(file) {
+    let newPath = path + '/' + file;
+    let stat = fs.statSync(newPath);
+    if (stat.isFile()) {
+      if (/(.*)\.(js|coffee)/.test(file)) {
+        require(newPath);
+      }
+    } else if (stat.isDirectory()) {
+      walk(newPath);
+    }
+  });
 };
+
 walk(models_path);
 
 //bootstrap passport config
@@ -47,9 +47,10 @@ require('./config/passport')(passport);
 
 const app = express();
 
-app.use(function(req, res, next){
-    next();
+app.use(function(req, res, next) {
+  next();
 });
+
 
 //express settings
 require('./config/express')(app, passport, mongoose);
