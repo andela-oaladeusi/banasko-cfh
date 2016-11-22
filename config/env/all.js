@@ -3,10 +3,10 @@
 var path = require('path'),
 rootPath = path.normalize(__dirname + '/../..');
 var keys = rootPath + '/keys.txt';
-var testLocal = 'mongodb://localhost/cfh';
+// var testLocal = 'mongodb://localhost/cft';
 
 module.exports = {
   root: rootPath,
-  port: process.env.PORT || 3500,
-  db: process.env.MONGOHQ_URL || testLocal
+  port: process.env.PORT,
+  db: process.env.MONGOHQ_URL
 };
