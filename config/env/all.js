@@ -7,6 +7,6 @@ var testLocal = 'mongodb://localhost/cfh';
 
 module.exports = {
   root: rootPath,
-  port: process.env.PORT || 3000,
+  port: process.env.PORT || 5000,
   db: process.env.MONGOHQ_URL || testLocal
 };
