@@ -50,7 +50,8 @@ module.exports = function(app, passport, mongoose) {
             store: new mongoStore({
                 url: config.db,
                 collection: 'sessions',
-                mongoose_connection: mongoose.connection
+                // mongoose_connection: mongoose.connection
+                mongooseConnection: mongoose.connection
             })
         }));
 
