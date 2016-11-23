@@ -1,17 +1,17 @@
 'use strict';
 
-let mongoose = require('mongoose');
-let jwt = require('jsonwebtoken');
-let config = require('../../config/config');
-let User = mongoose.model('User');
+const mongoose = require('mongoose'),
+  jwt = require('jsonwebtoken'),
+  config = require('../../config/config'),
+  User = mongoose.model('User');
 
 
 module.exports.signUp = (req, res) => {
-  let name = req.body.name;
-  let username = req.body.username;
-  let email = req.body.email;
-  let pwd = req.body.password;
-  let avatar = req.body.avatar;
+  const name = req.body.name,
+    username = req.body.username,
+    email = req.body.email,
+    pwd = req.body.password,
+    avatar = req.body.avatar;
 
   User.findOne({
     email: email
@@ -21,32 +21,30 @@ module.exports.signUp = (req, res) => {
     }
     console.log(registeredUser)
     if (!registeredUser) {
-      if (name && email  && pwd) {
-        let user = new User();
+      if (name && email && pwd) {
+        const user = new User();
         user.name = name;
         user.email = email;
         user.password = pwd;
         user.avatar = avatar;
 
-        user.save(function(err) {
-            if (err) { throw err; }
-            let token = jwt.sign({user: user, iat: 1440 }, config.secret );
-            return res.json({ success: true, message: 'Thank you for signing up!.', token: token });
-          });
-      }else{
-         return res.json({ message: 'Incomplete SignUp Details Provided.' });
+        user.save(function (err) {
+          if (err) { throw err; }
+          const token = jwt.sign({ user: user, iat: 1440 }, config.secret);
+          return res.status(201).json({ success: true, message: 'Thank you for signing up!.', token: token });
+        });
+      } else {
+        return res.status(400).json({ message: 'Incomplete SignUp Details Provided.' });
       }
-
-    }else{
-      return res.json({ message: 'User already exists!' });
+    } else {
+      return res.status(409).json({ message: 'User already exists!' });
     }
-
   });
 }
 
 module.exports.login = (req, res) => {
-   let email = req.body.email;
-   let pwd = req.body.password;
+  const email = req.body.email;
+  const pwd = req.body.password;
 
   User.findOne({
     email: email
@@ -54,24 +52,19 @@ module.exports.login = (req, res) => {
     if (err) {
       res.send(err);
     }
-
     if (!savedUser) {
-      res.json({ success: false, message: 'Authentication failed. User not found.' });
+      res.status(404).json({ success: false, message: 'Authentication failed. User not found.' });
     } else if (savedUser) {
       if (!savedUser.authenticate(pwd)) {
-        res.json({ success: false, message: 'Authentication failed. Wrong password.' });
+        res.status(403).json({ success: false, message: 'Authentication failed. Wrong password.' });
       } else {
-        var token = jwt.sign({email: email, iat: 1440 }, config.secret);
-
+        var token = jwt.sign({ email: email, iat: 1440 }, config.secret);
         res.json({
           success: true,
           message: 'Sucessful Login!',
           token: token
         });
       }
-
     }
-
   })
-
 }

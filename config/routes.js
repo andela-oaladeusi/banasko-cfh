@@ -1,6 +1,6 @@
 let async = require('async');
 
-module.exports = function(app, passport, auth) {
+module.exports = function (app, passport, auth) {
     //User Routes
     let users = require('../app/controllers/users');
     let jwtAuth = require('../app/controllers/auth');
