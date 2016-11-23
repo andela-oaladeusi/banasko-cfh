@@ -1,5 +1,4 @@
 'use strict';
->>>>>>> Remove errors
 /**
  * Module dependencies.
  */
@@ -8,7 +7,7 @@ const express = require('express'),
     passport = require('passport'),
     logger = require('mean-logger'),
     io = require('socket.io');
-    require('dotenv').config({silent:true});
+    require('dotenv').config({silent: true});
 
 /**
  * Main application entry file.
