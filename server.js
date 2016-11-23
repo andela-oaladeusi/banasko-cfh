@@ -1,5 +1,5 @@
 'use strict';
-
+>>>>>>> Remove errors
 /**
  * Module dependencies.
  */
