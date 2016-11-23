@@ -1,8 +1,10 @@
+'use strict';
 /**
  * Module dependencies.
  */
 var express = require('express'),
-    mongoStore = require('connect-mongo')(express),
+    session = require('express-session'),
+    mongoStore = require('connect-mongo')(session),
     flash = require('connect-flash'),
     helpers = require('view-helpers'),
     config = require('./config');
@@ -48,7 +50,7 @@ module.exports = function(app, passport, mongoose) {
             store: new mongoStore({
                 url: config.db,
                 collection: 'sessions',
-                mongoose_connection: mongoose.connection
+                mongooseConnection: mongoose.connection
             })
         }));
 
