@@ -6,3 +6,5 @@ c4h_keys.txt
 .env
 jasmine
 coverage
+coverage/
+.gitignore
