@@ -4,7 +4,6 @@
 var express = require('express'),
     session=require('express-session'),
     mongoStore = require('connect-mongo')(session),
-       ,   // replace with the top vaiable mongoStore
     flash = require('connect-flash'),
     helpers = require('view-helpers'),
     config = require('./config');
@@ -50,7 +49,8 @@ module.exports = function(app, passport, mongoose) {
             store: new mongoStore({
                 url: config.db,
                 collection: 'sessions',
-                mongoose_connection: mongoose.connection
+                // mongoose_connection: mongoose.connection
+                mongooseConnection: mongoose.connection
             })
         }));
 
