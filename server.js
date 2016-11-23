@@ -7,9 +7,7 @@ const express = require('express'),
     passport = require('passport'),
     logger = require('mean-logger'),
     io = require('socket.io');
-<<<<<<< HEAD
     require('dotenv').config({silent: true});
-=======
 /**
  * Main application entry file.
  * Please note that the order of loading is important.

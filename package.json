@@ -9,10 +9,8 @@
     "url": "https://github.com/cardsforhumanity/cardsforhumanity.git"
   },
   "engines": {
-<<<<<<< HEAD
     "node": "6.x.x",
     "npm": "3.10.x"
-=======
   },
   "scripts": {
     "start": "node node_modules/grunt-cli/bin/grunt",
@@ -25,9 +23,7 @@
     "bcryptjs": "~1.0.4",
     "bower": "~1.3.8",
     "connect-flash": "~0.1.1",
-<<<<<<< HEAD
     "connect-mongo": "~2.x",
-=======
    "console-stamp": "~0.1.1",
     "dotenv": "^2.0.0",
     "express": "~3.4.0",
