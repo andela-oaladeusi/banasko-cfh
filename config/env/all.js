@@ -1,9 +1,23 @@
 'use strict';
+
 const path = require('path'),
-      rootPath = path.normalize(__dirname + '/../..')
+      rootPath = path.normalize(__dirname + '/../..');
+
+
+let db = null;
+if (process.env.NODE_ENV === 'development') {
+  db = process.env.MONGODEV_URL;
+}
+if (process.env.NODE_ENV === 'test') {
+  db = process.env.MONGOTEST_URL;
+}
+if (process.env.NODE_ENV === 'production') {
+  db = process.env.MONGOHQ_URL;
+}
+
 
 module.exports = {
   root: rootPath,
   port: process.env.PORT || 3000,
-  db: process.env.MONGOHQ_URL || 'mongodb://localhost/cfh'
+  db: db
 };

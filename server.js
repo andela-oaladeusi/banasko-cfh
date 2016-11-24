@@ -15,10 +15,12 @@ const express = require('express'),
 
 //Load configurations
 //if test env, load example file
+
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 const config = require('./config/config'),
       auth = require('./config/middlewares/authorization'),
       mongoose = require('mongoose');
+
 
 //Bootstrap db connection
 mongoose.connect(config.db);
