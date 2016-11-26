@@ -94,5 +94,4 @@ module.exports = function (app, passport, auth) {
 
     //JWT Token (Signup and Login)
     app.post('/api/auth/signup', jwtAuth.signUp);
-    app.post('/api/auth/login', jwtAuth.login);
 };

@@ -55,48 +55,5 @@ module.exports.signUp = (req, res) => {
       });
     }
   });
-};
-
-
-module.exports.login = (req, res) => {
-
-  let name = req.body.name;
-  let username = req.body.username;
-  let email = req.body.email;
-  let pwd = req.body.password;
-  let avatar = req.body.avatar;
-
-  User.findOne({
-    username: username
-  }, function (err, savedUser) {
-    if (err) {
-      res.send(err);
-    }
-    if (!savedUser) {
-      res.json({
-        success: false,
-        message: 'Authentication failed. User not found.'
-      });
-    } else if (savedUser) {
-      if (!savedUser.authenticate(pwd)) {
-        console.log(savedUser);
-        console.log("Saved password: " + savedUser.password);
-        console.log("User password: " + pwd)
-        res.json({
-          success: false,
-          message: 'Authentication failed. Wrong password.'
-        });
-      } else {
-        var token = jwt.sign({
-          savedUser,
-          expiresInMinutes: 1440
-        }, config.secret);
-        res.json({
-          success: true,
-          message: 'Sucessful Login!',
-          token: token
-        });
-      }
-    }
-  });
 }
+
