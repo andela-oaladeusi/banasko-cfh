@@ -45,34 +45,34 @@ angular.module('mean.system')
       }
     };
 
-    let timeSetViaUpdate = false;
-    let decrementTime = () => {
-      if (game.time > 0 && !timeSetViaUpdate) {
-        game.time--;
-      } else {
+  let timeSetViaUpdate = false;
+  let decrementTime = () => {
+    if (game.time > 0 && !timeSetViaUpdate) {
+      game.time--;
+    } else {
         timeSetViaUpdate = false;
       }
       $timeout(decrementTime, 950);
     };
 
-    socket.on('id', (data) => {
-      game.id = data.id;
-    });
+  socket.on('id', (data) => {
+    game.id = data.id;
+  });
 
-    socket.on('prepareGame', function (data) {
-      game.playerMinLimit = data.playerMinLimit;
-      game.playerMaxLimit = data.playerMaxLimit;
-      game.pointLimit = data.pointLimit;
-      game.timeLimits = data.timeLimits;
-    });
+  socket.on('prepareGame', function (data) {
+    game.playerMinLimit = data.playerMinLimit;
+    game.playerMaxLimit = data.playerMaxLimit;
+    game.pointLimit = data.pointLimit;
+    game.timeLimits = data.timeLimits;
+  });
 
-    socket.on('gameUpdate', function (data) {
+  socket.on('gameUpdate', function (data) {
 
       // Update gameID field only if it changed.
       // That way, we don't trigger the $scope.$watch too often
-      if (game.gameID !== data.gameID) {
-        game.gameID = data.gameID;
-      }
+    if (game.gameID !== data.gameID) {
+      game.gameID = data.gameID;
+    }
 
       game.joinOverride = false;
       clearTimeout(game.joinOverrideTimeout);
@@ -171,39 +171,39 @@ angular.module('mean.system')
         game.players[game.playerIndex].hand = [];
         game.time = 0;
       }
-    });
+  });
 
-    socket.on('notification', function (data) {
-      addToNotificationQueue(data.notification);
-    });
+  socket.on('notification', function (data) {
+    addToNotificationQueue(data.notification);
+  });
 
-    game.joinGame = (mode, room, createPrivate) => {
-      mode = mode || 'joinGame';
-      room = room || '';
-      createPrivate = createPrivate || false;
-      let userID = !!window.user ? user._id : 'unauthenticated';
+  game.joinGame = (mode, room, createPrivate) => {
+    mode = mode || 'joinGame';
+    room = room || '';
+    createPrivate = createPrivate || false;
+    let userID = !!window.user ? user._id : 'unauthenticated';
       socket.emit(mode, { userID: userID, room: room, createPrivate: createPrivate });
     };
 
-    game.startGame = () => {
-      socket.emit('startGame');
+  game.startGame = () => {
+    socket.emit('startGame');
+  };
+
+  game.leaveGame = () => {
+    game.players = [];
+    game.time = 0;
+    socket.emit('leaveGame');
     };
 
-    game.leaveGame = () => {
-      game.players = [];
-      game.time = 0;
-      socket.emit('leaveGame');
-    };
+  game.pickCards = (cards) => {
+    socket.emit('pickCards', { cards: cards });
+  };
 
-    game.pickCards = (cards) => {
-      socket.emit('pickCards', { cards: cards });
-    };
+  game.pickWinning = (card) => {
+    socket.emit('pickWinning', { card: card.id });
+  };
 
-    game.pickWinning = (card) => {
-      socket.emit('pickWinning', { card: card.id });
-    };
+  decrementTime();
 
-    decrementTime();
-
-    return game;
+  return game;
   }]);
