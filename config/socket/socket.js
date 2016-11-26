@@ -97,6 +97,7 @@ module.exports = function(io) {
     }
   };
 
+// for private in
   var getGame = function(player,socket,requestedGameId,createPrivate) {
     requestedGameId = requestedGameId || '';
     createPrivate = createPrivate || false;
