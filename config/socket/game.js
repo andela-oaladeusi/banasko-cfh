@@ -17,7 +17,6 @@ var guestNames = [
   "The Spleen",
   "Dingle Dangle"
 ];
-
 function Game(gameID, io) {
   this.io = io;
   this.gameID = gameID;
