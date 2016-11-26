@@ -8,6 +8,9 @@ const express = require('express'),
     logger = require('mean-logger'),
     io = require('socket.io');
     require('dotenv').config({silent: true});
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+
 /**
  * Main application entry file.
  * Please note that the order of loading is important.
@@ -17,6 +20,7 @@ const express = require('express'),
 //if test env, load example file
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+console.log(process.env.NODE_ENV);
 const config = require('./config/config'),
       auth = require('./config/middlewares/authorization'),
       mongoose = require('mongoose');
@@ -51,6 +55,11 @@ const app = express();
 app.use(function(req, res, next) {
   next();
 });
+
+app.use(session({
+    secret: process.env.SECRET,
+    store: new MongoStore({ url: 'mongodb://localhost:27017/banasko' })
+}));
 
 
 //express settings

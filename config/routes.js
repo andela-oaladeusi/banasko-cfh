@@ -69,12 +69,14 @@ module.exports = function (app, passport, auth) {
     //Finish with setting up the userId param
     app.param('userId', users.user);
 
-    // Answer Routes
+
+    // Answer Routes: Needs JWT Tokens
     const answers = require('../app/controllers/answers');
     app.get('/answers', answers.all);
     app.get('/answers/:answerId', answers.show);
     // Finish with setting up the answerId param
     app.param('answerId', answers.answer);
+
 
     // Question Routes
     const questions = require('../app/controllers/questions');
@@ -84,12 +86,8 @@ module.exports = function (app, passport, auth) {
     app.param('questionId', questions.question);
 
     // Avatar Routes
-    const avatars = require('../app/controllers/avatars');
-    app.get('/avatars', avatars.allJSON);
-
-    //Home route
     const index = require('../app/controllers/index');
-    let avatars = require('../app/controllers/avatars');
+    const avatars = require('../app/controllers/avatars');
     app.get('/avatars', avatars.allJSON);
 
     //Home route
