@@ -28,8 +28,8 @@ function Game(gameID, io) {
   this.winnerAutopicked = false;
   this.czar = -1; // Index in this.players
   this.playerMinLimit = 3;
-  this.playerMaxLimit = 6;
-  this.pointLimit = 5;
+  this.playerMaxLimit = 11;
+  this.pointLimit = 11;
   this.state = "awaiting players";
   this.round = 0;
   this.questions = null;
