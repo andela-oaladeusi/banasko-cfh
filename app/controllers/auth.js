@@ -1,11 +1,13 @@
 'use strict';
-const jwt = require('jsonwebtoken');
+
 const mongoose = require('mongoose');
-const config = require('../../config/env/all');
-const moment = require('moment');
+const jwt = require('jsonwebtoken');
+const moments = require('moment');
+const config = require('../../config/config');
+const validate = require('validator');
 const User = mongoose.model('User');
 
-exports.signUp = (req, res) => {
+module.exports.signUp = (req, res) => {
   const name = req.body.name;
   const username = req.body.username;
   const email = req.body.email;
@@ -22,7 +24,7 @@ exports.signUp = (req, res) => {
     if (!registerUser) {
       if (name && email && pwd) {
         if ((pwd.trim().length) < 8 || !validate.isEmail(email) ||
-          !validate.isAlpha(name) || !validate.isAlphanumeric(username)) {
+        !validate.isAlpha(name) || !validate.isAlphanumeric(username)) {
           res.status(400).json({
             message: 'Invalid details provided.'
           });
@@ -54,48 +56,6 @@ exports.signUp = (req, res) => {
           message: 'Incomplete SignUp Details Provided.'
         });
       }
-    }
-
-
-exports.login = (req, res) => {
-
-  let name = req.body.name;
-  let username = req.body.username;
-  let email = req.body.email;
-  let pwd = req.body.password;
-  let avatar = req.body.avatar;
-
-  User.findOne({
-    username: username
-  }, function (err, savedUser) {
-    if (err) {
-      res.send(err);
-    }
-    if (!savedUser) {
-      res.json({
-        success: false,
-        message: 'Authentication failed. User not found.'
-      });
-    } else if (savedUser) {
-      if (!savedUser.authenticate(pwd)) {
-        console.log(savedUser);
-        console.log("Saved password: " + savedUser.password);
-        console.log("User password: " + pwd)
-        res.json({
-          success: false,
-          message: 'Authentication failed. Wrong password.'
-        });
-      } else {
-        var token = jwt.sign({
-          savedUser,
-          expiresInMinutes: 1440
-        }, config.secret);
-        res.json({
-          success: true,
-          message: 'Sucessful Login!',
-          token: token
-        });
-      }
     } else {
       res.status(409).json({
         message: 'User already exists!'
@@ -103,4 +63,27 @@ exports.login = (req, res) => {
     }
   });
 };
-}
+
+
+exports.login = (req, res) => {
+  const body = req.body;
+  User.findOne({ email: body.email }, function(err, user) {
+    if (err) {
+      throw err;
+    }
+    if (!user || !user.authenticate(body.password)) {
+      return res.status('400').json({
+        success: false,
+        message: 'Invalid username or password'
+      });
+    }
+    const token = jwt.sign({user: user.email},
+      config.secret, { expiresIn: moment().add(7, 'd').valueOf()
+      });
+    return res.status(200).json({
+      success: true,
+      message: 'login successful',
+      token: token,
+    });
+  });
+};

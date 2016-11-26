@@ -15,8 +15,13 @@
   "scripts": {
     "start": "node node_modules/grunt-cli/bin/grunt",
     "postinstall": "node node_modules/grunt-cli/bin/grunt install",
+<<<<<<< 7e2a2d39f7149ec3299ca2d5a8fe89b0d31b1970
     "coverage": "istanbul cover node_modules/mocha/bin/_mocha ./test/server/**/*.js -- -R spec",
     "test": "istanbul cover node_modules/mocha/bin/_mocha ./test/server/**/*.js --report lcovonly -- -R spec"
+=======
+    "coverage": "istanbul cover node_modules/mocha/bin/_mocha test/**/*.js -- -R spec",
+    "test": "mocha --timeout 100000"
+>>>>>>> feature(jwt_tokens):Update signup tests
   },
   "dependencies": {
     "async": "~0.2.9",
