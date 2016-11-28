@@ -96,9 +96,5 @@ module.exports = function (app, passport, auth) {
 
     //JWT Token (Signup and Login)
     app.post('/api/auth/signup', jwtAuth.signUp);
-<<<<<<< 5e1c03765d632b29442fe3c122527f9c62a91066
     app.post('/api/auth/login', jwtAuth.login);
 };
-=======
-};
->>>>>>> feature(jwt-tokens):Update files to address PR feedback
