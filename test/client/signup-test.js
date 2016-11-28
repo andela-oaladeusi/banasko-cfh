@@ -1,3 +1,5 @@
+'use strict';
+
 const mongoose = require('mongoose');
 const chai = require('chai');
 const User = require('./../../app/models/user');
@@ -11,24 +13,25 @@ const url = '/api/auth/signup';
 describe('Signup', () => {
   it('verifies that signup fails for incomplete details', (done) => {
     let user = {
-      name: 'testUser1',
+      name: 'testUser2',
       email: '',
       password: '',
-      avatar: 'avatar011'
+      avatar: 'avatar022'
     };
 
     chai.request(server)
       .post(url)
       .send(user)
       .end((err, res) => {
-        res.body.should.have.property('message').eql('Incomplete SignUp Details Provided.')
+        res.body.should.have.property('message').eql('Incomplete SignUp Details Provided.');
+          expect(res).to.have.status(401);
         done();
       });
   });
 
 
   it('verifies that signup is sucessful', (done) => {
-    let user = {
+     let user = {
       name: 'Andela',
       email: 'andela@yahoo.com',
       password: '12345',
@@ -48,8 +51,8 @@ describe('Signup', () => {
   });
 
 
-  it('verifies that a user can not register more than sucessful', (done) => {
-    let user = {
+  it('ensures a user can not sign up more than once', (done) => {
+     let user = {
       name: 'Andela',
       email: 'andela@yahoo.com',
       password: '12345',
@@ -62,7 +65,7 @@ describe('Signup', () => {
       .end((err, res) => {
         expect(res.body.message).to.equal('User already exists!');
         expect(res).to.have.header('content-type', 'application/json; charset=utf-8');
-        expect(res).to.have.status(200);
+        expect(res).to.have.status(401);
         done();
       });
   });
