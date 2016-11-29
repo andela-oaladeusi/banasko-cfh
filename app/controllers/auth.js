@@ -7,7 +7,7 @@ const config = require('../../config/config');
 const validate = require('validator');
 const User = mongoose.model('User');
 
-module.exports.signUp = (req, res) => {
+exports.signUp = (req, res) => {
   const name = req.body.name;
   const username = req.body.username;
   const email = req.body.email;
