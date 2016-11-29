@@ -30,7 +30,7 @@ describe('Signup', () => {
       });
   });
 
-  it('verifies password has a length of at least 5', (done) => {
+  it('verifies password has a length of at least 8 characters', (done) => {
     const user = {
       name: 'user2',
       email: 'password@gmail.com',
@@ -44,7 +44,7 @@ describe('Signup', () => {
       .send(user)
       .end((err, res) => {
         res.body
-          .should.have.property('message').eql('Invalid password provided.');
+          .should.have.property('message').eql('Invalid details provided.');
         expect(res).to.have.status(400);
         done();
       });
@@ -54,7 +54,7 @@ describe('Signup', () => {
     const user = {
       name: 'Andela',
       email: 'andela@yahoo.com',
-      username: 'andelan',
+      username: 'andelan1',
       password: '12345',
       avatar: 'andela1'
     };
@@ -77,7 +77,7 @@ describe('Signup', () => {
     const user = {
       name: 'Andela',
       email: 'andela@yahoo.com',
-      username: 'andelan',
+      username: 'andelan1',
       password: '12345',
       avatar: 'andela1'
     };

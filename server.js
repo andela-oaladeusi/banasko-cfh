@@ -2,13 +2,13 @@
 /**
  * Module dependencies.
  */
-const express = require('express'),
-  fs = require('fs'),
-  passport = require('passport'),
-  logger = require('mean-logger'),
-  session = require('express-session'),
-MongoStore = require('connect-mongo')(session),
-  io = require('socket.io');
+const express = require('express');
+const fs = require('fs');
+const passport = require('passport');
+const logger = require('mean-logger');
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+const io = require('socket.io');
 require('dotenv').config({
   silent: true
 });
@@ -22,10 +22,9 @@ require('dotenv').config({
 //if test env, load example file
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-console.log(process.env.NODE_ENV);
-const config = require('./config/config'),
-  auth = require('./config/middlewares/authorization'),
-  mongoose = require('mongoose');
+const config = require('./config/config');
+const auth = require('./config/middlewares/authorization');
+const mongoose = require('mongoose');
 
 
 //Bootstrap db connection
