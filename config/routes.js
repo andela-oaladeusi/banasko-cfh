@@ -105,5 +105,4 @@ module.exports = (app, passport, auth) => {
     // Send invite route
     const sendInvite = require('../app/controllers/send-invite');
     app.post('/api/send/user-invite', sendInvite);
-
 };
