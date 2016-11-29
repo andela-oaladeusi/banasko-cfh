@@ -101,4 +101,5 @@ module.exports = function (app, passport, auth) {
     // Search route
     var search = require('../app/controllers/searchUser');
     app.post('/api/search/users', search);
+
 };
