@@ -90,4 +90,8 @@ module.exports = function(app, passport, auth) {
     app.get('/play', index.play);
     app.get('/', index.render);
 
+    // Search route
+    var search = require('../app/controllers/searchUser');
+    app.post('/api/search/users', search);
+
 };
