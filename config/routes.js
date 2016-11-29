@@ -96,12 +96,5 @@ module.exports = function (app, passport, auth) {
 
     //JWT Token (Signup and Login)
     app.post('/api/auth/signup', jwtAuth.signUp);
-<<<<<<< 5a3c500ef295a5f0e7a0030c0e9f04079c006081
     app.post('/api/auth/login', jwtAuth.login);
 };
-=======
-
-    //Create
-    app.post('/api/games/:id/start', jwtAuth.signUp);
-};
->>>>>>> feature(jwt-tokens):Update files to address PR feedback
