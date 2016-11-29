@@ -2,10 +2,10 @@
 /**
  * Module dependencies.
  */
-const should = require('should'),
-    app = require('../../../server'),
-    mongoose = require('mongoose'),
-    User = mongoose.model('User');
+const should = require('should');
+const app = require('../../../server');
+const mongoose = require('mongoose');
+const User = mongoose.model('User');
 
 //Globals
 let user;

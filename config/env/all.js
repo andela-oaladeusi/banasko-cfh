@@ -1,7 +1,7 @@
 'use strict';
 
-const path = require('path'),
-      rootPath = path.normalize(__dirname + '/../..');
+const path = require('path');
+const rootPath = path.normalize(__dirname + '/../..');
 
 
 let db = null;

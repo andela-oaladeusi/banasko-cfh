@@ -1,11 +1,10 @@
 'use strict';
 
-let async = require('async');
 
 module.exports = function (app, passport, auth) {
     //User Routes
-    let users = require('../app/controllers/users');
-    let jwtAuth = require('../app/controllers/auth');
+    const users = require('../app/controllers/users');
+    const jwtAuth = require('../app/controllers/auth');
 
     app.get('/signin', users.signin);
     app.get('/signup', users.signup);
@@ -72,25 +71,25 @@ module.exports = function (app, passport, auth) {
     app.param('userId', users.user);
 
     // Answer Routes
-    let answers = require('../app/controllers/answers');
+    const answers = require('../app/controllers/answers');
     app.get('/answers', answers.all);
     app.get('/answers/:answerId', answers.show);
     // Finish with setting up the answerId param
     app.param('answerId', answers.answer);
 
     // Question Routes
-    let questions = require('../app/controllers/questions');
+    const questions = require('../app/controllers/questions');
     app.get('/questions', questions.all);
     app.get('/questions/:questionId', questions.show);
     // Finish with setting up the questionId param
     app.param('questionId', questions.question);
 
     // Avatar Routes
-    let avatars = require('../app/controllers/avatars');
+    const avatars = require('../app/controllers/avatars');
     app.get('/avatars', avatars.allJSON);
 
     //Home route
-    let index = require('../app/controllers/index');
+    const index = require('../app/controllers/index');
     app.get('/play', index.play);
     app.get('/', index.render);
 
