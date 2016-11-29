@@ -1,8 +1,8 @@
 'use strict';
 
 const path = require('path'),
-      rootPath = path.normalize(__dirname + '/../..'),
-      SECRET = 'TESTING';
+      rootPath = path.normalize(__dirname + '/../..');
+
 
 let db = null;
 if (process.env.NODE_ENV === 'development') {
@@ -19,5 +19,5 @@ module.exports = {
   root: rootPath,
   port: process.env.PORT || 3000,
   db: db,
-  secret: SECRET
+  secret: process.env.SECRET
 };

@@ -1,14 +1,14 @@
-"use strict";
+'use strict';
 /**
  * Module dependencies.
  */
-var should = require('should'),
+const should = require('should'),
     app = require('../../../server'),
     mongoose = require('mongoose'),
     User = mongoose.model('User');
 
 //Globals
-var user;
+let user;
 
 //The tests
 describe('<Unit Test>', function() {
