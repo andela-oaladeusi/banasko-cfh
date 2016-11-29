@@ -1,13 +1,11 @@
 'use strict';
 
-const mongoose = require('mongoose');
 const chai = require('chai');
 const User = require('./../../app/models/user');
 const chaiHttp = require('chai-http');
 const server = require('./../../server');
 chai.use(chaiHttp);
 const should = chai.should();
-const expect = chai.expect;
 const url = '/api/auth/signup';
 
 describe('Signup', () => {
@@ -23,15 +21,16 @@ describe('Signup', () => {
       .post(url)
       .send(user)
       .end((err, res) => {
-        res.body.should.have.property('message').eql('Incomplete SignUp Details Provided.');
-          expect(res).to.have.status(401);
+        res.body
+          .should.have.property('message').eql('Incomplete SignUp Details Provided.');
+        expect(res).to.have.status(401);
         done();
       });
   });
 
 
   it('verifies that signup is sucessful', (done) => {
-     let user = {
+    let user = {
       name: 'Andela',
       email: 'andela@yahoo.com',
       password: '12345',
@@ -52,7 +51,7 @@ describe('Signup', () => {
 
 
   it('ensures a user can not sign up more than once', (done) => {
-     let user = {
+    let user = {
       name: 'Andela',
       email: 'andela@yahoo.com',
       password: '12345',

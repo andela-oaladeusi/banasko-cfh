@@ -1,4 +1,8 @@
 'use strict';
+<<<<<<< 5a3c500ef295a5f0e7a0030c0e9f04079c006081
+=======
+
+>>>>>>> feature(jwt-tokens):Update files to address PR feedback
 /**
  * Module dependencies.
  */
