@@ -10,10 +10,6 @@ const options = {
   'force new connection': true
 };
 
-const cfhPlayer1 = { 'name': 'Tom' };
-const cfhPlayer2 = { 'name': 'Sally' };
-const cfhPlayer3 = { 'name': 'Dana' };
-
 describe("Game Server", function () {
 
   it('Should accept requests to joinGame', function (done) {
@@ -27,12 +23,11 @@ describe("Game Server", function () {
       client1.emit('joinGame',{userID:'unauthenticated',room: '', createPrivate: false});
       setTimeout(disconnect,200);
     });
-    done();
   });
 
-  it('Should send a game update upon receiving request to joinGame', function (done) {
+  it('Should send a game update upon receiving request to joinGame', function(done) {
     const client1 = io.connect(socketURL, options);
-    const disconnect = function () {
+    const disconnect = function() {
       client1.disconnect();
       done();
     };
@@ -44,7 +39,6 @@ describe("Game Server", function () {
       });
       setTimeout(disconnect, 200);
     });
-    done();
   });
 
   it('Should announce new user to all users', function (done) {
@@ -66,19 +60,18 @@ describe("Game Server", function () {
       });
       setTimeout(disconnect, 200);
     });
-    done();
   });
 
-  it('Should start game when startGame event is sent with 3 players', function (done) {
+  it('Should start game when startGame event is sent with 3 players', function(done) {
     let client1, client2, client3;
     client1 = io.connect(socketURL, options);
-    let disconnect = function () {
+    let disconnect = function() {
       client1.disconnect();
       client2.disconnect();
       client3.disconnect();
       done();
     };
-    let expectStartGame = function () {
+    let expectStartGame = function() {
       client1.emit('startGame');
       client1.on('gameUpdate', function (data) {
         data.state.should.equal("waiting for players to pick");
@@ -106,10 +99,10 @@ describe("Game Server", function () {
     done();
   });
 
-  it('Should automatically start game when 12 players are in a game', function (done) {
+  it('Should automatically start game when 12 players are in a game', function(done) {
     let client1, client2, client3, client4, client5, client6, client7, client8, client9, client10, client11, client12;
     client1 = io.connect(socketURL, options);
-    let disconnect = function () {
+    let disconnect = function() {
       client1.disconnect();
       client2.disconnect();
       client3.disconnect();
@@ -124,7 +117,7 @@ describe("Game Server", function () {
       client12.disconnect();
       done();
     };
-    let expectStartGame = function () {
+    let expectStartGame = function() {
       client1.emit('startGame');
       client1.on('gameUpdate', function (data) {
         data.state.should.equal("waiting for players to pick");
