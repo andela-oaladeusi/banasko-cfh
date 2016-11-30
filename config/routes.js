@@ -4,7 +4,7 @@ module.exports = function (app, passport, auth) {
     //User Routes
     const users = require('../app/controllers/users');
     const jwtAuth = require('../app/controllers/auth');
-
+    const async = require('async');
     app.get('/signin', users.signin);
     app.get('/signup', users.signup);
     app.get('/chooseavatars', users.checkAvatar);
@@ -99,7 +99,11 @@ module.exports = function (app, passport, auth) {
     app.post('/api/auth/login', jwtAuth.login);
 
     // Search route
-    var search = require('../app/controllers/searchUser');
-    app.post('/api/search/users', search);
+    const search = require('../app/controllers/searchUser');
+    app.get('/api/search/users/:email', search);
+
+    // Send invite route
+    const sendInvite = require('../app/controllers/send-invite');
+    app.post('/api/send/user-invite', sendInvite);
 
 };
