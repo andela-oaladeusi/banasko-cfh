@@ -2,7 +2,6 @@
 const nodemailer = require('nodemailer');
 const smtpTransport = require('nodemailer-smtp-transport');
 module.exports = (req, res) => {
-    console.log(req.body.email);
     const smtpConfig = {
         host: 'smtp.gmail.com',
         port: 465,
