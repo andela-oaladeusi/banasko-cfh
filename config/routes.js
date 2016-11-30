@@ -1,10 +1,6 @@
 'use strict';
-<<<<<<< d0f73b5450a8c0b64b71826222c59c739ed88e50
-
 module.exports = (app, passport, auth) => {
-=======
-module.exports = function (app, passport, auth) {
->>>>>>> Add search api and updating files
+
     //User Routes
     const users = require('../app/controllers/users');
     const jwtAuth = require('../app/controllers/auth');
@@ -105,13 +101,6 @@ module.exports = function (app, passport, auth) {
     // Search route
     const search = require('../app/controllers/searchUser');
     app.get('/api/search/users/:email', search);
-<<<<<<< d0f73b5450a8c0b64b71826222c59c739ed88e50
-=======
-
-    // Send invite route
-    const sendInvite = require('../app/controllers/send-invite');
-    app.post('/api/send/user-invite', sendInvite);
->>>>>>> Add search api and updating files
 
     // Send invite route
     const sendInvite = require('../app/controllers/send-invite');

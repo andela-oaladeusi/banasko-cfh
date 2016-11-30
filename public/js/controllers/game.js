@@ -1,10 +1,6 @@
 'use strict';
 angular.module('mean.system')
-<<<<<<< d0f73b5450a8c0b64b71826222c59c739ed88e50
-  .controller('GameController', ['$scope', '$http', 'game', '$timeout', '$location', 'MakeAWishFactsService', '$dialog', ($scope, $http, game, $timeout, $location, MakeAWishFactsService, $dialog) => {
-=======
   .controller('GameController', ['$scope', '$http', 'game', '$timeout', '$location', 'MakeAWishFactsService', '$dialog', function ($scope, $http, game, $timeout, $location, MakeAWishFactsService, $dialog) {
->>>>>>> Add search api and updating files
     $scope.hasPickedCards = false;
     $scope.winningCardPicked = false;
     $scope.showTable = false;
@@ -131,16 +127,9 @@ angular.module('mean.system')
     $scope.startGame = () => {
       const element = angular.element('#alertModal');
       if (game.players.length >= game.playerMinLimit) {
-<<<<<<< d0f73b5450a8c0b64b71826222c59c739ed88e50
         game.startGame();
       } else {
         element.modal('show');
-=======
-        game.startGame();;
-      } else {
-        element.modal('show');
-        // alert("need more players to play game");
->>>>>>> Add search api and updating files
       }
     };
 
@@ -183,14 +172,8 @@ angular.module('mean.system')
           $location.search({ game: game.gameID });
           if (!$scope.modalShown) {
             setTimeout(() => {
-<<<<<<< d0f73b5450a8c0b64b71826222c59c739ed88e50
-              $('#lobby-how-to-play').html('<button class="btn btn-info btn-lg" data-toggle="modal" data-target="#inviteModal">Invite Friends</button>');              
-=======
               $scope.link = document.URL;
-              let txt = 'Give the following link to your friends so they can join your game: ';
               $('#lobby-how-to-play').html('<button class="btn btn-info btn-lg" data-toggle="modal" data-target="#exampleModal">Invite Friends</button>');
-              // $('#oh-el').css({'text-align': 'center', 'font-size':'22px', 'background': 'white', 'color': 'black'}).text(game.gameID);
->>>>>>> Add search api and updating files
             }, 200);
             $scope.modalShown = true;
           }
@@ -212,64 +195,27 @@ angular.module('mean.system')
       $http.get('/api/search/users/' + searchString)
         .success((res) => {
           $scope.items = res;
-        })
-        .error((err) => {
-          console.log(err);
         });
-<<<<<<< d0f73b5450a8c0b64b71826222c59c739ed88e50
     };
-=======
-    }
->>>>>>> Add search api and updating files
 
     $scope.sendInvite = (email, name) => {
       const element = angular.element('#alertInviteModal');
       if ($scope.numberOfInvite <= game.playerMaxLimit) {
         if ($scope.invitedPlayersList.indexOf(email) === -1) {
           $scope.invitedPlayersList.push(email);
-<<<<<<< d0f73b5450a8c0b64b71826222c59c739ed88e50
-=======
-          console.log($scope.invitedPlayersList);
->>>>>>> Add search api and updating files
-          $http.post('/api/send/user-invite', { 'email': email, 'name': name, 'link': document.URL })
-            .success((res) => {
-              console.log(res);
+          $http.post('/api/send/user-invite', { 'email': email, 'name': name, 'link': document.URL });          $scope.numberOfInvite += 1;
 
-            })
-            .error((err) => {
-              console.log(err);
-            });
-          $scope.numberOfInvite += 1;
-<<<<<<< d0f73b5450a8c0b64b71826222c59c739ed88e50
-=======
-          console.log($scope.numberOfInvite);
->>>>>>> Add search api and updating files
-
-        } else {
-          console.log('user already exist');
         }
-
       } else {
         element.modal('show');
       }
-<<<<<<< d0f73b5450a8c0b64b71826222c59c739ed88e50
     };
-=======
-    }
->>>>>>> Add search api and updating files
-
     $scope.checkPlayer = (email) => {
       if ($scope.invitedPlayersList.indexOf(email) === -1) {
         return true;
       } else {
         return false;
       }
-<<<<<<< d0f73b5450a8c0b64b71826222c59c739ed88e50
     };
 
   }]);
-=======
-    }
-
-  }])
->>>>>>> Add search api and updating files
