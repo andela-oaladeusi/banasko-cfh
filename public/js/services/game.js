@@ -1,87 +1,38 @@
 'use strict';
 angular.module('mean.system')
   .factory('game', ['socket', '$timeout', function (socket, $timeout) {
-  var game = {
-    id: null, // This player's socket ID, so we know who this player is
-    gameID: null,
-    players: [],
-    playerIndex: 0,
-    winningCard: -1,
-    winningCardPlayer: -1,
-    gameWinner: -1,
-    table: [],
-    czar: null,
-    playerMinLimit: 3,
-    playerMaxLimit: 11,
-    pointLimit: null,
-    state: null,
-    round: 0,
-    time: 0,
-    curQuestion: null,
-    notification: null,
-    timeLimits: {},
-    joinOverride: false
-  };
 
-  var notificationQueue = [];
-  var timeout = false;
-  var self = this;
-  var joinOverrideTimeout = 0;
+    let game = {
+      id: null, // This player's socket ID, so we know who this player is
+      gameID: null,
+      players: [],
+      playerIndex: 0,
+      winningCard: -1,
+      winningCardPlayer: -1,
+      gameWinner: -1,
+      table: [],
+      czar: null,
+      playerMinLimit: 3,
+      playerMaxLimit: 11,
+      pointLimit: null,
+      state: null,
+      round: 0,
+      time: 0,
+      curQuestion: null,
+      notification: null,
+      timeLimits: {},
+      joinOverride: false
+    };
 
-  var addToNotificationQueue = function(msg) {
-    notificationQueue.push(msg);
-    if (!timeout) { // Start a cycle if there isn't one
-      setNotification();
-    }
-  };
-  var setNotification = function() {
-    if (notificationQueue.length === 0) { // If notificationQueue is empty, stop
-      clearInterval(timeout);
-      timeout = false;
-      game.notification = '';
-    } else {
-      game.notification = notificationQueue.shift(); // Show a notification and check again in a bit
-      timeout = $timeout(setNotification, 1300);
-    }
-  };
+    let notificationQueue = [];
+    let timeout = false;
+    let self = this;
+    let joinOverrideTimeout = 0;
 
-  var timeSetViaUpdate = false;
-  var decrementTime = function() {
-    if (game.time > 0 && !timeSetViaUpdate) {
-      game.time--;
-    } else {
-      timeSetViaUpdate = false;
-    }
-    $timeout(decrementTime, 950);
-  };
-
-  socket.on('id', function(data) {
-    game.id = data.id;
-  });
-
-  socket.on('prepareGame', function(data) {
-    game.playerMinLimit = data.playerMinLimit;
-    game.playerMaxLimit = data.playerMaxLimit;
-    game.pointLimit = data.pointLimit;
-    game.timeLimits = data.timeLimits;
-  });
-
-  socket.on('gameUpdate', function(data) {
-
-    // Update gameID field only if it changed.
-    // That way, we don't trigger the $scope.$watch too often
-    if (game.gameID !== data.gameID) {
-      game.gameID = data.gameID;
-    }
-
-    game.joinOverride = false;
-    clearTimeout(game.joinOverrideTimeout);
-
-    var i;
-    // Cache the index of the player in the players array
-    for (i = 0; i < data.players.length; i++) {
-      if (game.id === data.players[i].socketID) {
-        game.playerIndex = i;
+    let addToNotificationQueue = (msg) => {
+      notificationQueue.push(msg);
+      if (!timeout) { // Start a cycle if there isn't one
+        setNotification();
       }
     };
     let setNotification = () => {
