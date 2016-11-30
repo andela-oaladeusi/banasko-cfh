@@ -23,31 +23,6 @@ angular.module('mean.system')
       joinOverride: false
     };
 
-<<<<<<< 7fb0fa8838c4a611a3e4bb01e8ea67c68b3669a6
-=======
-    let game = {
-      id: null, // This player's socket ID, so we know who this player is
-      gameID: null,
-      players: [],
-      playerIndex: 0,
-      winningCard: -1,
-      winningCardPlayer: -1,
-      gameWinner: -1,
-      table: [],
-      czar: null,
-      playerMinLimit: 3,
-      playerMaxLimit: 11,
-      pointLimit: null,
-      state: null,
-      round: 0,
-      time: 0,
-      curQuestion: null,
-      notification: null,
-      timeLimits: {},
-      joinOverride: false
-    };
-
->>>>>>> Add search api and updating files
     let notificationQueue = [];
     let timeout = false;
     let self = this;
@@ -57,61 +32,8 @@ angular.module('mean.system')
       notificationQueue.push(msg);
       if (!timeout) { // Start a cycle if there isn't one
         setNotification();
-<<<<<<< 7fb0fa8838c4a611a3e4bb01e8ea67c68b3669a6
     }
   };
-  var setNotification = function() {
-    if (notificationQueue.length === 0) { // If notificationQueue is empty, stop
-      clearInterval(timeout);
-      timeout = false;
-      game.notification = '';
-    } else {
-      game.notification = notificationQueue.shift(); // Show a notification and check again in a bit
-      timeout = $timeout(setNotification, 1300);
-    }
-  };
-
-  var timeSetViaUpdate = false;
-  var decrementTime = function() {
-    if (game.time > 0 && !timeSetViaUpdate) {
-      game.time--;
-    } else {
-      timeSetViaUpdate = false;
-    }
-    $timeout(decrementTime, 950);
-  };
-
-  socket.on('id', function(data) {
-    game.id = data.id;
-  });
-
-  socket.on('prepareGame', function(data) {
-    game.playerMinLimit = data.playerMinLimit;
-    game.playerMaxLimit = data.playerMaxLimit;
-    game.pointLimit = data.pointLimit;
-    game.timeLimits = data.timeLimits;
-  });
-
-  socket.on('gameUpdate', function(data) {
-
-    // Update gameID field only if it changed.
-    // That way, we don't trigger the $scope.$watch too often
-    if (game.gameID !== data.gameID) {
-      game.gameID = data.gameID;
-    }
-
-    game.joinOverride = false;
-    clearTimeout(game.joinOverrideTimeout);
-
-    var i;
-    // Cache the index of the player in the players array
-    for (i = 0; i < data.players.length; i++) {
-      if (game.id === data.players[i].socketID) {
-        game.playerIndex = i;
-=======
->>>>>>> Add search api and updating files
-      }
-    };
     let setNotification = () => {
       if (notificationQueue.length === 0) { // If notificationQueue is empty, stop
         clearInterval(timeout);
@@ -211,7 +133,6 @@ angular.module('mean.system')
       if (game.state !== 'waiting for players to pick' || game.players.length !== data.players.length) {
         game.players = data.players;
       }
-<<<<<<< 7fb0fa8838c4a611a3e4bb01e8ea67c68b3669a6
 
       if (newState || game.curQuestion !== data.curQuestion) {
         game.state = data.state;
@@ -223,19 +144,6 @@ angular.module('mean.system')
         // Extending the underscore within the question
         game.curQuestion.text = data.curQuestion.text.replace(/_/g, '<u></u>');
 
-=======
-
-      if (newState || game.curQuestion !== data.curQuestion) {
-        game.state = data.state;
-      }
-
-      if (data.state === 'waiting for players to pick') {
-        game.czar = data.czar;
-        game.curQuestion = data.curQuestion;
-        // Extending the underscore within the question
-        game.curQuestion.text = data.curQuestion.text.replace(/_/g, '<u></u>');
-
->>>>>>> Add search api and updating files
         // Set notifications only when entering state
         if (newState) {
           if (game.czar === game.playerIndex) {
@@ -298,8 +206,4 @@ angular.module('mean.system')
     decrementTime();
 
     return game;
-<<<<<<< 7fb0fa8838c4a611a3e4bb01e8ea67c68b3669a6
   }]);
-=======
-  }]);
->>>>>>> Add search api and updating files
