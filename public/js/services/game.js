@@ -23,6 +23,31 @@ angular.module('mean.system')
       joinOverride: false
     };
 
+<<<<<<< 7fb0fa8838c4a611a3e4bb01e8ea67c68b3669a6
+=======
+    let game = {
+      id: null, // This player's socket ID, so we know who this player is
+      gameID: null,
+      players: [],
+      playerIndex: 0,
+      winningCard: -1,
+      winningCardPlayer: -1,
+      gameWinner: -1,
+      table: [],
+      czar: null,
+      playerMinLimit: 3,
+      playerMaxLimit: 11,
+      pointLimit: null,
+      state: null,
+      round: 0,
+      time: 0,
+      curQuestion: null,
+      notification: null,
+      timeLimits: {},
+      joinOverride: false
+    };
+
+>>>>>>> Add search api and updating files
     let notificationQueue = [];
     let timeout = false;
     let self = this;
@@ -32,6 +57,7 @@ angular.module('mean.system')
       notificationQueue.push(msg);
       if (!timeout) { // Start a cycle if there isn't one
         setNotification();
+<<<<<<< 7fb0fa8838c4a611a3e4bb01e8ea67c68b3669a6
     }
   };
   var setNotification = function() {
@@ -82,6 +108,8 @@ angular.module('mean.system')
     for (i = 0; i < data.players.length; i++) {
       if (game.id === data.players[i].socketID) {
         game.playerIndex = i;
+=======
+>>>>>>> Add search api and updating files
       }
     };
     let setNotification = () => {
@@ -183,6 +211,7 @@ angular.module('mean.system')
       if (game.state !== 'waiting for players to pick' || game.players.length !== data.players.length) {
         game.players = data.players;
       }
+<<<<<<< 7fb0fa8838c4a611a3e4bb01e8ea67c68b3669a6
 
       if (newState || game.curQuestion !== data.curQuestion) {
         game.state = data.state;
@@ -194,6 +223,19 @@ angular.module('mean.system')
         // Extending the underscore within the question
         game.curQuestion.text = data.curQuestion.text.replace(/_/g, '<u></u>');
 
+=======
+
+      if (newState || game.curQuestion !== data.curQuestion) {
+        game.state = data.state;
+      }
+
+      if (data.state === 'waiting for players to pick') {
+        game.czar = data.czar;
+        game.curQuestion = data.curQuestion;
+        // Extending the underscore within the question
+        game.curQuestion.text = data.curQuestion.text.replace(/_/g, '<u></u>');
+
+>>>>>>> Add search api and updating files
         // Set notifications only when entering state
         if (newState) {
           if (game.czar === game.playerIndex) {
@@ -256,4 +298,8 @@ angular.module('mean.system')
     decrementTime();
 
     return game;
+<<<<<<< 7fb0fa8838c4a611a3e4bb01e8ea67c68b3669a6
   }]);
+=======
+  }]);
+>>>>>>> Add search api and updating files

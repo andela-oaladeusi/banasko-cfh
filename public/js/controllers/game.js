@@ -1,6 +1,10 @@
 'use strict';
 angular.module('mean.system')
+<<<<<<< 7fb0fa8838c4a611a3e4bb01e8ea67c68b3669a6
   .controller('GameController', ['$scope', '$http', 'game', '$timeout', '$location', 'MakeAWishFactsService', '$dialog', ($scope, $http, game, $timeout, $location, MakeAWishFactsService, $dialog) => {
+=======
+  .controller('GameController', ['$scope', '$http', 'game', '$timeout', '$location', 'MakeAWishFactsService', '$dialog', function ($scope, $http, game, $timeout, $location, MakeAWishFactsService, $dialog) {
+>>>>>>> Add search api and updating files
     $scope.hasPickedCards = false;
     $scope.winningCardPicked = false;
     $scope.showTable = false;
@@ -127,9 +131,16 @@ angular.module('mean.system')
     $scope.startGame = () => {
       const element = angular.element('#alertModal');
       if (game.players.length >= game.playerMinLimit) {
+<<<<<<< 7fb0fa8838c4a611a3e4bb01e8ea67c68b3669a6
         game.startGame();
       } else {
         element.modal('show');
+=======
+        game.startGame();;
+      } else {
+        element.modal('show');
+        // alert("need more players to play game");
+>>>>>>> Add search api and updating files
       }
     };
 
@@ -172,7 +183,14 @@ angular.module('mean.system')
           $location.search({ game: game.gameID });
           if (!$scope.modalShown) {
             setTimeout(() => {
+<<<<<<< 7fb0fa8838c4a611a3e4bb01e8ea67c68b3669a6
               $('#lobby-how-to-play').html('<button class="btn btn-info btn-lg" data-toggle="modal" data-target="#inviteModal">Invite Friends</button>');              
+=======
+              $scope.link = document.URL;
+              let txt = 'Give the following link to your friends so they can join your game: ';
+              $('#lobby-how-to-play').html('<button class="btn btn-info btn-lg" data-toggle="modal" data-target="#exampleModal">Invite Friends</button>');
+              // $('#oh-el').css({'text-align': 'center', 'font-size':'22px', 'background': 'white', 'color': 'black'}).text(game.gameID);
+>>>>>>> Add search api and updating files
             }, 200);
             $scope.modalShown = true;
           }
@@ -198,13 +216,21 @@ angular.module('mean.system')
         .error((err) => {
           console.log(err);
         });
+<<<<<<< 7fb0fa8838c4a611a3e4bb01e8ea67c68b3669a6
     };
+=======
+    }
+>>>>>>> Add search api and updating files
 
     $scope.sendInvite = (email, name) => {
       const element = angular.element('#alertInviteModal');
       if ($scope.numberOfInvite <= game.playerMaxLimit) {
         if ($scope.invitedPlayersList.indexOf(email) === -1) {
           $scope.invitedPlayersList.push(email);
+<<<<<<< 7fb0fa8838c4a611a3e4bb01e8ea67c68b3669a6
+=======
+          console.log($scope.invitedPlayersList);
+>>>>>>> Add search api and updating files
           $http.post('/api/send/user-invite', { 'email': email, 'name': name, 'link': document.URL })
             .success((res) => {
               console.log(res);
@@ -214,6 +240,10 @@ angular.module('mean.system')
               console.log(err);
             });
           $scope.numberOfInvite += 1;
+<<<<<<< 7fb0fa8838c4a611a3e4bb01e8ea67c68b3669a6
+=======
+          console.log($scope.numberOfInvite);
+>>>>>>> Add search api and updating files
 
         } else {
           console.log('user already exist');
@@ -222,7 +252,11 @@ angular.module('mean.system')
       } else {
         element.modal('show');
       }
+<<<<<<< 7fb0fa8838c4a611a3e4bb01e8ea67c68b3669a6
     };
+=======
+    }
+>>>>>>> Add search api and updating files
 
     $scope.checkPlayer = (email) => {
       if ($scope.invitedPlayersList.indexOf(email) === -1) {
@@ -230,6 +264,12 @@ angular.module('mean.system')
       } else {
         return false;
       }
+<<<<<<< 7fb0fa8838c4a611a3e4bb01e8ea67c68b3669a6
     };
 
   }]);
+=======
+    }
+
+  }])
+>>>>>>> Add search api and updating files
