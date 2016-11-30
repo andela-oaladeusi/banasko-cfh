@@ -9,7 +9,6 @@ const options = {
   transports: ['websocket'],
   'force new connection': true
 };
-
 const cfhPlayer1 = { 'name': 'Tom' };
 const cfhPlayer2 = { 'name': 'Sally' };
 const cfhPlayer3 = { 'name': 'Dana' };
@@ -102,10 +101,10 @@ describe("Game Server", function () {
     done();
   });
 
-  it('Should automatically start game when 12 players are in a game', function (done) {
+  it('Should automatically start game when 12 players are in a game', function(done) {
     let client1, client2, client3, client4, client5, client6, client7, client8, client9, client10, client11, client12;
     client1 = io.connect(socketURL, options);
-    let disconnect = function () {
+    let disconnect = function() {
       client1.disconnect();
       client2.disconnect();
       client3.disconnect();
@@ -163,8 +162,7 @@ describe("Game Server", function () {
     client1.on('connect', function (data) {
       client1.emit('joinGame', { userID: 'unauthenticated', room: '', createPrivate: true });
       let connectOthers = true;
-      client1.on('gameUpdate', function (data) {
-        let gameID = data.gameID;
+      client1.on('gameUpdate', function (data) {        let gameID = data.gameID;
         if (connectOthers) {
           client2 = io.connect(socketURL, options);
           connectOthers = false;
