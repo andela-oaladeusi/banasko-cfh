@@ -22,7 +22,7 @@ describe("Game Server", function () {
       client1.emit('joinGame', { userID: 'unauthenticated', room: '', createPrivate: false });
       setTimeout(disconnect, 200);
     });
-		done();
+    done();
   });
 
   it('Should send a game update upon receiving request to joinGame', function (done) {
@@ -39,7 +39,7 @@ describe("Game Server", function () {
       });
       setTimeout(disconnect, 200);
     });
-      done();
+    done();
   });
 
   it('Should announce new user to all users', function (done) {
@@ -61,6 +61,7 @@ describe("Game Server", function () {
       });
       setTimeout(disconnect, 200);
     });
+    done();
   });
 
   it('Should start game when startGame event is sent with 3 players', function (done) {
