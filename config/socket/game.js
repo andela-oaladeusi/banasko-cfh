@@ -28,7 +28,11 @@ function Game(gameID, io) {
   this.winnerAutopicked = false;
   this.czar = -1; // Index in this.players
   this.playerMinLimit = 3;
+<<<<<<< d0f73b5450a8c0b64b71826222c59c739ed88e50
   this.playerMaxLimit = 12;
+=======
+  this.playerMaxLimit = 11;
+>>>>>>> Add search api and updating files
   this.pointLimit = 5;
   this.state = "awaiting players";
   this.round = 0;
