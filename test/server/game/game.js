@@ -12,7 +12,7 @@ const options = {
 
 describe("Game Server", function () {
 
-	it('Should accept requests to joinGame', function (done) {
+  it('Should accept requests to joinGame', function (done) {
     const client1 = io.connect(socketURL, options);
     const disconnect = function () {
       client1.disconnect();
@@ -21,8 +21,8 @@ describe("Game Server", function () {
     client1.on('connect', function (data) {
       client1.emit('joinGame', { userID: 'unauthenticated', room: '', createPrivate: false });
       setTimeout(disconnect, 200);
-   });
-    done();
+    });
+		done();
   });
 
   it('Should send a game update upon receiving request to joinGame', function (done) {
@@ -30,7 +30,7 @@ describe("Game Server", function () {
     const disconnect = function () {
       client1.disconnect();
       done();
-  };
+	  };
 
     client1.on('connect', function (data) {
       client1.emit('joinGame', { userID: 'unauthenticated', room: '', createPrivate: false });
@@ -63,16 +63,16 @@ describe("Game Server", function () {
     });
   });
 
-  it('Should start game when startGame event is sent with 3 players', function(done) {
+  it('Should start game when startGame event is sent with 3 players', function (done) {
     let client1, client2, client3;
     client1 = io.connect(socketURL, options);
-    let disconnect = function() {
+    let disconnect = function () {
       client1.disconnect();
       client2.disconnect();
       client3.disconnect();
       done();
     };
-    let expectStartGame = function() {
+    let expectStartGame = function () {
       client1.emit('startGame');
       client1.on('gameUpdate', function (data) {
         data.state.should.equal("waiting for players to pick");
@@ -100,10 +100,10 @@ describe("Game Server", function () {
     done();
   });
 
-  it('Should automatically start game when 12 players are in a game', function(done) {
+  it('Should automatically start game when 12 players are in a game', function (done) {
     let client1, client2, client3, client4, client5, client6, client7, client8, client9, client10, client11, client12;
     client1 = io.connect(socketURL, options);
-    let disconnect = function() {
+    let disconnect = function () {
       client1.disconnect();
       client2.disconnect();
       client3.disconnect();
@@ -118,7 +118,7 @@ describe("Game Server", function () {
       client12.disconnect();
       done();
     };
-    let expectStartGame = function() {
+    let expectStartGame = function () {
       client1.emit('startGame');
       client1.on('gameUpdate', function (data) {
         data.state.should.equal("waiting for players to pick");
@@ -156,12 +156,12 @@ describe("Game Server", function () {
       client12.on('gameUpdate', function (data) {
         data.state.should.equal("waiting for players to pick");
       });
-      setTimeout(disconnect,200);
+      setTimeout(disconnect, 200);
     };
-    client1.on('connect', function(data) {
-      client1.emit('joinGame',{userID:'unauthenticated',room: '', createPrivate: true});
+    client1.on('connect', function (data) {
+      client1.emit('joinGame', { userID: 'unauthenticated', room: '', createPrivate: true });
       let connectOthers = true;
-      client1.on('gameUpdate', function(data) {
+      client1.on('gameUpdate', function (data) {
         let gameID = data.gameID;
         if (connectOthers) {
           client2 = io.connect(socketURL, options);

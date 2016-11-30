@@ -1,6 +1,6 @@
 'use strict';
 angular.module('mean.system')
-  .controller('GameController', ['$scope', '$http', 'game', '$timeout', '$location', 'MakeAWishFactsService', '$dialog', ($scope, $http, game, $timeout, $location, MakeAWishFactsService, $dialog) => {
+  .controller('GameController', ['$scope', '$http', 'game', '$timeout', '$location', 'MakeAWishFactsService', '$dialog', function ($scope, $http, game, $timeout, $location, MakeAWishFactsService, $dialog) {
     $scope.hasPickedCards = false;
     $scope.winningCardPicked = false;
     $scope.showTable = false;
@@ -127,9 +127,10 @@ angular.module('mean.system')
     $scope.startGame = () => {
       const element = angular.element('#alertModal');
       if (game.players.length >= game.playerMinLimit) {
-        game.startGame();
+        game.startGame();;
       } else {
         element.modal('show');
+        // alert("need more players to play game");
       }
     };
 
@@ -199,12 +200,12 @@ angular.module('mean.system')
           console.log(err);
         });
     };
-
     $scope.sendInvite = (email, name) => {
       const element = angular.element('#alertInviteModal');
       if ($scope.numberOfInvite <= game.playerMaxLimit) {
         if ($scope.invitedPlayersList.indexOf(email) === -1) {
           $scope.invitedPlayersList.push(email);
+          console.log($scope.invitedPlayersList);
           $http.post('/api/send/user-invite', { 'email': email, 'name': name, 'link': document.URL })
             .success((res) => {
               console.log(res);
@@ -221,7 +222,6 @@ angular.module('mean.system')
         element.modal('show');
       }
     };
-
     $scope.checkPlayer = (email) => {
       if ($scope.invitedPlayersList.indexOf(email) === -1) {
         return true;

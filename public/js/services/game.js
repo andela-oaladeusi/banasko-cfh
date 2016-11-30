@@ -33,7 +33,7 @@ angular.module('mean.system')
       if (!timeout) { // Start a cycle if there isn't one
         setNotification();
 	    }
-  };
+	  };
     let setNotification = () => {
       if (notificationQueue.length === 0) { // If notificationQueue is empty, stop
         clearInterval(timeout);
