@@ -1,7 +1,7 @@
 'use strict';
 
-const path = require('path'),
-      rootPath = path.normalize(__dirname + '/../..');
+const path = require('path');
+const rootPath = path.normalize(__dirname + '/../..');
 
 
 let db = null;
@@ -15,9 +15,9 @@ if (process.env.NODE_ENV === 'production') {
   db = process.env.MONGOHQ_URL;
 }
 
-
 module.exports = {
   root: rootPath,
   port: process.env.PORT || 3000,
-  db: db
+  db: db,
+  secret: process.env.SECRET
 };
