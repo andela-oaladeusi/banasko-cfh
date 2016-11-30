@@ -195,9 +195,6 @@ angular.module('mean.system')
       $http.get('/api/search/users/' + searchString)
         .success((res) => {
           $scope.items = res;
-        })
-        .error((err) => {
-          console.log(err);
         });
 		};
 		
@@ -223,7 +220,6 @@ angular.module('mean.system')
         element.modal('show');
       }
     };
-    
 		$scope.checkPlayer = (email) => {
       if ($scope.invitedPlayersList.indexOf(email) === -1) {
         return true;
@@ -231,4 +227,4 @@ angular.module('mean.system')
         return false;
       }
     };
-}]);
+  }]);

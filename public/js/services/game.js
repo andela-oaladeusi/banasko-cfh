@@ -207,4 +207,4 @@ angular.module('mean.system')
   decrementTime();
 
   return game;
-    });
+}]);
