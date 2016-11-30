@@ -20,21 +20,22 @@ exports.signUp = (req, res) => {
     if (err) {
       res.send(err);
     }
-
     if (!registerUser) {
       if (name && email && pwd) {
         if ((pwd.trim().length) < 8 || !validate.isEmail(email) ||
-        !validate.isAlpha(name) || !validate.isAlphanumeric(username)) {
+          !validate.isAlpha(name)) {
           res.status(400).json({
+            success: false,
             message: 'Invalid details provided.'
           });
         } else {
-          let user = new User();
-          user.name = name;
-          user.username = username;
-          user.email = email;
-          user.password = pwd;
-          user.avatar = avatar;
+          let user = new User({
+            name: name,
+            username: username,
+            email: email,
+            password: pwd,
+            avatar: avatar
+          });
 
           user.save((err, saveUser) => {
             if (err) {
@@ -53,11 +54,13 @@ exports.signUp = (req, res) => {
         }
       } else {
         res.status(400).json({
+          success: false,
           message: 'Incomplete SignUp Details Provided.'
         });
       }
     } else {
       res.status(409).json({
+        success: false,
         message: 'User already exists!'
       });
     }
@@ -66,7 +69,9 @@ exports.signUp = (req, res) => {
 
 exports.login = (req, res) => {
   const body = req.body;
-  User.findOne({ email: body.email }, function(err, user) {
+  User.findOne({
+    email: body.email
+  }, function (err, user) {
     if (err) {
       throw err;
     }
@@ -76,8 +81,11 @@ exports.login = (req, res) => {
         message: 'Invalid username or password'
       });
     }
-    const token = jwt.sign({user: user.email},
-      config.secret, { expiresIn: moment().add(7, 'd').valueOf()
+    const token = jwt.sign({
+        user: user.email
+      },
+      config.secret, {
+        expiresIn: moments().add(7, 'd').valueOf()
       });
     return res.status(200).json({
       success: true,
@@ -85,5 +93,4 @@ exports.login = (req, res) => {
       token: token,
     });
   });
-
 };

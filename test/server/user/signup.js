@@ -1,19 +1,17 @@
 'use strict';
 
 const chai = require('chai');
-const User = require('./../../app/models/user');
 const chaiHttp = require('chai-http');
-const server = require('./../../server');
+const server = require('./../../../server');
+const User = require('./../../../app/models/user');
 chai.use(chaiHttp);
-const should = chai.should();
-const expect = chai.expect;
+const should = chai.should;
 const url = '/api/auth/signup';
 
-describe('Signup', () => {
+describe('Signup Authentication', () => {
   it('verifies that signup fails for incomplete details', (done) => {
     const user = {
       name: 'user1',
-      username: 'testUser',
       email: '',
       password: 'testing1',
       avatar: ''
@@ -25,7 +23,7 @@ describe('Signup', () => {
       .end((err, res) => {
         res.body
           .should.have.property('message').eql('Incomplete SignUp Details Provided.');
-        expect(res).to.have.status(400);
+        res.should.have.status(400);
         done();
       });
   });
@@ -34,7 +32,6 @@ describe('Signup', () => {
     const user = {
       name: 'user2',
       email: 'password@gmail.com',
-      username: 'passwordUser',
       password: 'test',
       avatar: 'avatar10'
     };
@@ -45,7 +42,7 @@ describe('Signup', () => {
       .end((err, res) => {
         res.body
           .should.have.property('message').eql('Invalid details provided.');
-        expect(res).to.have.status(400);
+        res.should.have.status(400);
         done();
       });
   });
@@ -54,8 +51,8 @@ describe('Signup', () => {
     const user = {
       name: 'Andela',
       email: 'andela@yahoo.com',
-      username: 'andelan1',
-      password: '12345',
+      username: 'andeReal',
+      password: 'andela1!',
       avatar: 'andela1'
     };
 
@@ -63,11 +60,10 @@ describe('Signup', () => {
       .post('/api/auth/signup')
       .send(user)
       .end((err, res) => {
-        expect(res.body.message).to.equal('Thank you for signing up!');
-        expect(typeof res.body.token).to.equal('string');
-        expect(res)
-          .to.have.header('content-type', 'application/json; charset=utf-8');
-        expect(res).to.have.status(201);
+        res.body
+          .should.have.property('message').eql('Thank you for signing up!');
+        res.body.should.have.property('token');
+        res.should.have.status(201);
         done();
       });
   });
@@ -77,20 +73,18 @@ describe('Signup', () => {
     const user = {
       name: 'Andela',
       email: 'andela@yahoo.com',
-      username: 'andelan1',
-      password: '12345',
+      username: 'andeReal',
+      password: 'andela1!',
       avatar: 'andela1'
     };
-
 
     chai.request(server)
       .post('/api/auth/signup')
       .send(user)
       .end((err, res) => {
-        expect(res.body.message).to.equal('User already exists!');
-        expect(res)
-          .to.have.header('content-type', 'application/json; charset=utf-8');
-        expect(res).to.have.status(409);
+        res.body
+          .should.have.property('message').eql('User already exists!');
+        res.should.have.status(409);
         done();
       });
   });

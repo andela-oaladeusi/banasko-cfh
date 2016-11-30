@@ -1,8 +1,4 @@
 'use strict';
-<<<<<<< 5a3c500ef295a5f0e7a0030c0e9f04079c006081
-=======
-
->>>>>>> feature(jwt-tokens):Update files to address PR feedback
 /**
  * Module dependencies.
  */
@@ -141,14 +137,11 @@ exports.addDonation = function (req, res) {
           // Confirm that this object hasn't already been entered
           let duplicate = false;
           for (let i = 0; i < user.donations.length; i++) {
-          var duplicate = false;
-          for (var i = 0; i < user.donations.length; i++) {
             if (user.donations[i].crowdrise_donation_id === req.body.crowdrise_donation_id) {
               duplicate = true;
             }
           }
           if (!duplicate) {
-            console.log('Validated donation');
             user.donations.push(req.body);
             user.premium = 1;
             user.save();
