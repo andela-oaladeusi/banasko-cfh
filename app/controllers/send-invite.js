@@ -21,9 +21,9 @@ module.exports = (req, res) => {
         text: req.body.link
     },  (error, response) => {
         if (error) {
-            console.log(error);
+            return error;
         } else {
-            console.log('Message sent');
+            return response('Message sent');
         }
     });
 };
