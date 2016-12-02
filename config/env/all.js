@@ -20,4 +20,3 @@ module.exports = {
   db: db,
   secret: process.env.SECRET
 };
-

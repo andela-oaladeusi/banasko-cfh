@@ -22,7 +22,7 @@ describe("Game Server",function() {
       client1.disconnect();
       done();
     };
-    client1.on('connect', function(data) {
+    client1.on('connect', function() {
       client1.emit('joinGame',{userID:'unauthenticated',room: '', createPrivate: false});
       setTimeout(disconnect,200);
     });
