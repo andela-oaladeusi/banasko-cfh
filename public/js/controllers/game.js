@@ -1,7 +1,10 @@
 'use strict';
 angular.module('mean.system')
   .controller('GameController', ['$scope', '$http', 'game', '$timeout', '$location', 'MakeAWishFactsService', '$dialog', ($scope, $http, game, $timeout, $location, MakeAWishFactsService, $dialog) => {
+<<<<<<< 90b8c40393259e87b1ec12ded7d7e70b695a5968
 
+=======
+>>>>>>> Update to es6 features
     $scope.hasPickedCards = false;
     $scope.winningCardPicked = false;
     $scope.showTable = false;
@@ -128,10 +131,9 @@ angular.module('mean.system')
     $scope.startGame = () => {
       const element = angular.element('#alertModal');
       if (game.players.length >= game.playerMinLimit) {
-        game.startGame();;
+        game.startGame();
       } else {
         element.modal('show');
-        // alert("need more players to play game");
       }
     };
 
@@ -200,14 +202,13 @@ angular.module('mean.system')
         .error((err) => {
           console.log(err);
         });
-    }
+    };
 
     $scope.sendInvite = (email, name) => {
       const element = angular.element('#alertInviteModal');
       if ($scope.numberOfInvite <= game.playerMaxLimit) {
         if ($scope.invitedPlayersList.indexOf(email) === -1) {
           $scope.invitedPlayersList.push(email);
-          console.log($scope.invitedPlayersList);
           $http.post('/api/send/user-invite', { 'email': email, 'name': name, 'link': document.URL })
             .success((res) => {
               console.log(res);
@@ -217,7 +218,11 @@ angular.module('mean.system')
               console.log(err);
             });
           $scope.numberOfInvite += 1;
+<<<<<<< 90b8c40393259e87b1ec12ded7d7e70b695a5968
           console.log($scope.numberOfInvite);
+=======
+
+>>>>>>> Update to es6 features
         } else {
           console.log('user already exist');
         }

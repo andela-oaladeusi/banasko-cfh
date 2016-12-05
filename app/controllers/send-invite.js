@@ -10,13 +10,12 @@ module.exports = (req, res) => {
         auth: {
             user: 'test@test.com',
             pass: 'test1234'
-
-        }
+					 }
     };
 
     let transporter = nodemailer.createTransport(smtpTransport(smtpConfig));
     transporter.sendMail({
-        from: 'test@gmail.com',
+        from: 'test@test.com',
         to: req.body.email,
         subject: 'Game Invitation!',
         text: req.body.link
