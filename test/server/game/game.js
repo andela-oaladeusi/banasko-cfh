@@ -103,17 +103,10 @@ describe("Game Server", function () {
     done();
   });
 
-<<<<<<< HEAD
   it('Should automatically start game when 12 players are in a game', function (done) {
     let client1, client2, client3, client4, client5, client6, client7, client8, client9, client10, client11, client12;
     client1 = io.connect(socketURL, options);
     let disconnect = function () {
-=======
-  it('Should automatically start game when 12 players are in a game', function(done) {
-    let client1, client2, client3, client4, client5, client6, client7, client8, client9, client10, client11, client12;
-    client1 = io.connect(socketURL, options);
-    let disconnect = function() {
->>>>>>> 13d717a75dafc3c00849f14f691b71c0277e3dd2
       client1.disconnect();
       client2.disconnect();
       client3.disconnect();
