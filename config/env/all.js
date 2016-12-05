@@ -16,6 +16,6 @@ if (process.env.NODE_ENV === 'production') {
 module.exports = {
   root: rootPath,
   port: process.env.PORT || 3000,
-  db: db,
+  db: process.env.MONGOHQ_URL,
   secret: process.env.SECRET
 };
