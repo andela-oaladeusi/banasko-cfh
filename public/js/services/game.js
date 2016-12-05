@@ -2,6 +2,7 @@
 angular.module('mean.system')
   .factory('game', ['socket', '$timeout', function (socket, $timeout) {
 
+<<<<<<< 10c99c83be2d8e3d77ab1bf72737e798d0c8e33d
     let game = {
       id: null, // This player's socket ID, so we know who this player is
       gameID: null,
@@ -31,16 +32,56 @@ angular.module('mean.system')
 
     let addToNotificationQueue = (msg) => {
       notificationQueue.push(msg);
+=======
+  let game = {
+    id: null, // This player's socket ID, so we know who this player is
+    gameID: null,
+    players: [],
+    playerIndex: 0,
+    winningCard: -1,
+    winningCardPlayer: -1,
+    gameWinner: -1,
+    table: [],
+    czar: null,
+    playerMinLimit: 3,
+    playerMaxLimit: 12,
+    pointLimit: null,
+    state: null,
+    round: 0,
+    time: 0,
+    curQuestion: null,
+    notification: null,
+    timeLimits: {},
+    joinOverride: false
+  };
+
+  let notificationQueue = [];
+  let timeout = false;
+  let self = this;
+  let joinOverrideTimeout = 0;
+
+  let addToNotificationQueue = (msg) => {
+    notificationQueue.push(msg);
+>>>>>>> 2 spaces indentation
       if (!timeout) { // Start a cycle if there isn't one
         setNotification();
       }
     };
+<<<<<<< 10c99c83be2d8e3d77ab1bf72737e798d0c8e33d
     let setNotification = () => {
       if (notificationQueue.length === 0) { // If notificationQueue is empty, stop
         clearInterval(timeout);
         timeout = false;
         game.notification = '';
       } else {
+=======
+  let setNotification = () => {
+    if (notificationQueue.length === 0) { // If notificationQueue is empty, stop
+      clearInterval(timeout);
+      timeout = false;
+      game.notification = '';
+    } else {
+>>>>>>> 2 spaces indentation
         game.notification = notificationQueue.shift(); // Show a notification and check again in a bit
         timeout = $timeout(setNotification, 1300);
       }
@@ -69,6 +110,7 @@ angular.module('mean.system')
 
     socket.on('gameUpdate', function (data) {
 
+<<<<<<< 10c99c83be2d8e3d77ab1bf72737e798d0c8e33d
       // Update gameID field only if it changed.
       // That way, we don't trigger the $scope.$watch too often
       if (game.gameID !== data.gameID) {
@@ -84,11 +126,32 @@ angular.module('mean.system')
         if (game.id === data.players[i].socketID) {
           game.playerIndex = i;
         }
+=======
+			// Update gameID field only if it changed.
+			// That way, we don't trigger the $scope.$watch too often
+		  if (game.gameID !== data.gameID) {
+			  game.gameID = data.gameID;
+		  }
+
+		  game.joinOverride = false;
+			clearTimeout(game.joinOverrideTimeout);
+
+			let i;
+			// Cache the index of the player in the players array
+			for (i = 0; i < data.players.length; i++) {
+				if (game.id === data.players[i].socketID) {
+					game.playerIndex = i;
+				}
+>>>>>>> 2 spaces indentation
       }
 
       let newState = (data.state !== game.state);
 
+<<<<<<< 10c99c83be2d8e3d77ab1bf72737e798d0c8e33d
       //Handle updating game.time
+=======
+			//Handle updating game.time
+>>>>>>> 2 spaces indentation
       if (data.round !== game.round && data.state !== 'awaiting players' &&
         data.state !== 'game ended' && data.state !== 'game dissolved') {
         game.time = game.timeLimits.stateChoosing - 1;
@@ -98,10 +161,17 @@ angular.module('mean.system')
         timeSetViaUpdate = true;
       } else if (newState && data.state === 'winner has been chosen') {
         game.time = game.timeLimits.stateResults - 1;
+<<<<<<< 10c99c83be2d8e3d77ab1bf72737e798d0c8e33d
         timeSetViaUpdate = true;
       }
 
       // Set these properties on each update
+=======
+				timeSetViaUpdate = true;
+			}
+
+			// Set these properties on each update
+>>>>>>> 2 spaces indentation
       game.round = data.round;
       game.winningCard = data.winningCard;
       game.winningCardPlayer = data.winningCardPlayer;
@@ -109,7 +179,11 @@ angular.module('mean.system')
       game.gameWinner = data.gameWinner;
       game.pointLimit = data.pointLimit;
 
+<<<<<<< 10c99c83be2d8e3d77ab1bf72737e798d0c8e33d
       // Handle updating game.table
+=======
+			// Handle updating game.table
+>>>>>>> 2 spaces indentation
       if (data.table.length === 0) {
         game.table = [];
       } else {
@@ -142,10 +216,17 @@ angular.module('mean.system')
       if (data.state === 'waiting for players to pick') {
         game.czar = data.czar;
         game.curQuestion = data.curQuestion;
+<<<<<<< 10c99c83be2d8e3d77ab1bf72737e798d0c8e33d
         // Extending the underscore within the question
         game.curQuestion.text = data.curQuestion.text.replace(/_/g, '<u></u>');
 
         // Set notifications only when entering state
+=======
+				// Extending the underscore within the question
+        game.curQuestion.text = data.curQuestion.text.replace(/_/g, '<u></u>');
+
+				// Set notifications only when entering state
+>>>>>>> 2 spaces indentation
         if (newState) {
           if (game.czar === game.playerIndex) {
             addToNotificationQueue('You\'re the Card Czar! Please wait!');
@@ -154,6 +235,7 @@ angular.module('mean.system')
           } else {
             addToNotificationQueue('Select TWO answers!');
           }
+<<<<<<< 10c99c83be2d8e3d77ab1bf72737e798d0c8e33d
         }
       } else if (data.state === 'waiting for czar to decide') {
         if (game.czar === game.playerIndex) {
@@ -162,6 +244,16 @@ angular.module('mean.system')
           addToNotificationQueue("The czar is contemplating...");
         }
       } else if (data.state === 'winner has been chosen' &&
+=======
+				}
+      } else if (data.state === 'waiting for czar to decide') {
+        if (game.czar === game.playerIndex) {
+          addToNotificationQueue("Everyone's done. Choose the winner!");
+				} else {
+					addToNotificationQueue("The czar is contemplating...");
+			  }
+			} else if (data.state === 'winner has been chosen' &&
+>>>>>>> 2 spaces indentation
         game.curQuestion.text.indexOf('<u></u>') > -1) {
         game.curQuestion = data.curQuestion;
       } else if (data.state === 'awaiting players') {
@@ -172,6 +264,7 @@ angular.module('mean.system')
         game.players[game.playerIndex].hand = [];
         game.time = 0;
       }
+<<<<<<< 10c99c83be2d8e3d77ab1bf72737e798d0c8e33d
   });
 
   socket.on('notification', function (data) {
@@ -208,3 +301,41 @@ angular.module('mean.system')
 
   return game;
 }]);
+=======
+    });
+
+    socket.on('notification', function (data) {
+      addToNotificationQueue(data.notification);
+    });
+
+    game.joinGame = (mode, room, createPrivate) => {
+      mode = mode || 'joinGame';
+      room = room || '';
+      createPrivate = createPrivate || false;
+      let userID = !!window.user ? user._id : 'unauthenticated';
+      socket.emit(mode, { userID: userID, room: room, createPrivate: createPrivate });
+    };
+
+    game.startGame = () => {
+      socket.emit('startGame');
+    };
+
+    game.leaveGame = () => {
+      game.players = [];
+      game.time = 0;
+      socket.emit('leaveGame');
+    };
+
+    game.pickCards = (cards) => {
+      socket.emit('pickCards', { cards: cards });
+    };
+
+    game.pickWinning = (card) => {
+      socket.emit('pickWinning', { card: card.id });
+    };
+
+    decrementTime();
+
+    return game;
+}]);
+>>>>>>> 2 spaces indentation
