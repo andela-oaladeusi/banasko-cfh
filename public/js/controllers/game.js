@@ -1,6 +1,6 @@
 'use strict';
 angular.module('mean.system')
-  .controller('GameController', ['$scope', '$http', 'game', '$timeout', '$location', 'MakeAWishFactsService', '$dialog', function ($scope, $http, game, $timeout, $location, MakeAWishFactsService, $dialog) {
+  .controller('GameController', ['$scope', '$http', 'game', '$timeout', '$location', 'MakeAWishFactsService', '$dialog', ($scope, $http, game, $timeout, $location, MakeAWishFactsService, $dialog) => {
     $scope.hasPickedCards = false;
     $scope.winningCardPicked = false;
     $scope.showTable = false;
@@ -203,6 +203,7 @@ angular.module('mean.system')
       if ($scope.numberOfInvite <= game.playerMaxLimit) {
         if ($scope.invitedPlayersList.indexOf(email) === -1) {
           $scope.invitedPlayersList.push(email);
+<<<<<<< 59d81b330d99804aff173d57ab3db9ba23d09adb
           console.log($scope.invitedPlayersList);
           $http.post('/api/send/user-invite', { 'email': email, 'name': name, 'link': document.URL })
             .success((res) => {
@@ -215,6 +216,10 @@ angular.module('mean.system')
           console.log($scope.numberOfInvite);
         } else {
           console.log('user already exist');
+=======
+          $http.post('/api/send/user-invite', { 'email': email, 'name': name, 'link': document.URL });
+          $scope.numberOfInvite += 1;
+>>>>>>> Update to es6 features
         }
       } else {
         element.modal('show');
@@ -227,4 +232,8 @@ angular.module('mean.system')
         return false;
       }
     };
+<<<<<<< 59d81b330d99804aff173d57ab3db9ba23d09adb
+=======
+
+>>>>>>> Update to es6 features
   }]);
