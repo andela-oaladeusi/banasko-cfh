@@ -1,21 +1,22 @@
+
 'use strict';
 const path = require('path');
 const rootPath = path.normalize(__dirname + '/../..');
 
 let db = null;
 if (process.env.NODE_ENV === 'development') {
-	db = process.env.MONGODEV_URL;
+  db = process.env.MONGODEV_URL;
 }
 if (process.env.NODE_ENV === 'test') {
-	db = process.env.MONGOTEST_URL;
+  db = process.env.MONGOTEST_URL;
 }
 if (process.env.NODE_ENV === 'production') {
-	db = process.env.MONGOHQ_URL;
+  db = process.env.MONGOHQ_URL;
 }
 
 module.exports = {
-	root: rootPath,
-	port: process.env.PORT || 3000,
-	db: process.env.MONGOHQ_URL,
-	secret: process.env.SECRET
+  root: rootPath,
+  port: process.env.PORT || 3000,
+  db: process.env.MONGOHQ_URL,
+  secret: process.env.SECRET
 };
