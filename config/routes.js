@@ -1,6 +1,5 @@
 'use strict';
 module.exports = (app, passport, auth) => {
-
     //User Routes
     const users = require('../app/controllers/users');
     const jwtAuth = require('../app/controllers/auth');

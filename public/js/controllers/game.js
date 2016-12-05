@@ -1,6 +1,6 @@
 'use strict';
 angular.module('mean.system')
-  .controller('GameController', ['$scope', '$http', 'game', '$timeout', '$location', 'MakeAWishFactsService', '$dialog', function ($scope, $http, game, $timeout, $location, MakeAWishFactsService, $dialog) {
+  .controller('GameController', ['$scope', '$http', 'game', '$timeout', '$location', 'MakeAWishFactsService', '$dialog', ($scope, $http, game, $timeout, $location, MakeAWishFactsService, $dialog) => {
     $scope.hasPickedCards = false;
     $scope.winningCardPicked = false;
     $scope.showTable = false;
@@ -203,8 +203,8 @@ angular.module('mean.system')
       if ($scope.numberOfInvite <= game.playerMaxLimit) {
         if ($scope.invitedPlayersList.indexOf(email) === -1) {
           $scope.invitedPlayersList.push(email);
-          $http.post('/api/send/user-invite', { 'email': email, 'name': name, 'link': document.URL });          $scope.numberOfInvite += 1;
-
+          $http.post('/api/send/user-invite', { 'email': email, 'name': name, 'link': document.URL });
+          $scope.numberOfInvite += 1;
         }
       } else {
         element.modal('show');

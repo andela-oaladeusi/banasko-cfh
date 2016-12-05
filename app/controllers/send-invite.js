@@ -7,14 +7,14 @@ module.exports = (req, res) => {
         port: 465,
         secure: true,
         auth: {
-            user: 'test@gmail.com',
-            pass: 'password'
+            user: 'test@test.com',
+            pass: 'test1234'
         }
     };
 
     let transporter = nodemailer.createTransport(smtpTransport(smtpConfig));
     transporter.sendMail({
-        from: 'test@gmail.com',
+        from: 'test@test.com',
         to: req.body.email,
         subject: 'Game Invitation!',
         text: req.body.link
