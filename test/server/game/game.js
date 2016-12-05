@@ -165,7 +165,8 @@ describe("Game Server", function () {
     client1.on('connect', function (data) {
       client1.emit('joinGame', { userID: 'unauthenticated', room: '', createPrivate: true });
       let connectOthers = true;
-      client1.on('gameUpdate', function (data) {        let gameID = data.gameID;
+      client1.on('gameUpdate', function (data) {        
+        let gameID = data.gameID;
         if (connectOthers) {
           client2 = io.connect(socketURL, options);
           connectOthers = false;
