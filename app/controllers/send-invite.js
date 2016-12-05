@@ -19,4 +19,5 @@ module.exports = (req, res) => {
         subject: 'Game Invitation!',
         text: req.body.link
     });
+		
 };
