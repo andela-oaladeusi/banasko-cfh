@@ -1,6 +1,10 @@
 'use strict';
+<<<<<<< ec7f58481d247db86db3cb9fecddb4c3967a67f1
 
 module.exports = function (app, passport, auth) {
+=======
+module.exports = (app, passport, auth) => {
+>>>>>>> Update to es6 features
     //User Routes
     const users = require('../app/controllers/users');
     const jwtAuth = require('../app/controllers/auth');

@@ -22,15 +22,9 @@ describe("Game Server", function () {
       client1.disconnect();
       done();
     };
-<<<<<<< e7aee33b8bd0dbbd8f929f175c0bac1c087827cb
     client1.on('connect', function() {
       client1.emit('joinGame',{userID:'unauthenticated',room: '', createPrivate: false});
       setTimeout(disconnect,200);
-=======
-    client1.on('connect', function (data) {
-      client1.emit('joinGame', { userID: 'unauthenticated', room: '', createPrivate: false });
-      setTimeout(disconnect, 200);
->>>>>>> Add search api and updating files
     });
     done();
   });
@@ -172,7 +166,11 @@ describe("Game Server", function () {
     client1.on('connect', function (data) {
       client1.emit('joinGame', { userID: 'unauthenticated', room: '', createPrivate: true });
       let connectOthers = true;
+<<<<<<< ec7f58481d247db86db3cb9fecddb4c3967a67f1
       client1.on('gameUpdate', function (data) {
+=======
+      client1.on('gameUpdate', function (data) {
+>>>>>>> Update to es6 features
         let gameID = data.gameID;
         if (connectOthers) {
           client2 = io.connect(socketURL, options);
