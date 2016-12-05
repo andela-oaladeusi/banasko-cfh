@@ -85,7 +85,6 @@ angular.module('mean.system')
           game.playerIndex = i;
         }
       }
-
       let newState = (data.state !== game.state);
 
       //Handle updating game.time
@@ -100,8 +99,10 @@ angular.module('mean.system')
         game.time = game.timeLimits.stateResults - 1;
         timeSetViaUpdate = true;
       }
-
-      // Set these properties on each update
+     // Set these properties on each update
+				timeSetViaUpdate = true;
+		
+			// Set these properties on each update
       game.round = data.round;
       game.winningCard = data.winningCard;
       game.winningCardPlayer = data.winningCardPlayer;
@@ -109,7 +110,7 @@ angular.module('mean.system')
       game.gameWinner = data.gameWinner;
       game.pointLimit = data.pointLimit;
 
-      // Handle updating game.table
+			// Handle updating game.table
       if (data.table.length === 0) {
         game.table = [];
       } else {
@@ -142,10 +143,10 @@ angular.module('mean.system')
       if (data.state === 'waiting for players to pick') {
         game.czar = data.czar;
         game.curQuestion = data.curQuestion;
-        // Extending the underscore within the question
+				// Extending the underscore within the question
         game.curQuestion.text = data.curQuestion.text.replace(/_/g, '<u></u>');
 
-        // Set notifications only when entering state
+				// Set notifications only when entering state
         if (newState) {
           if (game.czar === game.playerIndex) {
             addToNotificationQueue('You\'re the Card Czar! Please wait!');
@@ -154,14 +155,14 @@ angular.module('mean.system')
           } else {
             addToNotificationQueue('Select TWO answers!');
           }
-        }
+				}
       } else if (data.state === 'waiting for czar to decide') {
         if (game.czar === game.playerIndex) {
           addToNotificationQueue("Everyone's done. Choose the winner!");
-        } else {
-          addToNotificationQueue("The czar is contemplating...");
-        }
-      } else if (data.state === 'winner has been chosen' &&
+				} else {
+					addToNotificationQueue("The czar is contemplating...");
+			  }
+			} else if (data.state === 'winner has been chosen' &&
         game.curQuestion.text.indexOf('<u></u>') > -1) {
         game.curQuestion = data.curQuestion;
       } else if (data.state === 'awaiting players') {

@@ -5,22 +5,22 @@ const io = require('socket.io-client');
 const socketURL = 'http://localhost:3000';
 
 const options = {
-	transports: ['websocket'],
-	'force new connection': true
+  transports: ['websocket'],
+  'force new connection': true
 };
 describe("Game Server", function () {
 	it('Should accept requests to joinGame', function (done) {
-		const client1 = io.connect(socketURL, options);
-		const disconnect = function () {
-			client1.disconnect();
-			done();
-		};
-		client1.on('connect', function (data) {
-			client1.emit('joinGame', { userID: 'unauthenticated', room: '', createPrivate: false });
-			setTimeout(disconnect, 200);
-		});
-		done();
-	});
+    const client1 = io.connect(socketURL, options);
+    const disconnect = function () {
+      client1.disconnect();
+      done();
+    };
+    client1.on('connect', function (data) {
+      client1.emit('joinGame', { userID: 'unauthenticated', room: '', createPrivate: false });
+      setTimeout(disconnect, 200);
+   });
+    done();
+  });
 
   it('Should send a game update upon receiving request to joinGame', function (done) {
     const client1 = io.connect(socketURL, options);
@@ -39,37 +39,37 @@ describe("Game Server", function () {
     done();
   });
 
-		client1.on('connect', function (data) {
-			client1.emit('joinGame', { userID: 'unauthenticated', room: '', createPrivate: false });
-			client1.on('gameUpdate', function (data) {
-				data.gameID.should.match(/\d+/);
-			});
-			setTimeout(disconnect, 200);
-		});
-		done();
-	});
+    client1.on('connect', function (data) {
+      client1.emit('joinGame', { userID: 'unauthenticated', room: '', createPrivate: false });
+      client1.on('gameUpdate', function (data) {
+        data.gameID.should.match(/\d+/);
+      });
+      setTimeout(disconnect, 200);
+    });
+      done();
+  });
 
-	it('Should announce new user to all users', function (done) {
-		const client1 = io.connect(socketURL, options);
-		let client2;
-		let disconnect = function () {
-			client1.disconnect();
-			client2.disconnect();
-			done();
-		};
-		client1.on('connect', function (data) {
-			client1.emit('joinGame', { userID: 'unauthenticated', room: '', createPrivate: false });
-			client2 = io.connect(socketURL, options);
-			client2.on('connect', function (data) {
-				client2.emit('joinGame', { userID: 'unauthenticated', room: '', createPrivate: false });
-				client1.on('notification', function (data) {
-					data.notification.should.match(/ has joined the game\!/);
-				});
-			});
-			setTimeout(disconnect, 200);
-		});
-		done();
-	});
+  it('Should announce new user to all users', function (done) {
+    const client1 = io.connect(socketURL, options);
+    let client2;
+    let disconnect = function () {
+      client1.disconnect();
+      client2.disconnect();
+      done();
+    };
+    client1.on('connect', function (data) {
+      client1.emit('joinGame', { userID: 'unauthenticated', room: '', createPrivate: false });
+      client2 = io.connect(socketURL, options);
+      client2.on('connect', function (data) {
+        client2.emit('joinGame', { userID: 'unauthenticated', room: '', createPrivate: false });
+        client1.on('notification', function (data) {
+          data.notification.should.match(/ has joined the game\!/);
+        });
+      });
+      setTimeout(disconnect, 200);
+    });
+    done();
+  });
 
   it('Should start game when startGame event is sent with 3 players', function (done) {
     let client1, client2, client3;
