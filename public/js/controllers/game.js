@@ -22,7 +22,7 @@ angular.module('mean.system')
             $scope.hasPickedCards = true;
           } else if (game.curQuestion.numAnswers === 2 &&
             $scope.pickedCards.length === 2) {
-            //delay and send
+						//delay and send
             $scope.hasPickedCards = true;
             $timeout($scope.sendPickedCards, 300);
           }
@@ -138,8 +138,8 @@ angular.module('mean.system')
       $location.path('/');
     };
 
-    // Catches changes to round to update when no players pick card
-    // (because game.state remains the same)
+		// Catches changes to round to update when no players pick card
+		// (because game.state remains the same)
     $scope.$watch('game.round', () => {
       $scope.hasPickedCards = false;
       $scope.showTable = false;
@@ -151,14 +151,12 @@ angular.module('mean.system')
       $scope.pickedCards = [];
     });
 
-    // In case player doesn't pick a card in time, show the table
+		// In case player doesn't pick a card in time, show the table
     $scope.$watch('game.state', () => {
       if (game.state === 'waiting for czar to decide' && $scope.showTable === false) {
         $scope.showTable = true;
-      }
+		   }
     });
-
-
 
     $scope.$watch('game.gameID', () => {
       if (game.gameID && game.state === 'awaiting players') {
@@ -167,7 +165,8 @@ angular.module('mean.system')
           // reset the URL so they don't think they're in the requested room.
           $location.search({});
         } else if ($scope.isCustomGame() && !$location.search().game) {
-          // Once the game ID is set, update the URL if this is a game with friends,
+          // Once the game ID is set,
+          // update the URL if this is a game with friends,
           // where the link is meant to be shared.
           $location.search({ game: game.gameID });
           if (!$scope.modalShown) {
@@ -200,16 +199,21 @@ angular.module('mean.system')
 
     $scope.sendInvite = (email, name) => {
       const element = angular.element('#alertInviteModal');
+      const elementExist = angular.element('#alertExistModal');
       if ($scope.numberOfInvite <= game.playerMaxLimit) {
         if ($scope.invitedPlayersList.indexOf(email) === -1) {
           $scope.invitedPlayersList.push(email);
-          $http.post('/api/send/user-invite', { 'email': email, 'name': name, 'link': document.URL });
+          $http.post('/api/send/user-invite',
+            { 'email': email, 'name': name, 'link': document.URL });
           $scope.numberOfInvite += 1;
+        } else {
+          elementExist.modal('show');
         }
       } else {
         element.modal('show');
       }
     };
+
     $scope.checkPlayer = (email) => {
       if ($scope.invitedPlayersList.indexOf(email) === -1) {
         return true;
