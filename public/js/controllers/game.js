@@ -173,7 +173,7 @@ angular.module('mean.system')
           if (!$scope.modalShown) {
             setTimeout(() => {
               $scope.link = document.URL;
-              $('#lobby-how-to-play').html('<button class="btn btn-info btn-lg" data-toggle="modal" data-target="#exampleModal">Invite Friends</button>');
+              $('#lobby-how-to-play').html('<button class="btn btn-info btn-lg" data-toggle="modal" data-target="#inviteModal">Invite Friends</button>');
             }, 200);
             $scope.modalShown = true;
           }

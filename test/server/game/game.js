@@ -8,8 +8,9 @@ const options = {
   transports: ['websocket'],
   'force new connection': true
 };
+
 describe("Game Server", function () {
-	it('Should accept requests to joinGame', function (done) {
+  it('Should accept requests to joinGame', function (done) {
     const client1 = io.connect(socketURL, options);
     const disconnect = function () {
       client1.disconnect();
@@ -18,7 +19,7 @@ describe("Game Server", function () {
     client1.on('connect', function (data) {
       client1.emit('joinGame', { userID: 'unauthenticated', room: '', createPrivate: false });
       setTimeout(disconnect, 200);
-   });
+    });
     done();
   });
 
@@ -27,7 +28,7 @@ describe("Game Server", function () {
     const disconnect = function () {
       client1.disconnect();
       done();
-  };
+    };
 
     client1.on('connect', function (data) {
       client1.emit('joinGame', { userID: 'unauthenticated', room: '', createPrivate: false });
@@ -36,7 +37,7 @@ describe("Game Server", function () {
       });
       setTimeout(disconnect, 200);
     });
-      done();
+    done();
   });
 
   it('Should announce new user to all users', function (done) {
@@ -112,7 +113,7 @@ describe("Game Server", function () {
       client8.disconnect();
       client9.disconnect();
       client10.disconnect();
-      client11.disconnect();
+			client11.disconnect();
       client12.disconnect();
       done();
     };
@@ -120,7 +121,7 @@ describe("Game Server", function () {
       client1.emit('startGame');
       client1.on('gameUpdate', function (data) {
         data.state.should.equal("waiting for players to pick");
-     });
+      });
       client2.on('gameUpdate', function (data) {
         data.state.should.equal("waiting for players to pick");
       });
@@ -159,7 +160,7 @@ describe("Game Server", function () {
     client1.on('connect', function (data) {
       client1.emit('joinGame', { userID: 'unauthenticated', room: '', createPrivate: true });
       let connectOthers = true;
-      client1.on('gameUpdate', function (data) {
+      client1.on('gameUpdate', function (data) {        
         let gameID = data.gameID;
         if (connectOthers) {
           client2 = io.connect(socketURL, options);
@@ -208,9 +209,9 @@ describe("Game Server", function () {
               });
             });
           });
-         }
+        }
       });
     });
-     done();
+    done();
   });
 });
