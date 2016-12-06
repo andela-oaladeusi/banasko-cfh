@@ -1,6 +1,8 @@
 'use strict';
 angular.module('mean.system')
-  .controller('GameController', ['$scope', '$http', 'game', '$timeout', '$location', 'MakeAWishFactsService', '$dialog', ($scope, $http, game, $timeout, $location, MakeAWishFactsService, $dialog) => {
+  .controller('GameController', ['$scope', '$http', 'game', 
+    '$timeout', '$location', 'MakeAWishFactsService', '$dialog',
+     ($scope, $http, game, $timeout, $location, MakeAWishFactsService) => {
     $scope.hasPickedCards = false;
     $scope.winningCardPicked = false;
     $scope.showTable = false;
@@ -33,7 +35,8 @@ angular.module('mean.system')
     };
 
     $scope.pointerCursorStyle = () => {
-      if ($scope.isCzar() && $scope.game.state === 'waiting for czar to decide') {
+      if ($scope.isCzar() && $scope.game.state === 
+          'waiting for czar to decide') {
         return { 'cursor': 'pointer' };
       } else {
         return {};
@@ -78,11 +81,13 @@ angular.module('mean.system')
     };
 
     $scope.showFirst = (card) => {
-      return game.curQuestion.numAnswers > 1 && $scope.pickedCards[0] === card.id;
+      return game.curQuestion.numAnswers > 1 && 
+        $scope.pickedCards[0] === card.id;
     };
 
     $scope.showSecond = (card) => {
-      return game.curQuestion.numAnswers > 1 && $scope.pickedCards[1] === card.id;
+      return game.curQuestion.numAnswers > 1 && 
+        $scope.pickedCards[1] === card.id;
     };
 
     $scope.isCzar = () => {
@@ -125,12 +130,11 @@ angular.module('mean.system')
     };
 
     $scope.startGame = () => {
-      const element = angular.element('#alertModal');
+      const minimumAlert = angular.element('#alertModal');
       if (game.players.length >= game.playerMinLimit) {
-        game.startGame();;
+        game.startGame();
       } else {
-        element.modal('show');
-        // alert("need more players to play game");
+        minimumAlert.modal('show');
       }
     };
 
@@ -154,7 +158,8 @@ angular.module('mean.system')
 
     // In case player doesn't pick a card in time, show the table
     $scope.$watch('game.state', () => {
-      if (game.state === 'waiting for czar to decide' && $scope.showTable === false) {
+      if (game.state === 'waiting for czar to decide' && 
+          $scope.showTable === false) {
         $scope.showTable = true;
       }
     });
@@ -173,7 +178,10 @@ angular.module('mean.system')
           $location.search({ game: game.gameID });
           if (!$scope.modalShown) {
             setTimeout(() => {
-              $('#lobby-how-to-play').html('<button class="btn btn-info btn-lg" data-toggle="modal" data-target="#inviteModal">Invite Friends</button>');              
+              $scope.link = document.URL;
+              $('#lobby-how-to-play').html('<button class='+
+                '"btn btn-info btn-lg" data-toggle="modal" '+
+                'data-target="#inviteModal">Invite Friends</button>');
             }, 200);
             $scope.modalShown = true;
           }
@@ -182,7 +190,6 @@ angular.module('mean.system')
     });
 
     if ($location.search().game && !(/^\d+$/).test($location.search().game)) {
-      console.log('joining custom game');
       game.joinGame('joinGame', $location.search().game);
     } else if ($location.search().custom) {
       game.joinGame('joinGame', null, true);
@@ -198,8 +205,9 @@ angular.module('mean.system')
         });
 		};
 		
-		$scope.sendInvite = (email, name) => {
-     const element = angular.element('#alertInviteModal');
+    $scope.sendInvite = (email, name) => {
+      const inviteAlert = angular.element('#alertInviteModal');
+      const nameExistAlert = angular.element('#alertExistModal');
       if ($scope.numberOfInvite <= game.playerMaxLimit) {
         if ($scope.invitedPlayersList.indexOf(email) === -1) {
           $scope.invitedPlayersList.push(email);
@@ -214,17 +222,14 @@ angular.module('mean.system')
           $scope.numberOfInvite += 1;
           console.log($scope.numberOfInvite);
         } else {
-          console.log('user already exist');
+          nameExistAlert.modal('show');
         }
       } else {
-        element.modal('show');
+        inviteAlert.modal('show');
       }
     };
-		$scope.checkPlayer = (email) => {
-      if ($scope.invitedPlayersList.indexOf(email) === -1) {
-        return true;
-      } else {
-        return false;
-      }
+
+    $scope.checkPlayer = (email) => {
+      return ($scope.invitedPlayersList.indexOf(email) === -1);
     };
   }]);

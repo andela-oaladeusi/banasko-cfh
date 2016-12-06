@@ -1,36 +1,41 @@
 <div class="pop-up-view">
 
   <!-- for list of invite -->
-  <div class="modal fade" id="inviteModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal fade" id="inviteModal" tabindex="-1" role="dialog" 
+    aria-labelledby="modalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-					<h4 class="modal-title" id="modalLabel">Invite Friends</h4>
-				</div>
-				<div class="modal-body">
-					<form>
-						<div class="form-group">
-							<input type="text" class="form-control" id="search-query" placeholder="search users..." ng-model="searchString" ng-keypress="searchDB(searchString)">
-						</div>
-					</form>
-					<div id="search-result">
-						<table class="table table-striped">
-							<tbody>
-								<tr ng-repeat="i in items">
-									<td>{{i.name}} </td>
-									<td ng-if="checkPlayer(i.email)" title="{{i.email}}"><button ng-click="sendInvite(i.email, i.name)" class="btn btn-info">Send Invite</button></td>
-									<td ng-if="!checkPlayer(i.email)"><button ng-disabled="true" class="btn btn-info">invite sent</button></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-			</div>
-		</div>
-	</div>
-	</div>
+          <h4 class="modal-title" id="modalLabel">Invite Friends</h4>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <input type="text" class="form-control" id="search-query" 
+                placeholder="search users..." ng-model="searchString" 
+                ng-keypress="searchDB(searchString)">
+            </div>
+          </form>
+          <div id="search-result">
+
+            <table class="table table-striped">
+              <tbody>
+                <tr ng-repeat="i in items">
+                  <td>{{i.name}} </td>
+                  <td ng-if="checkPlayer(i.email)" title="{{i.email}}">
+                    <button ng-click="sendInvite(i.email, i.name)" 
+                      class="btn btn-info">Send Invite</button>
+                  </td>
+                  <td ng-if="!checkPlayer(i.email)"><button ng-disabled="true" 
+                    class="btn btn-info">invite sent</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
 	<!-- for player limit -->
 	<div class="modal fade" id="alertModal">
