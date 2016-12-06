@@ -1,6 +1,8 @@
 'use strict';
 angular.module('mean.system')
-  .controller('GameController', ['$scope', '$http', 'game', '$timeout', '$location', 'MakeAWishFactsService', '$dialog', ($scope, $http, game, $timeout, $location, MakeAWishFactsService, $dialog) => {
+  .controller('GameController', ['$scope', '$http', 'game', 
+    '$timeout', '$location', 'MakeAWishFactsService', '$dialog',
+     ($scope, $http, game, $timeout, $location, MakeAWishFactsService) => {
     $scope.hasPickedCards = false;
     $scope.winningCardPicked = false;
     $scope.showTable = false;
@@ -22,7 +24,7 @@ angular.module('mean.system')
             $scope.hasPickedCards = true;
           } else if (game.curQuestion.numAnswers === 2 &&
             $scope.pickedCards.length === 2) {
-						//delay and send
+            //delay and send
             $scope.hasPickedCards = true;
             $timeout($scope.sendPickedCards, 300);
           }
@@ -33,7 +35,8 @@ angular.module('mean.system')
     };
 
     $scope.pointerCursorStyle = () => {
-      if ($scope.isCzar() && $scope.game.state === 'waiting for czar to decide') {
+      if ($scope.isCzar() && $scope.game.state === 
+          'waiting for czar to decide') {
         return { 'cursor': 'pointer' };
       } else {
         return {};
@@ -78,11 +81,13 @@ angular.module('mean.system')
     };
 
     $scope.showFirst = (card) => {
-      return game.curQuestion.numAnswers > 1 && $scope.pickedCards[0] === card.id;
+      return game.curQuestion.numAnswers > 1 && 
+        $scope.pickedCards[0] === card.id;
     };
 
     $scope.showSecond = (card) => {
-      return game.curQuestion.numAnswers > 1 && $scope.pickedCards[1] === card.id;
+      return game.curQuestion.numAnswers > 1 && 
+        $scope.pickedCards[1] === card.id;
     };
 
     $scope.isCzar = () => {
@@ -125,11 +130,11 @@ angular.module('mean.system')
     };
 
     $scope.startGame = () => {
-      const element = angular.element('#alertModal');
+      const minimumAlert = angular.element('#alertModal');
       if (game.players.length >= game.playerMinLimit) {
         game.startGame();
       } else {
-        element.modal('show');
+        minimumAlert.modal('show');
       }
     };
 
@@ -138,8 +143,8 @@ angular.module('mean.system')
       $location.path('/');
     };
 
-		// Catches changes to round to update when no players pick card
-		// (because game.state remains the same)
+    // Catches changes to round to update when no players pick card
+    // (because game.state remains the same)
     $scope.$watch('game.round', () => {
       $scope.hasPickedCards = false;
       $scope.showTable = false;
@@ -151,11 +156,12 @@ angular.module('mean.system')
       $scope.pickedCards = [];
     });
 
-		// In case player doesn't pick a card in time, show the table
+    // In case player doesn't pick a card in time, show the table
     $scope.$watch('game.state', () => {
-      if (game.state === 'waiting for czar to decide' && $scope.showTable === false) {
+      if (game.state === 'waiting for czar to decide' && 
+          $scope.showTable === false) {
         $scope.showTable = true;
-		   }
+      }
     });
 
     $scope.$watch('game.gameID', () => {
@@ -172,7 +178,9 @@ angular.module('mean.system')
           if (!$scope.modalShown) {
             setTimeout(() => {
               $scope.link = document.URL;
-              $('#lobby-how-to-play').html('<button class="btn btn-info btn-lg" data-toggle="modal" data-target="#inviteModal">Invite Friends</button>');
+              $('#lobby-how-to-play').html('<button class='+
+                '"btn btn-info btn-lg" data-toggle="modal" '+
+                'data-target="#inviteModal">Invite Friends</button>');
             }, 200);
             $scope.modalShown = true;
           }
@@ -181,7 +189,6 @@ angular.module('mean.system')
     });
 
     if ($location.search().game && !(/^\d+$/).test($location.search().game)) {
-      console.log('joining custom game');
       game.joinGame('joinGame', $location.search().game);
     } else if ($location.search().custom) {
       game.joinGame('joinGame', null, true);
@@ -198,8 +205,8 @@ angular.module('mean.system')
     };
 
     $scope.sendInvite = (email, name) => {
-      const element = angular.element('#alertInviteModal');
-      const elementExist = angular.element('#alertExistModal');
+      const inviteAlert = angular.element('#alertInviteModal');
+      const nameExistAlert = angular.element('#alertExistModal');
       if ($scope.numberOfInvite <= game.playerMaxLimit) {
         if ($scope.invitedPlayersList.indexOf(email) === -1) {
           $scope.invitedPlayersList.push(email);
@@ -207,19 +214,15 @@ angular.module('mean.system')
             { 'email': email, 'name': name, 'link': document.URL });
           $scope.numberOfInvite += 1;
         } else {
-          elementExist.modal('show');
+          nameExistAlert.modal('show');
         }
       } else {
-        element.modal('show');
+        inviteAlert.modal('show');
       }
     };
 
     $scope.checkPlayer = (email) => {
-      if ($scope.invitedPlayersList.indexOf(email) === -1) {
-        return true;
-      } else {
-        return false;
-      }
+      return ($scope.invitedPlayersList.indexOf(email) === -1);
     };
 
   }]);
