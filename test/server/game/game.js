@@ -8,8 +8,9 @@ const options = {
   transports: ['websocket'],
   'force new connection': true
 };
+
 describe("Game Server", function () {
-	it('Should accept requests to joinGame', function (done) {
+  it('Should accept requests to joinGame', function (done) {
     const client1 = io.connect(socketURL, options);
     const disconnect = function () {
       client1.disconnect();
@@ -18,7 +19,7 @@ describe("Game Server", function () {
     client1.on('connect', function (data) {
       client1.emit('joinGame', { userID: 'unauthenticated', room: '', createPrivate: false });
       setTimeout(disconnect, 200);
-   });
+    });
     done();
   });
 
@@ -46,7 +47,7 @@ describe("Game Server", function () {
       });
       setTimeout(disconnect, 200);
     });
-      done();
+    done();
   });
 
   it('Should announce new user to all users', function (done) {
