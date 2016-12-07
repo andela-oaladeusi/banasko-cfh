@@ -23,12 +23,12 @@ module.exports = function (io) {
     socket.on('pickCards', function (data) {
       if (allGames[socket.gameID]) {
         allGames[socket.gameID].pickCards(data.cards, socket.id);
+
     socket.emit('id', {id: socket.id});
 
     socket.on('pickCards', function(data) {
       if (allGames[socket.gameID]) {
         allGames[socket.gameID].pickCards(data.cards,socket.id);
-      } else {
       }
     });
 
@@ -36,6 +36,7 @@ module.exports = function (io) {
       if (allGames[socket.gameID]) {
         allGames[socket.gameID].pickWinning(data.card, socket.id);
       } else {
+        allGames[socket.gameID].pickWinning(data.card,socket.id);
       }
     });
 
