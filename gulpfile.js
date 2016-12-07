@@ -7,125 +7,130 @@ const mocha = require('gulp-mocha');
 const bower = require('gulp-bower');
 const istanbul = require('gulp-istanbul');
 const nodemon = require('gulp-nodemon');
-const livereload = require('gulp-livereload');
-const bSync = require('browser-sync').create();
+const browserSync = require('browser-sync').create();
+const reload = browserSync.reload;
 
 require('dotenv').config();
-const PORT = process.env.PORT;
+const port = process.env.PORT;
+const nodeEnv = process.env.NODE_ENV;
 
-// Get all paths
-const PATHS = {
+// GET PATHS TO STATIC FILES
+const paths = {
     scripts: ['public/js/**/*.js', 'app/**/*.js'],
-    test: ['test/server/**/*.js'],
     jade: ['app/views/**/*.jade'],
-    html: ['public/views/*.html'],
-    scss: ['public/css/common.scss'],
-    css: ['public/css/*.css']
+    public: ['public/**/*.*'],
+    scss: ['public/css/*.scss'],
+    cssDest: 'public/css/'
 };
 
-// Get destination directories
-const CSSDEST = 'public/css/';
+// BOWER - Move bower dependencies to public folder
+// SASS - Compile sass files to css
+// INJECT - Inject static files into app
+// LINT - Verify js files for errors
+// PRETEST - Before running test, setup reporters
+// TEST - Run tests
+// NODEMON - Run server file
+// SERVE - Launch development server
+// WATCH - Listen for static file changes and reload
+// DEFAULT TASKS - tasks as soon as gulp is started
 
-// Watch files
-gulp.task('watch', () => {
-  gulp.watch(PATHS.jade).on('change', bSync.reload);
-  gulp.watch(PATHS.scripts).on('change', bSync.reload);
-  gulp.watch(PATHS.html).on('change', bSync.reload);
-  gulp.watch(PATHS.sass, ['sass']);
-  gulp.watch(PATHS.css, bSync.reload);
-});
-
-// Lint scripts
-gulp.task('lint', () => {
-return gulp.src(PATHS.scripts)
-  .pipe(jshint())
-  .pipe(jshint.reporter('jshint-stylish', {
-    verbose: true
-  }));
-});
-
-// Synchronise with browser for auto reload
-gulp.task('bSync', ['nodemon'], () => {
-  bSync.init({
-    proxy: 'localhost:'+ PORT,
-    files: ['public/**/*.*'],
-    port: 5000,
-    ui: {
-      port: 5001
-    },
-    reloadOnRestart: true,
-  });
-});
-
-gulp.task('reload', function () {
-    console.log('reload');
-    livereload();
-});
-
-// NODEMON
-gulp.task('nodemon', function (cb) {
-  let started = false;
-
-  return nodemon({
-    script: 'server.js'
-  }).on('start', function () {
-    // Callback used to ensure browser-sync does not start before nodemon
-    if (!started) {
-      cb();
-      started = true;
-    }
-  });
-});
-
-// Pre-test
-gulp.task('preTest', () => {
-  return gulp.src(PATHS.test)
-    .pipe(istanbul({includeUntested: true}))
-    .pipe(istanbul.hookRequire());
-});
-
-// Mocha-test
-gulp.task('mochaTest', ['preTest'], () => {
-  const options = {
-    dir: './coverage',
-    reporters: [ 'lcov' ],
-    reportOpts: {
-      dir: './coverage'
-    },
-  };
-
-  return gulp.src(PATHS.test)
-      .pipe(mocha({reporter: 'spec'}))
-      .pipe(istanbul.writeReports(options))
-      .on('end', () => {
-          process.exit();
-      });
-});
-
-// Sass
-gulp.task('sass', () => {
-  const options = {
-    outputStyle: 'compressed'
-  };
-
-  return gulp.src(PATHS.scss)
-    .pipe(sass(options).on('error', sass.logError))
-    .pipe(gulp.dest(CSSDEST));
-});
-
-// Bower
+// BOWER
 gulp.task('bower', () => {
   return bower('./bower_components')
     .pipe(gulp.dest('public/lib'));
 });
 
-// REGISTER DEFAULTS
+// SASS
+gulp.task('sass', () => {
+  const options = {
+    outputStyle: 'compressed'
+  };
 
-// default - ['jshint', 'bSync', 'watch', 'sass']
-gulp.task('default', ['lint', 'bSync', 'watch', 'sass']);
+  return gulp.src(paths.scss)
+    .pipe(sass(options).on('error', sass.logError))
+    .pipe(gulp.dest(paths.cssDest))
+    .pipe(browserSync.stream());
+});
 
-// test - ['mochatest']
-gulp.task('test', ['mochaTest']);
+// LINT
+gulp.task('lint', () => {
+  return gulp.src(paths.scripts)
+    .pipe(jshint('.jshintrc'))
+    .pipe(jshint.reporter('jshint-stylish'));
+});
 
-// install - ['bower']
-gulp.task('install', ['bower']);
+// PRETEST
+gulp.task('pretest', () => {
+  const options = {
+    includeUntested: true
+  };
+
+  return gulp.src(['test/**/*.js'])
+    .pipe(istanbul(options))
+    .pipe(istanbul.hookRequire());
+});
+
+// TEST
+gulp.task('test', ['pretest'], () => {
+  const options = {
+    istanbulOptions: {
+      dir: './coverage',
+      reporters: ['lcov'],
+      reportOpts: { dir: './coverage' }
+    },
+    mochaOptions: {
+      reporter: 'spec'
+    }
+  };
+
+  return gulp.src(['test/server/**/*.js'], {read: false})
+    .pipe(mocha(options.mochaOptions))
+    .pipe(istanbul.writeReports(options.istanbulOptions))
+    .once('error', () => { process.exit(1); })
+    .once('end', () => { process.exit(); });
+});
+
+// NODEMON
+gulp.task('nodemon', function (cb) {
+  let started = false;
+  const options = {
+    script: 'server.js',
+    env: { 'NODE_ENV': nodeEnv }
+  };
+
+  nodemon(options)
+    .on('start', function () {
+      // Callback used to ensure browser-sync
+      // does not start before nodemon
+      if (!started) {
+        cb();
+        started = true;
+      }
+    });
+});
+
+// SERVE
+gulp.task('serve', ['nodemon'], () => {
+  const options = {
+    proxy: 'localhost:' + port,
+    files: ['public/**/*.*'],
+    port: 5000
+  };
+
+  browserSync.init(options);
+});
+
+// WATCH
+gulp.task('watch', () => {
+  // Watch Sass Files
+  gulp.watch(paths.scss, ['sass']);
+
+  // watch view files
+  gulp.watch(paths.public).on('change', reload);
+
+  // watch jade files
+  gulp.watch(paths.jade).on('change', reload);
+});
+
+// DEFAULT
+gulp.task('default', ['serve', 'sass', 'watch']);
