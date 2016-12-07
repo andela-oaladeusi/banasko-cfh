@@ -46,25 +46,25 @@ var validatePresenceOf = function (value) {
 
 // the below 4 validations only apply if you are signing up traditionally
 UserSchema.path('name').validate(function (name) {
-	// if you are authenticating by any of the oauth strategies, don't validate
+  // if you are authenticating by any of the oauth strategies, don't validate
   if (authTypes.indexOf(this.provider) !== -1) return true;
   return name.length;
 }, 'Name cannot be blank');
 
 UserSchema.path('email').validate(function (email) {
-	// if you are authenticating by any of the oauth strategies, don't validate
+  // if you are authenticating by any of the oauth strategies, don't validate
   if (authTypes.indexOf(this.provider) !== -1) return true;
   return email.length;
 }, 'Email cannot be blank');
 
 UserSchema.path('username').validate(function (username) {
-	// if you are authenticating by any of the oauth strategies, don't validate
+  // if you are authenticating by any of the oauth strategies, don't validate
   if (authTypes.indexOf(this.provider) !== -1) return true;
   return username.length;
 }, 'Username cannot be blank');
 
 UserSchema.path('hashed_password').validate(function (hashed_password) {
-	// if you are authenticating by any of the oauth strategies, don't validate
+  // if you are authenticating by any of the oauth strategies, don't validate
   if (authTypes.indexOf(this.provider) !== -1) return true;
   return hashed_password.length;
 }, 'Password cannot be blank');
@@ -100,13 +100,13 @@ UserSchema.methods = {
     return bcrypt.compareSync(plainText, this.hashed_password);
   },
 
-	/**
-	 * Encrypt password
-	 *
-	 * @param {String} password
-	 * @return {String}
-	 * @api public
-	 */
+  /**
+   * Encrypt password
+   *
+   * @param {String} password
+   * @return {String}
+   * @api public
+   */
   encryptPassword: function (password) {
     if (!password) return '';
     return bcrypt.hashSync(password, bcrypt.genSaltSync(10));

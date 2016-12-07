@@ -6,9 +6,6 @@ c4h_keys.txt
 jasmine
 coverage
 bower_components
-<<<<<<< 6c110f6c8ec9298975d70e4a908569c9af57f5aa
 npm-debug.log
-=======
 .vscode
 .env
->>>>>>> Remove Console.log

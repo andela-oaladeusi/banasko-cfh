@@ -1,8 +1,8 @@
 'use strict';
 angular.module('mean.system')
-  .controller('GameController', ['$scope', '$http', 'game', 
-    '$timeout', '$location', 'MakeAWishFactsService', '$dialog',
-     ($scope, $http, game, $timeout, $location, MakeAWishFactsService) => {
+  .controller('GameController', ['$scope', '$http','game', 
+    '$timeout', 'searchService','sendEmail', '$location', 'MakeAWishFactsService', '$dialog',
+     ($scope, $http, game, $timeout, searchService, sendEmail, $location, MakeAWishFactsService) => {
     $scope.hasPickedCards = false;
     $scope.winningCardPicked = false;
     $scope.showTable = false;
@@ -164,8 +164,6 @@ angular.module('mean.system')
       }
     });
 
-
-
     $scope.$watch('game.gameID', () => {
       if (game.gameID && game.state === 'awaiting players') {
         if (!$scope.isCustomGame() && $location.search().game) {
@@ -173,7 +171,8 @@ angular.module('mean.system')
           // reset the URL so they don't think they're in the requested room.
           $location.search({});
         } else if ($scope.isCustomGame() && !$location.search().game) {
-          // Once the game ID is set, update the URL if this is a game with friends,
+          // Once the game ID is set,
+          // update the URL if this is a game with friends,
           // where the link is meant to be shared.
           $location.search({ game: game.gameID });
           if (!$scope.modalShown) {
@@ -199,37 +198,35 @@ angular.module('mean.system')
 
     $scope.searchDB = (searchString) => {
       $scope.searchResult = [];
-      $http.get('/api/search/users/' + searchString)
-        .success((res) => {
-          $scope.items = res;
+      searchService(searchString)
+        .then((data) => {
+            $scope.items = data;
         });
-		};
-		
+    };
+
     $scope.sendInvite = (email, name) => {
       const inviteAlert = angular.element('#alertInviteModal');
       const nameExistAlert = angular.element('#alertExistModal');
+      const emailSent = angular.element('#emailSent');
+
       if ($scope.numberOfInvite <= game.playerMaxLimit) {
         if ($scope.invitedPlayersList.indexOf(email) === -1) {
           $scope.invitedPlayersList.push(email);
-          console.log($scope.invitedPlayersList);
-          $http.post('/api/send/user-invite', { 'email': email, 'name': name, 'link': document.URL })
-            .success((res) => {
-              console.log(res);
-            })
-            .error((err) => {
-              console.log(err);
+          sendEmail(email, name, document.URL)
+            .then((data) => {
+              emailSent.modal('show');
             });
           $scope.numberOfInvite += 1;
-          console.log($scope.numberOfInvite);
         } else {
           nameExistAlert.modal('show');
         }
       } else {
-        inviteAlert.modal('show');
-      }
+          inviteAlert.modal('show');
+        }
     };
 
     $scope.checkPlayer = (email) => {
-      return ($scope.invitedPlayersList.indexOf(email) === -1);
+      return $scope.invitedPlayersList.includes(email);
     };
+
   }]);

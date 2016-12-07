@@ -8,6 +8,7 @@ var User = mongoose.model('User');
 var avatars = require(__dirname + '/../../app/controllers/avatars.js').all();
 // Valid characters to use to generate random private game IDs
 var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+
 module.exports = function (io) {
 
   var game;
@@ -28,7 +29,7 @@ module.exports = function (io) {
     socket.on('pickWinning', function (data) {
       if (allGames[socket.gameID]) {
         allGames[socket.gameID].pickWinning(data.card, socket.id);
-      } 
+      }
     });
 
     socket.on('joinGame', function (data) {

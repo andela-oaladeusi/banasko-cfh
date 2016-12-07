@@ -40,7 +40,8 @@ function Game(gameID, io) {
     stateResults: 6
   };
   // setTimeout ID that triggers the czar judging state
-  // Used to automatically run czar judging if players don't pick before time limit
+  // Used to automatically run czar judging 
+  // if players don't pick before time limit
   // Gets cleared if players finish picking before time limit.
   this.choosingTimeout = 0;
   // setTimeout ID that triggers the result state
@@ -377,7 +378,8 @@ Game.prototype.removePlayer = function (thisPlayer) {
         this.pickWinning(this.table[0].card[0].id, thisPlayer, true);
       }
     } else {
-      // Update the czar's position if the removed player is above the current czar
+      // Update the czar's position if 
+      // the removed player is above the current czar
       if (playerIndex < this.czar) {
         this.czar--;
       }
