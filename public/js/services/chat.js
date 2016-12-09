@@ -4,6 +4,7 @@ angular.module('mean.system')
   .constant('FIRE_BASE_URL', 'https://cfh-group-chat.firebaseio.com')
   .factory('Chat', ['FIRE_BASE_URL', function (FIRE_BASE_URL) {
 
+
     /** ChatService class
      *  @class
      */
@@ -52,7 +53,6 @@ angular.module('mean.system')
       setUsername(username) {
         this.username = username;
       }
-
 
       /** 
        * listens for incoming messages.
