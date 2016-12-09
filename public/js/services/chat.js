@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('mean.system')
+
   .constant('FIRE_BASE_URL', 'https://cfh-group-chat.firebaseio.com')
   .factory('Chat', ['FIRE_BASE_URL', function (FIRE_BASE_URL) {
 
@@ -35,6 +36,7 @@ angular.module('mean.system')
         this.db.child(this.gameId).remove();
       }
 
+
       /** 
        * Sets game id.
        * @params {String}
@@ -51,6 +53,7 @@ angular.module('mean.system')
       setUsername(username) {
         this.username = username;
       }
+
 
       /** 
        * listens for incoming messages.
@@ -79,13 +82,14 @@ angular.module('mean.system')
       }
 
       /** 
-       * Sets user avatar.
-       * @void 
+       * sets user avatar
+       * @void {String}
        */
       setAvatar(avatar) {
         this.avatar = avatar;
       }
     }
+    
     //instantiating a new ChatService
     const chat = new ChatService();
     return chat;

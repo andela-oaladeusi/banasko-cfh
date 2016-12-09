@@ -7,6 +7,7 @@ angular.module('mean.system')
       $scope.chatWindow = false;
       $scope.form = {};
 
+
       /** 
        * Checks if chat message is from the user.
        * @param{String} username of the user
@@ -42,7 +43,6 @@ angular.module('mean.system')
         const element = document.getElementById('chat-body');
         if (element) {
           setTimeout(function () {
-            element.scrollTop = element.scrollHeight;
             element.scrollTop = element.scrollHeight;
           }, 100);
         }
