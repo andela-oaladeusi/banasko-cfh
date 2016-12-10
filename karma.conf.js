@@ -24,8 +24,6 @@ module.exports = function(config) {
       'public/js/app.js',
       'test/client/**/*.js',
       'test/client/*.js',
-      'jasmine/spec/**/*.js',
-      'public/js/**/*.js',
     ],
 
 
@@ -76,7 +74,7 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false,
+    singleRun: true,
 
     // Concurrency level
     // how many browser should be started simultaneous

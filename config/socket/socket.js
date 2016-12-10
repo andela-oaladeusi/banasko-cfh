@@ -23,12 +23,19 @@ module.exports = function (io) {
     socket.on('pickCards', function (data) {
       if (allGames[socket.gameID]) {
         allGames[socket.gameID].pickCards(data.cards, socket.id);
+    socket.emit('id', {id: socket.id});
+
+    socket.on('pickCards', function(data) {
+      if (allGames[socket.gameID]) {
+        allGames[socket.gameID].pickCards(data.cards,socket.id);
+      } else {
       }
     });
 
     socket.on('pickWinning', function (data) {
       if (allGames[socket.gameID]) {
         allGames[socket.gameID].pickWinning(data.card, socket.id);
+      } else {
       }
     });
 
@@ -64,10 +71,10 @@ module.exports = function (io) {
       exitGame(socket);
     });
 
-    socket.on('disconnect', function () {
+    socket.on('disconnect', function(){
       exitGame(socket);
     });
-  });
+
 
   const joinGame = function(socket,data) {
     const player = new Player(socket);
@@ -99,6 +106,7 @@ module.exports = function (io) {
       getGame(player, socket, data.room, data.createPrivate);
     }
   };
+
 
   const getGame = function(player,socket,requestedGameId,createPrivate) {
     requestedGameId = requestedGameId || '';
