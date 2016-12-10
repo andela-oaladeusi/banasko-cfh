@@ -45,7 +45,6 @@ angular.module('mean.system')
         this.gameId = id;
       }
 
-
       /** 
        *  Sets current username.
        *  @params {String} username of user 

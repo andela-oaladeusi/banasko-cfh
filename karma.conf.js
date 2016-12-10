@@ -24,8 +24,6 @@ module.exports = function(config) {
       'public/js/app.js',
       'test/client/**/*.js',
       'test/client/*.js',
-      'public/js/**/*.js',
-      'public/js/app.js'
     ],
 
 
