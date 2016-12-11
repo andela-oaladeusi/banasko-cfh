@@ -25,8 +25,13 @@ describe('Signup Authentication', () => {
       .send(user)
       .end((err, res) => {
         res.body
+<<<<<<< 2ec7aa33890aa11e3efd680b9c0442a05060daf5
           .should.have.property('message')
           .eql('Email, Username & Password and Name required');
+=======
+           .should.have.property('message')
+           .eql('Email, Username & Password and Name required');
+>>>>>>> feature(jwt-tokens): Ensure that username is unique on signup
         res.should.have.status(400);
         done();
       });
@@ -110,7 +115,11 @@ describe('Signup Authentication', () => {
       .send(user)
       .end((err, res) => {
         res.body
+<<<<<<< 2ec7aa33890aa11e3efd680b9c0442a05060daf5
           .should.have.property('message').eql('This username already exists!');
+=======
+          .should.have.property('message').eql('This username is taken!');
+>>>>>>> feature(jwt-tokens): Ensure that username is unique on signup
         res.should.have.status(409);
         done();
       });
