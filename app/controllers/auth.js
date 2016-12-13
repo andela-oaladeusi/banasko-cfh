@@ -18,6 +18,7 @@ const errorHandler = (res, message, status) => {
 exports.signUp = (req, res) => {
   const body = req.body;
   if (body.username && body.name && body.password && body.email) {
+    console.log('User details obtained');
     if ((body.password.trim().length >= 8) && validate.isEmail(body.email) &&
       validate.isAlpha(body.username) && !validate.isEmpty(body.name)) {
       let user = new User({
@@ -29,6 +30,7 @@ exports.signUp = (req, res) => {
       });
       user.save((err, saveUser) => {
         if (err) {
+<<<<<<< 7c3f249efcfbc389ffca9c7a9e30388fd3632093
           if ((err.err).includes('username')) {
             errorHandler(res, 'This username already exists!', 409);
           } else if ((err.err).includes('email')) {
@@ -36,6 +38,15 @@ exports.signUp = (req, res) => {
           } else {
             errorHandler(res, 'Unable to identify error source', 400);
           }
+=======
+           if((err.err).includes('username')){
+               errorHandler(res, 'This username already exists!', 409);
+           } else if((err.err).includes('email')){
+                 errorHandler(res, 'This email already exists!', 409);
+           }else {
+               errorHandler(res, 'Unable to identify error source', 400);
+           }
+>>>>>>> feature(jwt-tokens): Refactor database validation
         } else {
           let token = jwt.sign({
             userId: saveUser._id,
@@ -50,10 +61,10 @@ exports.signUp = (req, res) => {
       });
     } else {
       errorHandler(res, 'Email, Username & Password and Name required', 400);
-    }
+    };
   } else {
     errorHandler(res, 'Email, Username & Password and Name required', 400);
-  }
+  };
 };
 
 
