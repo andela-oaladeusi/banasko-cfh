@@ -13,7 +13,11 @@ describe('Login Authentication', () => {
     const user = new User();
     user.name = 'test';
     user.username = 'testUser';
+<<<<<<< 57d823946a2ee3df6d4f0d49d256fbb8658495df
     user.email = 'testUser@user.com';
+=======
+    user.email = 'testUser@user.com'
+>>>>>>> Update tests to new User model
     user.password = 'testUser1';
     user.save(() => {
       done();
