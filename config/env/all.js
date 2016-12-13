@@ -1,5 +1,5 @@
-'use strict';
 
+'use strict';
 const path = require('path');
 const rootPath = path.normalize(__dirname + '/../..');
 

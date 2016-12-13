@@ -3,8 +3,9 @@ public/lib
 .sass-cache/
 .DS_store
 c4h_keys.txt
-.env
 jasmine
 coverage
 bower_components
 npm-debug.log
+.vscode
+.env
