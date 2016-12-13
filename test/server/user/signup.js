@@ -115,11 +115,15 @@ describe('Signup Authentication', () => {
       .send(user)
       .end((err, res) => {
         res.body
+<<<<<<< 57d823946a2ee3df6d4f0d49d256fbb8658495df
 <<<<<<< 2ec7aa33890aa11e3efd680b9c0442a05060daf5
           .should.have.property('message').eql('This username already exists!');
 =======
           .should.have.property('message').eql('This username is taken!');
 >>>>>>> feature(jwt-tokens): Ensure that username is unique on signup
+=======
+          .should.have.property('message').eql('This username already exists!');
+>>>>>>> Update tests to new User model
         res.should.have.status(409);
         done();
       });
