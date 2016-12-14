@@ -19,7 +19,7 @@ const paths = {
     scripts: ['public/js/**/*.js', 'app/**/*.js'],
     jade: ['app/views/**/*.jade'],
     public: ['public/**/*.*'],
-    scss: ['public/css/*.scss'],
+    scss: ['public/css/sass/*.scss'],
     cssDest: 'public/css/'
 };
 
