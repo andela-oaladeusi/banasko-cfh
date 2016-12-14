@@ -11,7 +11,9 @@ const should = chai.should;
 describe('Login Authentication', () => {
   before(function (done) {
     const user = new User();
-    user.username = 'testUser@user.com';
+    user.name = 'test';
+    user.username = 'testUser';
+    user.email = 'testUser@user.com';
     user.password = 'testUser1';
     user.save(() => {
       done();
@@ -19,7 +21,7 @@ describe('Login Authentication', () => {
   });
   after((done) => {
     User.remove({}, (err) => {
-      if(err) {
+      if (err) {
         throw err;
       }
       done();
@@ -29,7 +31,7 @@ describe('Login Authentication', () => {
     it('should return an error on the wrong username or password login',
       (done) => {
         const user = {
-          username: 'user1',
+          email: 'testUser1@user.com',
           password: 'password'
         };
         chai.request(server)
@@ -46,9 +48,11 @@ describe('Login Authentication', () => {
       });
   });
 
-  it('should return JWT on successful login', function (done) {
+  it('should return JWT on successful login', (done)  => {
     const user = {
-      username: 'testUser@user.com',
+      name : 'test',
+      username: 'testUser',
+      email: 'testUser@user.com',
       password: 'testUser1'
     };
 

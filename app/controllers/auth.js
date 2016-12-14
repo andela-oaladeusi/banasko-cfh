@@ -7,65 +7,55 @@ const config = require('../../config/config');
 const validate = require('validator');
 const User = mongoose.model('User');
 
-exports.signUp = (req, res) => {
-  const name = req.body.name;
-  const username = req.body.username;
-  const email = req.body.email;
-  const pwd = req.body.password;
-  const avatar = req.body.avatar;
 
-  User.findOne({
-    email: email
-  }, function (err, registerUser) {
-    if (err) {
-      res.send(err);
-    }
-    if (!registerUser) {
-      if (name && email && pwd) {
-        if ((pwd.trim().length) < 8 || !validate.isEmail(email) ||
-          !validate.isAlpha(name)) {
-          res.status(400).json({
-            success: false,
-            message: 'Invalid details provided.'
-          });
-        } else {
-          let user = new User({
-            name: name,
-            username: username,
-            email: email,
-            password: pwd,
-            avatar: avatar
-          });
-
-          user.save((err, saveUser) => {
-            if (err) {
-              res.send(err);
-            }
-            let token = jwt.sign({
-              userId: saveUser._id,
-              expiresInMinutes: moments().day(7)
-            }, config.secret);
-            res.status(201).json({
-              success: true,
-              message: 'Thank you for signing up!',
-              token: token
-            });
-          });
-        }
-      } else {
-        res.status(400).json({
-          success: false,
-          message: 'Incomplete SignUp Details Provided.'
-        });
-      }
-    } else {
-      res.status(409).json({
-        success: false,
-        message: 'User already exists!'
-      });
-    }
+const errorHandler = (res, message, status) => {
+  return res.status(status).json({
+    success: false,
+    message: message
   });
 };
+
+exports.signUp = (req, res) => {
+  const body = req.body;
+  if (body.username && body.name && body.password && body.email) {
+    if ((body.password.trim().length >= 8) && validate.isEmail(body.email) &&
+      validate.isAlpha(body.username) && !validate.isEmpty(body.name)) {
+      let user = new User({
+        name: body.name,
+        username: body.username,
+        email: body.email,
+        password: body.password,
+        avatar: body.avatar
+      });
+      user.save((err, saveUser) => {
+        if (err) {
+          if ((err.err).includes('username')) {
+            errorHandler(res, 'This username already exists!', 409);
+          } else if ((err.err).includes('email')) {
+            errorHandler(res, 'This email already exists!', 409);
+          } else {
+            errorHandler(res, 'Unable to identify error source', 400);
+          }
+        } else {
+          let token = jwt.sign({
+            userId: saveUser._id,
+            expiresInMinutes: moments().day(7)
+          }, config.secret);
+          res.status(201).json({
+            success: true,
+            message: 'Thank you for signing up!',
+            token: token
+          });
+        }
+      });
+    } else {
+      errorHandler(res, 'Email, Username & Password and Name required', 400);
+    }
+  } else {
+    errorHandler(res, 'Email, Username & Password and Name required', 400);
+  }
+};
+
 
 exports.login = (req, res) => {
   const body = req.body;

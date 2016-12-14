@@ -2,37 +2,48 @@
 /**
  * Module dependencies.
  */
-var mongoose = require('mongoose'),
-  Schema = mongoose.Schema,
-  bcrypt = require('bcryptjs'),
-  _ = require('underscore'),
-  authTypes = ['github', 'twitter', 'facebook', 'google'];
-
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const bcrypt = require('bcryptjs');
+const authTypes = ['github', 'twitter', 'facebook', 'google'];
 
 /**
  * User Schema
  */
 var UserSchema = new Schema({
-  name: String,
-  email: String,
-  username: String,
+  name: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    unique: true,
+    required: true
+  },
+  username: {
+    type: String,
+    unique: true,
+    required: true
+  },
   provider: String,
   avatar: String,
   premium: Number, // null or 0 for non-donors, 1 for everyone else (for now)
   donations: [],
-  hashed_password: String,
+  hashedPassword: String,
   facebook: {},
   twitter: {},
   github: {},
   google: {}
 });
 
+
+
 /**
  * Virtuals
  */
 UserSchema.virtual('password').set(function (password) {
   this._password = password;
-  this.hashed_password = this.encryptPassword(password);
+  this.hashedPassword = this.encryptPassword(password);
 }).get(function () {
   return this._password;
 });
@@ -63,10 +74,10 @@ UserSchema.path('username').validate(function (username) {
   return username.length;
 }, 'Username cannot be blank');
 
-UserSchema.path('hashed_password').validate(function (hashed_password) {
+UserSchema.path('hashedPassword').validate(function (hashedPassword) {
   // if you are authenticating by any of the oauth strategies, don't validate
   if (authTypes.indexOf(this.provider) !== -1) return true;
-  return hashed_password.length;
+  return hashedPassword.length;
 }, 'Password cannot be blank');
 
 
@@ -75,11 +86,11 @@ UserSchema.path('hashed_password').validate(function (hashed_password) {
  */
 UserSchema.pre('save', function (next) {
   if (!this.isNew) return next();
-
-  if (!validatePresenceOf(this.password) && authTypes.indexOf(this.provider) === -1)
+  if (!validatePresenceOf(this.password) && authTypes.indexOf(this.provider) === -1) {
     next(new Error('Invalid password'));
-  else
+  } else {
     next();
+  }
 });
 
 /**
@@ -92,12 +103,12 @@ UserSchema.methods = {
    * @param {String} plainText
    * @return {Boolean}
    * @api public
-  */
+   */
   authenticate: function (plainText) {
-    if (!plainText || !this.hashed_password) {
+    if (!plainText || !this.hashedPassword) {
       return false;
     }
-    return bcrypt.compareSync(plainText, this.hashed_password);
+    return bcrypt.compareSync(plainText, this.hashedPassword);
   },
 
   /**
