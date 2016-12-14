@@ -1,6 +1,7 @@
 'use strict';
 angular.module('mean.system')
-  .factory('game', ['socket', '$timeout', function (socket, $timeout) {
+  .factory('game', ['socket', '$timeout','$http',
+   function (socket, $timeout, $http) {
     let game = {
       id: null, // This player's socket ID, so we know who this player is
       gameID: null,
@@ -36,13 +37,13 @@ angular.module('mean.system')
     };
     let setNotification = () => {
       // If notificationQueue is empty, stop
-      if (notificationQueue.length === 0) { 
+      if (notificationQueue.length === 0) {
         clearInterval(timeout);
         timeout = false;
         game.notification = '';
       } else {
         // Show a notification and check again in a bit
-        game.notification = notificationQueue.shift(); 
+        game.notification = notificationQueue.shift();
         timeout = $timeout(setNotification, 1300);
       }
     };
@@ -115,9 +116,9 @@ angular.module('mean.system')
         game.table = [];
       } else {
         let added = _.difference(_.pluck(data.table, 'player'),
-           _.pluck(game.table, 'player'));
+          _.pluck(game.table, 'player'));
         let removed = _.difference(_.pluck(game.table, 'player'),
-           _.pluck(data.table, 'player'));
+          _.pluck(data.table, 'player'));
         for (i = 0; i < added.length; i++) {
           for (let j = 0; j < data.table.length; j++) {
             if (added[i] === data.table[j].player) {
@@ -134,8 +135,8 @@ angular.module('mean.system')
         }
       }
 
-      if (game.state !== 'waiting for players to pick' || 
-          game.players.length !== data.players.length) {
+      if (game.state !== 'waiting for players to pick' ||
+        game.players.length !== data.players.length) {
         game.players = data.players;
       }
 
@@ -172,8 +173,29 @@ angular.module('mean.system')
         joinOverrideTimeout = $timeout(function () {
           game.joinOverride = true;
         }, 15000);
-      } else if (data.state === 'game dissolved' || 
-          data.state === 'game ended') {
+      } else if (data.state === 'game dissolved' ||
+        data.state === 'game ended') {
+        if (data.state === 'game ended') {
+          $http({
+              method: 'POST',
+              url: `/api/games/${game.gameID}/end`,
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              data: {
+                gameID: game.gameID,
+                completed: true,
+                rounds: game.round,
+                winner: game.players[game.gameWinner].username
+              }
+            })
+            .success(function (res) {
+              return res;
+            })
+            .error(function (err) {
+              return err;
+            });
+        }
         game.players[game.playerIndex].hand = [];
         game.time = 0;
       }
@@ -189,11 +211,40 @@ angular.module('mean.system')
       createPrivate = createPrivate || false;
       let userID = !!window.user ? user._id : 'unauthenticated';
       socket.emit(mode, {
-         userID: userID, room: room, createPrivate: createPrivate });
+        userID: userID,
+        room: room,
+        createPrivate: createPrivate
+      });
     };
 
     game.startGame = () => {
       socket.emit('startGame');
+    };
+
+    game.saveGame =  () => {
+      socket.emit('startGame');
+      if (window.user) {
+        $http({
+            method: 'POST',
+            url: `/api/games/${game.gameID}/start`,
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            data: {
+              gameID: game.gameID,
+              players: game.players,
+              completed: false,
+              rounds: 0,
+              winner: ''
+            }
+          })
+          .success(function (res) {
+            return res;
+          })
+          .error(function (err) {
+            return err;
+          });
+      }
     };
 
     game.leaveGame = () => {
@@ -203,11 +254,15 @@ angular.module('mean.system')
     };
 
     game.pickCards = (cards) => {
-      socket.emit('pickCards', { cards: cards });
+      socket.emit('pickCards', {
+        cards: cards
+      });
     };
 
     game.pickWinning = (card) => {
-      socket.emit('pickWinning', { card: card.id });
+      socket.emit('pickWinning', {
+        card: card.id
+      });
     };
 
     decrementTime();
