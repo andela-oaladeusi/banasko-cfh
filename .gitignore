@@ -1,4 +1,5 @@
 node_modules
+.env
 public/lib
 .sass-cache/
 .DS_store
@@ -8,4 +9,3 @@ coverage
 bower_components
 npm-debug.log
 .vscode
-.env
