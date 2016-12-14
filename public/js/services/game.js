@@ -1,3 +1,4 @@
+/*global _:true*/
 'use strict';
 angular.module('mean.system')
   .factory('game', ['socket', '$timeout', '$http',
@@ -18,6 +19,7 @@ angular.module('mean.system')
         state: null,
         round: 0,
         time: 0,
+        gameHistory: [],
         curQuestion: null,
         notification: null,
         timeLimits: {},
@@ -258,6 +260,28 @@ angular.module('mean.system')
         game.time = 0;
         socket.emit('leaveGame');
       };
+
+      game.gameHistory = () => {
+        socket.emit('viewGameHistory');
+        $http({
+              method: 'POST',
+              url: `/api/games/history`,
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              data: {
+                 username: window.user.name
+              }
+            })
+            .success(function (res) {
+              game.gameHistory = res;
+              return res;
+            })
+            .error(function (err) {
+              console.log('Game History Error')
+              return err;
+            });
+         };
 
       game.pickCards = (cards) => {
         socket.emit('pickCards', {
