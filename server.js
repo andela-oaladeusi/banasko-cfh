@@ -28,7 +28,7 @@ const mongoose = require('mongoose');
 
 
 //Bootstrap db connection
-mongoose.Promise = global.Promise;
+// mongoose.Promise = global.Promise;
 mongoose.connect(config.db);
 
 //Bootstrap models
