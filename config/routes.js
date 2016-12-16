@@ -110,4 +110,7 @@ module.exports = (app, passport) => {
   app.get('/api/games/:id', game.getGameRecords);
   app.post('/api/games/:id/start', game.saveRecords);
   app.post('/api/games/:id/end', game.updateRecords);
+
+  //GameHistory
+  app.get('/api/games/history', game.getUserHistory);
 };
