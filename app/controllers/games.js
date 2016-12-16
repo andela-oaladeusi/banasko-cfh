@@ -3,19 +3,19 @@
 /*
  * Module dependencies.
  */
-const mongoose = require('mongoose');
-const GameRecords = mongoose.model('Records');
+var mongoose = require('mongoose');
+var GameRecords = mongoose.model('Records');
 
 /*
  * Find Game Records by Gameid
  */
 exports.getGameRecords = (req, res) => {
-  const gameID = req.params.id;
+  var gameID = req.params.id;
   GameRecords.findOne({
     gameID: gameID
-  }, (err, savedGame) => {
-    if (err) {
-      return res.send(err);
+  }, (e, savedGame) => {
+    if (e) {
+      return res.send(e);
     }
     if (!savedGame) {
       return res.status(400).json({
@@ -32,23 +32,23 @@ exports.getGameRecords = (req, res) => {
  * Store Game Record
  */
 exports.saveRecords = (req, res) => {
-  const gameID = req.body.gameID;
-  const players = req.body.players;
-  const completed = req.body.completed;
-  const winner = req.body.winner;
-  const rounds = req.body.rounds;
+  var gameID = req.body.gameID;
+  var players = req.body.players;
+  var completed = req.body.completed;
+  var winner = req.body.winner;
+  var rounds = req.body.rounds;
 
-  const gameRecord = new GameRecords({
-    gameID,
+  var gameRecord = new GameRecords({
+      gameID,
     players,
-    completed,
+     completed,
     rounds,
     winner
   });
 
-  gameRecord.save((err, data) => {
-    if (err) {
-      return res.send(err);
+  gameRecord.save((e, data) => {
+    if (e {
+      return res.send(e);
     }
     return res.status(201).json({
       success: true,
@@ -64,10 +64,10 @@ exports.saveRecords = (req, res) => {
  */
 
 exports.updateRecords = (req, res) => {
-  const gameID = req.body.gameID;
-  const completed = req.body.completed;
-  const winner = req.body.winner;
-  const rounds = req.body.rounds;
+  var gameID = req.body.gameID;
+  var completed = req.body.completed;
+  var winner = req.body.winner;
+  var rounds = req.body.rounds;
 
   GameRecords.update({
     gameID: gameID
@@ -77,9 +77,9 @@ exports.updateRecords = (req, res) => {
       rounds: rounds,
       winner: winner
     }
-  }, (err, data) => {
+  }, (e, data) => {
     if (err) {
-      return res.send(err);
+      return res.send(e);
     }
     return res.status(201).json({
       success: true,

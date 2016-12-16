@@ -6,11 +6,10 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-
 /**
  * Game Record Schema
  */
-const record = new Schema({
+const HistorySchema = new Schema({
   gameID: String,
   players: [],
   completed: Boolean,
@@ -18,4 +17,4 @@ const record = new Schema({
   winner: String
 });
 
-module.exports = mongoose.model('Records', record);
+module.exports = mongoose.model('History', HistorySchema);
