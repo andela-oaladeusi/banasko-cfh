@@ -1,7 +1,7 @@
 <div class="pop-up-view">
 
   <!-- for list of invite -->
-  <div class="modal fade" id="inviteModal" tabindex="-1" 
+  <div class="modal fade" id="inviteModal" tabindex="-1"
     role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -14,8 +14,8 @@
         <div class="modal-body">
           <form>
             <div class="form-group">
-              <input type="text" class="form-control" id="search-query" 
-                placeholder="search users..." ng-model="searchString" 
+              <input type="text" class="form-control" id="search-query"
+                placeholder="search users..." ng-model="searchString"
                 ng-keypress="searchDB(searchString)">
             </div>
           </form>
@@ -26,7 +26,7 @@
                 <tr ng-repeat="i in items">
                   <td>{{i.name}} </td>
                   <td ng-if="!checkPlayer(i.email)" title="{{i.email}}">
-                    <button ng-click="sendInvite(i.email, i.name)" 
+                    <button ng-click="sendInvite(i.email, i.name)"
                       class="btn btn-info">Send Invite</button></td>
                   <td ng-if="checkPlayer(i.email)">
                     <button ng-disabled="true" class="btn btn-info">invite sent</button></td>

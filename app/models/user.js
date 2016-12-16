@@ -35,8 +35,6 @@ var UserSchema = new Schema({
   google: {}
 });
 
-
-
 /**
  * Virtuals
  */
