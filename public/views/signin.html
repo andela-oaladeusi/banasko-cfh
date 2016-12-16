@@ -1,11 +1,9 @@
-<div class="container-fluid" ng-controller="Auth">
+<div class="container-fluid" ng-controller="Auth" style="background: white; height: 100%;">
   <div class="row signup-form-holder">
     <div class="signup-form-img"><img src="img/logo-blue.png"></div>
     <div class="title">Sign in to continue</div>
     <div class="signup-form">
-      <!--<div ng-show="showError() === 'invalid'">
-        Invalid username or password.
-      </div>-->
+      <div ng-if="message" class="alert alert-danger"> {{ message }}</div>
       <form ng-submit="signin()">
         <div class="form-group">
           <input name="email" id="email" type="text" placeholder="Email Address" ng-model="signinUser.email" class="form-control" required

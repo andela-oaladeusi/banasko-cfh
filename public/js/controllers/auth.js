@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('mean.system')
-  .controller('Auth', ['$scope', '$http', '$location', 'tokenAuth', function ($scope, $http, $location, tokenAuth) {
+  .controller('Auth', ['$scope', '$http', '$location', 'tokenAuth', '$window', function ($scope, $http, $location, tokenAuth, $window) {
 
     if(tokenAuth.isAuthenticated()) {
-      $location.path('/app');
+      $location.path($location.path() + '/app?game=custom')//.search({game: 'custom'});
     }
 
     $scope.signupUser = {};
@@ -15,7 +15,7 @@ angular.module('mean.system')
       $http.post('/api/auth/signup', $scope.signupUser).then((res) => {
         $scope.message = res.data.message;
         tokenAuth.setToken(res.data.token);
-        $location.path('/app');
+        $location.path('/app?custom')
       }, (err) => {
         $scope.message = err.data.message
       });
@@ -28,12 +28,10 @@ angular.module('mean.system')
         .then((res) => {
           $scope.message = "Login successful";
           tokenAuth.setToken(res.data.token);
-          $location.path('/app')
+          $location.path('/app?custom')
         },
         (err) => {
           $scope.message = "Invalid login details"
         });
     };
-
-
   }])
