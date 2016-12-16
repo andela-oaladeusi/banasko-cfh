@@ -1,19 +1,22 @@
 'use strict';
 
 angular.module('mean.system')
-  .controller('Auth', ['$scope', '$http', function ($scope, $http) {
+  .controller('Auth', ['$scope', '$http', '$location', 'tokenAuth', function ($scope, $http, $location, tokenAuth) {
+
+    if(tokenAuth.isAuthenticated()) {
+      $location.path('/app');
+    }
 
     $scope.signupUser = {};
 
     $scope.message = null;
 
     $scope.signup = () => {
-      console.log("ggdgdgdg")
       $http.post('/api/auth/signup', $scope.signupUser).then((res) => {
-        $scope.message = res.data.message
+        $scope.message = res.data.message;
+        tokenAuth.setToken(res.data.token);
+        $location.path('/app');
       }, (err) => {
-        console.log($scope.signupUser)
-        console.log(err);
         $scope.message = err.data.message
       });
     }
@@ -23,11 +26,11 @@ angular.module('mean.system')
     $scope.signin = () => {
       $http.post('/api/auth/login', $scope.signinUser)
         .then((res) => {
-          console.log(res)
           $scope.message = "Login successful";
+          tokenAuth.setToken(res.data.token);
+          $location.path('/app')
         },
         (err) => {
-          console.log(err)
           $scope.message = "Invalid login details"
         });
     };
