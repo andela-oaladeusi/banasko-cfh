@@ -28,7 +28,7 @@ const mongoose = require('mongoose');
 
 
 //Bootstrap db connection
-mongoose.connect(config.db);
+mongoose.connect(config.db);  
 
 //Bootstrap models
 const models_path = __dirname + '/app/models';

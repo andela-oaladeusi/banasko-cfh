@@ -1,13 +1,15 @@
 <!-- header start -->
 <div class="logo"><img src="img/cfh-logo.png"></div>
 <span class="nav-btn"><i class="fa fa-bars fa-2x"></i></span>
-<nav>
+<nav ng-controller="IndexController">
   <ul class="nav">
     <li><a href="#about" onClick="scroll(0,650)">ABOUT</a></li>
     <li><a href="#gameplay" onClick="scroll(0,1250)">GAMEPLAY</a></li>
     <li><a href="#charity" onClick="scroll(0,2500)">CHARITY</a></li>
-    <li><a href="#!/signin">SIGN IN</a></li>
-    <li><a href="#!/signup">SIGN UP</a></li>
+    <li ng-show="!isAuthenticated"><a href="#!/signin">SIGN IN</a></li>
+    <li ng-show="!isAuthenticated"><a href="#!/signup">SIGN UP</a></li>
+    <li ng-show="isAuthenticated"><a href="#!/logout">LOGOUT</a></li>
+    </span>
   </ul>
 </nav>
 <!-- header end -->

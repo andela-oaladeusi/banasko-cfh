@@ -15,8 +15,12 @@ const errorHandler = (res, message, status) => {
   });
 };
 
+
+
 exports.signUp = (req, res) => {
   const body = req.body;
+
+  console.log('here ', body.name);
   if (body.username && body.name && body.password && body.email) {
     if ((body.password.trim().length >= 8) && validate.isEmail(body.email) &&
       validate.isAlpha(body.username) && !validate.isEmpty(body.name)) {

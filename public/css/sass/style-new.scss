@@ -730,7 +730,7 @@ nav {
 
     div {
       input[type=text], input[type=password], button {
-        height: 50px;
+        height: 40px;
         width: 90%;
         margin-bottom: 15px !important;
       }
@@ -795,8 +795,16 @@ nav {
     .googl:hover { background: #bf4030; }
 
   }
-
 }
+
+div.base-link {
+    height: 30px;
+    line-height: 30px;
+    font-size: 1rem;
+    margin:0 auto;
+    max-width: 300px;
+    text-align: center;
+ }
 
 @include device(tabs) {
   .signup-form-holder {
@@ -808,4 +816,10 @@ nav {
   .signup-form-holder {
     width: 400px;
   }
+  
+  div.base-link {
+    height: 50px;
+    line-height: 50px;
+    font-size: 1.5rem;
+ }
 }
