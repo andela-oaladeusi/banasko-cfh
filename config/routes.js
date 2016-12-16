@@ -3,6 +3,8 @@ module.exports = (app, passport) => {
   //User Routes
   const users = require('../app/controllers/users');
   const jwtAuth = require('../app/controllers/auth');
+  const game = require('../app/controllers/games');
+
   app.get('/signin', users.signin);
   app.get('/signup', users.signup);
   app.get('/chooseavatars', users.checkAvatar);
@@ -30,10 +32,10 @@ module.exports = (app, passport) => {
   }), users.signin);
 
   app.get('/auth/facebook/callback', passport.authenticate('facebook', {
-     failureRedirect: '/signin'
+    failureRedirect: '/signin'
   }), users.authCallback);
 
-    //Setting the github oauth routes
+  //Setting the github oauth routes
   app.get('/auth/github', passport.authenticate('github', {
     failureRedirect: '/signin'
   }), users.signin);
@@ -104,4 +106,8 @@ module.exports = (app, passport) => {
   const sendInvite = require('../app/controllers/send-invite');
   app.post('/api/send/user-invite', sendInvite);
 
+  //Game Routes
+  app.get('/api/games/:id', game.getGameRecords);
+  app.post('/api/games/:id/start', game.saveRecords);
+  app.post('/api/games/:id/end', game.updateRecords);
 };
