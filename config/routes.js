@@ -4,6 +4,7 @@ module.exports = (app, passport) => {
   const users = require('../app/controllers/users');
   const jwtAuth = require('../app/controllers/auth');
   const game = require('../app/controllers/games');
+  const history = require('../app/controllers/history');
 
   app.get('/signin', users.signin);
   app.get('/signup', users.signup);
@@ -106,11 +107,11 @@ module.exports = (app, passport) => {
   const sendInvite = require('../app/controllers/send-invite');
   app.post('/api/send/user-invite', sendInvite);
 
+  //GameHistory
+  app.post('/api/games/history', history.getUserHistory);
+
   //Game Routes
   app.get('/api/games/:id', game.getGameRecords);
   app.post('/api/games/:id/start', game.saveRecords);
   app.post('/api/games/:id/end', game.updateRecords);
-
-  //GameHistory
-  app.get('/api/games/history', game.getUserHistory);
 };
