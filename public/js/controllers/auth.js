@@ -1,11 +1,11 @@
 'use strict';
 
 angular.module('mean.system')
-  .controller('Auth', ['$scope', '$http', '$location', 'tokenAuth', '$window',
+  .controller('Auth', ['$scope', '$http', '$location', 'tokenAuth',
   function ($scope, $http, $location, tokenAuth, $window) {
 
     if(tokenAuth.isAuthenticated()) {
-      $location.path($location.path() + '/app?game=custom')//.search({game: 'custom'});
+      $location.path($location.path() + '/app?game=custom')
     }
 
     $scope.signupUser = {};
@@ -20,7 +20,7 @@ angular.module('mean.system')
       }, (err) => {
         $scope.message = err.data.message;
       });
-    }
+    };
 
 
     $scope.signinUser = {};
@@ -32,7 +32,7 @@ angular.module('mean.system')
           $location.path('/app?custom');
         },
         (err) => {
-          $scope.message = "Invalid login details";
+          $scope.message = 'Invalid login details';
         });
     };
-  }])
+  }]);
