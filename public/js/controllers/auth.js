@@ -3,7 +3,7 @@ angular.module('mean.system')
   function ($scope, $http, $location, tokenAuth, $window) {
 
     if(tokenAuth.isAuthenticated()) {
-      $location.path($location.path() + '/app?game=custom')
+      $location.path($location.path() + '/app?game=custom');
     }
 
     $scope.signupUser = {};
