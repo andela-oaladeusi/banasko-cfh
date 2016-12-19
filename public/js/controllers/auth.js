@@ -1,6 +1,6 @@
 angular.module('mean.system')
   .controller('Auth', ['$scope', '$http', '$location', 'tokenAuth',
-  function ($scope, $http, $location, tokenAuth, $window) {
+  function ($scope, $http, $location, tokenAuth) {
 
     if(tokenAuth.isAuthenticated()) {
       $location.path($location.path() + '/app?game=custom');
@@ -24,12 +24,12 @@ angular.module('mean.system')
     $scope.signin = () => {
       $http.post('/api/auth/login', $scope.signinUser)
         .then((res) => {
-          $scope.message = "Login successful";
+          $scope.message = 'Login successful';
           tokenAuth.setToken(res.data.token);
           $location.path('/app?custom');
         },
         (err) => {
-          $scope.message = 'Invalid login details';
+          $scope.message = err.data.message;
         });
     };
   }]);

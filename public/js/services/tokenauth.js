@@ -4,7 +4,7 @@ angular.module('mean.system')
     
     const setToken = (token) => {
       cachedToken = token;
-      $window.localStorage.setItem('authToken', token);
+      cachedToken = $window.localStorage.setItem('authToken', token);
     };
 
     const getToken = () => {
@@ -16,7 +16,7 @@ angular.module('mean.system')
     
     const deleteToken = () => {
       cachedToken = null,
-      $window.localStorage.removeItem('authToken');
+      cachedToken = $window.localStorage.removeItem('authToken');
     };
     
     const isAuthenticated = () => {
@@ -30,3 +30,4 @@ angular.module('mean.system')
       isAuthenticated: isAuthenticated
     };
   });
+  
