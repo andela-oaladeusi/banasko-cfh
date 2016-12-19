@@ -1,3 +1,4 @@
+'use strict';
 angular.module('mean.system')
   .factory('tokenAuth', ($window) => {
     let cachedToken = null;
