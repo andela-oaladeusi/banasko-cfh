@@ -1,4 +1,5 @@
-angular.module('mean', ['ngCookies', 'ngResource', 'ui.bootstrap', 'ngRoute', 'mean.system', 'mean.directives'])
+angular.module('mean', ['ngCookies', 'ngResource', 'ui.bootstrap', 
+'ngRoute', 'mean.system', 'mean.directives'])
   .config(['$routeProvider',
       function($routeProvider) {
           $routeProvider.
@@ -24,7 +25,7 @@ angular.module('mean', ['ngCookies', 'ngResource', 'ui.bootstrap', 'ngRoute', 'm
             templateUrl: '/views/choose-avatar.html'
           }).
           when('/logout', {
-            template: "logout.html",
+            template: 'logout.html',
             controller: 'logoutCtrl'
           }).
           otherwise({

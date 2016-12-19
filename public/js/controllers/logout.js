@@ -4,3 +4,4 @@ angular.module('mean.system')
       tokenAuth.deleteToken('authToken');
       $location.path('/');
   }])
+  
