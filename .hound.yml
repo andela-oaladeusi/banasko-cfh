@@ -1,2 +1,4 @@
+scss:
+  enabled: false
 jshint:
   config_file: .jshintrc
