@@ -20,7 +20,6 @@ angular.module('mean.system')
       });
     };
 
-
     $scope.signinUser = {};
     $scope.signin = () => {
       $http.post('/api/auth/login', $scope.signinUser)
