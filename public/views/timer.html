@@ -1,6 +1,9 @@
-<div id = "inner-timer-container">
-  <span id="timer-status-round" ng-hide="game.state === 'winner has been chosen' || game.state === 'waiting for czar to decide'"> Time Remaining</span>
-  <span id="timer-status-czar-choosing" ng-show="game.state === 'winner has been chosen'"> Next Round In</span>
-  <span id="timer-status-czar-choosing" ng-show="game.state === 'waiting for czar to decide'"> Czar Choosing</span>
-  <div id="time" ng-bind="game.time"></div>
+<div class="timer-container" ng-cloak ng-hide="game.state === 'game ended' || game.state === 'game dissolved' || game.state === 'awaiting players'">
+  <div class="timer-counter" ng-bind="game.time">0</div>
+  <div class="timer-status">
+    <span class="loader"><img ng-src="/img/hourglass.svg"></span>
+    <span class="status" ng-hide="game.state === 'winner has been chosen' || game.state === 'waiting for czar to decide'">Time Remaining</span>
+    <span class="status" ng-show="game.state === 'winner has been chosen'">Next Round In</span>
+    <span class="status" ng-show="game.state === 'waiting for czar to decide'">Czar Choosing</span>
+  </div>
 </div>
