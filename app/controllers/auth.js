@@ -14,7 +14,7 @@ const errorHandler = (res, message, status) => {
     message: message
   });
 };
-
+ 
 exports.signUp = (req, res) => {
   const body = req.body;
   if (body.username && body.name && body.password && body.email) {
@@ -29,9 +29,9 @@ exports.signUp = (req, res) => {
       });
       user.save((err, saveUser) => {
         if (err) {
-          if ((err.err).includes('username')) {
+          if ((err.message).includes('username')) {
             errorHandler(res, 'This username already exists!', 409);
-          } else if ((err.err).includes('email')) {
+          } else if ((err.message).includes('email')) {
             errorHandler(res, 'This email already exists!', 409);
           } else {
             errorHandler(res, 'Unable to identify error source', 400);

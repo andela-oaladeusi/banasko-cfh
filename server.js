@@ -28,6 +28,7 @@ const mongoose = require('mongoose');
 
 
 //Bootstrap db connection
+// mongoose.Promise = global.Promise;
 mongoose.connect(config.db);
 
 //Bootstrap models
@@ -56,13 +57,6 @@ const app = express();
 app.use(function (req, res, next) {
   next();
 });
-
-app.use(session({
-  secret: process.env.SECRET,
-  store: new MongoStore({
-    url: 'mongodb://localhost:27017/banasko'
-  })
-}));
 
 
 //express settings
