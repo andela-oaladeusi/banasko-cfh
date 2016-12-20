@@ -240,7 +240,6 @@ angular.module('mean.system')
 
       if ($location.search().game && !(/^\d+$/).test($location.search().game)) {
         if (!!window.user) {
-          console.log('joining custom game');
           game.joinGame('joinGame',$location.search().game);
         } else {
           $location.path('/signin');
