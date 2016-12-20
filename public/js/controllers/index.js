@@ -23,6 +23,12 @@ angular.module('mean.system')
       .then(function (data) {
         $scope.avatars = data;
       });
-    
+
     $scope.isAuthenticated = tokenAuth.isAuthenticated();
+
+    $scope.logout = () => {
+      tokenAuth.deleteToken('authToken');
+      $location.path('/');
+      $route.reload();
+    };
   }]);

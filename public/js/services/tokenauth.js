@@ -24,10 +24,10 @@ angular.module('mean.system')
     };
 
     return {
-      setToken: setToken,
-      getToken: getToken,
-      deleteToken: deleteToken,
-      isAuthenticated: isAuthenticated
+      setToken,
+      getToken,
+      deleteToken,
+      isAuthenticated
     };
   });
   

@@ -7,15 +7,12 @@ const config = require('../../config/config');
 const validate = require('validator');
 const User = mongoose.model('User');
 
-
 const errorHandler = (res, message, status) => {
   return res.status(status).json({
     success: false,
     message: message
   });
 };
-
-
 
 exports.signUp = (req, res) => {
   const body = req.body;
@@ -58,7 +55,6 @@ exports.signUp = (req, res) => {
     errorHandler(res, 'Email, Username & Password and Name required', 400);
   }
 };
-
 
 exports.login = (req, res) => {
   const body = req.body;

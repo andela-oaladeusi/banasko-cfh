@@ -8,7 +8,7 @@
     <li><a href="#charity" onClick="scroll(0,2500)">CHARITY</a></li>
     <li ng-show="!isAuthenticated"><a href="#!/signin">SIGN IN</a></li>
     <li ng-show="!isAuthenticated"><a href="#!/signup">SIGN UP</a></li>
-    <li ng-show="isAuthenticated"><a href="#!/logout">LOGOUT</a></li>
+    <li ng-show="isAuthenticated" ng-click="logout()"><a href="">LOGOUT</a></li>
     </span>
   </ul>
 </nav>
