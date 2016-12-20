@@ -1,0 +1,611 @@
+* {
+  margin: 0 auto;
+  padding: 0;
+}
+
+div.shell {
+  background: #ededed;
+}
+
+div.header {
+  height: 50px;
+  background: #074c99;
+}
+
+  div.header img {
+    float: left;
+    height: 40px;
+    width: auto;
+    margin-top: 5px;
+    margin-left: 60px;
+  }
+
+  .search-friends {
+    float: left;
+    height: 30px;
+    line-height: 30px;
+    margin-top: 10px;
+    width: 300px;
+    background: #fff;
+    margin-left: 30px;
+    border-radius: 3px;
+  }
+
+  input[type="text"] {
+    border: 0;
+    outline: none;
+    height: 30px;
+    width: 300px;
+    border-radius: 3px;
+    padding-left: 10px;
+  }
+
+  .user-control {
+    height: 50px;
+    width: 330px;
+    float: right;
+  }
+
+  .invite-btn {
+    float: left;
+    height: 30px;
+    margin-top: 10px;
+    outline: none;
+    border: 0;
+    border-radius: 5px;
+    width: 100px;
+    background: white;
+  }
+
+  .notification {
+    height: 50px;
+    width: 50px;
+    text-align: center;
+    line-height: 50px;
+    color: #fff;
+    float: left;
+    margin-left: 25px;
+  }
+
+  .notification .notification-count {
+    position: absolute;
+    display: block;
+    background: #fff;
+    border-radius: 2px;
+    height: 12px;
+    width: 12px;
+    line-height: 12px;
+    top: 10px;
+    color: red;
+    right: 190px;
+    font-size: 1rem;
+    font-weight: bold;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0, 0.7);
+  }
+
+  .notification div {
+    color: #000;
+    text-align: left;
+  }
+
+  .profile {
+    height: 50px;
+    float: right;
+  }
+
+  .profile:hover, .notification:hover {
+    cursor: pointer;
+  }
+
+  .profile:hover .menu,
+  .notification:hover .list { display: block; }
+
+    .profile-name {
+      float: left;
+      height: 50px;
+      line-height: 50px;
+      color: #fff;
+      font-weight: normal;
+      font-size: 1.3rem;
+    }
+
+    .profile-avatar {
+      float: left;
+      width: 50px;
+      height: 50px;
+    }
+
+    .profile-avatar > img {
+      position: relative;
+      left: -50px;
+      margin-top: 10px !important;
+      height: 30px !important;
+    }
+
+    .menu, .list {
+      display: none;
+      z-index: 999;
+      position: absolute;
+      min-width: 150px;
+      background: #fff;
+      top: 50px;
+      right: 10px;
+      border-radius: 5px;
+      box-shadow: 0 1px 6px 0px rgba(0,0,0,0.15);
+    }
+
+    .menu ul, .list ul {
+      list-style: none;
+    }
+
+    .menu li, .list li {
+      display: block;
+      height: 40px;
+      line-height: 40px;
+      border-bottom: 1px solid #f4f4f4;
+      padding-left: 10px;
+      padding-right: 10px;
+      font-size: 1.3rem;
+    }
+
+    .menu li:hover, .list li:hover {
+      background: #f6f6f6;
+    }
+
+/* left panel: card deck */
+
+div.card-deck {
+  background: #f4f4f4;
+  padding-left: 0;
+  padding-right:0;
+}
+
+div.question-board {
+  height: 200px;
+  background: #fff;
+  box-shadow: 0 1px 6px 0px rgba(0,0,0,0.15);
+}
+
+  .timer {
+    height: 150px;
+    margin-top: 25px;
+  }
+
+    .timer-container {
+      margin-left: 45px;
+      height: 150px;
+      width: 150px;
+      /*background: #efefef;*/
+      text-align: center;
+      border-radius: 5px;
+      border: 1px solid #eaeaea;
+    }
+
+      .timer-counter {
+        height: 100px;
+        width: 100px;
+        margin-bottom: 10px;
+        line-height: 100px;
+        font-size: 10rem;
+        color: #074c99;
+      }
+
+      .timer-status {
+        height:40px;
+        line-height: 30px;
+        padding-top:5px;
+        padding-bottom: 5px;
+        color: #000;
+        border-top: 1px solid #eaeaea;
+      }
+        .loader { max-width: 30px; }
+        .loader img {
+          height: 20px;
+          position: relative;
+          top: -1px;
+        }
+
+  /* question display */
+
+    .loading-players {
+      width:250px;
+      position: relative;
+      top: 40px;
+      text-align: center;
+      left: -100px
+    }
+
+      .loading {
+        border-radius: 30px;
+        background: #efefef;
+        background: #fff;
+        height: 50px;
+        line-height: 50px;
+        font-weight: bold;
+        padding-top: 5px;
+        padding-left: 10px;
+        box-shadow: 0 7px 25px 3px rgba(0,0,0,0.2);
+
+      }
+        .loader-img, .found, .text {
+          float: left;
+          height: 40px;
+          line-height: 40px;
+        }
+
+        .loader-img, .found {
+          border-radius: 50%;
+          width: 40px;
+        }
+
+        .loader-img {
+          text-align: center;
+        }
+
+        .text {
+          height: 40px;
+          width: 150px;
+        }
+
+        .found {
+          background: #074c99;
+          color: #fff;
+          font-weight: normal;
+          font-size: 1.2rem;
+        }
+
+      .btn {
+        margin-top: 20px;
+        color: #fff;
+      }
+
+  .game-question, .gameover {
+    height: 150px;
+    width: 95%;
+    position: relative;
+    top: 25px;
+    border-radius: 5px;
+    border: 1px solid #eaeaea;
+    float: left;
+  }
+
+    .question-label {
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
+      text-align: center;
+      border-radius: 50%;
+      background: #fff;
+      float: left;
+      position: relative;
+      left: -25px;
+      top: 10px;
+      border: 1px solid #eaeaea;
+      font-weight: bold;
+    }
+
+      .question-label i { color: #5cb85c; position: relative; top: 5px; }
+
+    .question, .winner {
+      min-height: 50px;
+      margin-top: 10px;
+      max-width: 90%;
+      line-height: 30px;
+    }
+
+    .question {
+      font-size: 1.7rem;
+    }
+
+    .winner {
+      text-align: center;
+      font-weight: bold;
+      font-size: 4rem;
+      color: #666666;
+    }
+
+    .winner div {
+      color: orange;
+      font-size: 1.5rem;
+    }
+
+    .winner div i:nth-child(2) {
+      position: relative;
+      top: -5px;
+    }
+
+div.help {
+  height: 50px;
+  line-height: 50px;
+  color: #919191;
+}
+
+div.help span.icon {
+  display: block;
+  max-width: 90px;
+  margin-left: 55px;
+}
+
+div.help span.icon:hover {
+  color: #000;
+  cursor: pointer;
+}
+
+.instruction {
+  height: 20px;
+  width: 20px;
+  line-height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  color: black;
+  font-weight: bold;
+}
+
+
+
+div.deal-cards {
+  min-height: 500px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 0 5% 1% 5%;
+
+}
+
+.deal-cards i { font-size: 20rem; }
+
+div.card {
+  height: 250px;
+  width: 180px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  background: #fff;
+  transition: ease-in-out all 0.7s;
+  text-align: center;
+  box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.15);
+}
+
+.card img {
+  height: 50px;
+  width: auto;
+  margin-top: 20px;
+}
+
+.card span.card-no {
+  font-size: .9rem;
+  display: block;
+  margin-bottom: 30px;
+  font-weight: bold;
+  height: 30px;
+  width: 60%;
+  line-height: 30px;
+  border-radius: 5px;
+  background: #f4f4f4;
+}
+
+.card span.card-answer {
+  display: block;
+  width: 80%;
+  font-size: 1.5rem;
+}
+
+div.card:hover {
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* right panel - player list */
+div.player-list {
+  height: 100vh !important;
+  position: static;
+  top: 50px;
+  right: 0;
+}
+
+  .top {
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 5px;
+    background: #fff;
+    font-size: 1.1rem;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-top: 10px;
+  }
+
+  .top span.title {
+    float: left;
+  }
+
+  .green-online {
+    color: #5cb85c;
+  }
+
+  .top span.title i {
+    font-size: .7rem;
+    position: relative;
+    top: -1px;
+  }
+
+  .top span.num-of-players {
+    float: right;
+    font-weight: bold;
+  }
+
+  .user {
+    width: 100%;
+    margin-top: 5px;
+    height: 50px;
+    padding-top: 5px;
+
+  }
+
+  .user:hover {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 5px;
+  }
+
+  .user-avatar {
+    width: 20%;
+    float: left;
+  }
+
+  .user-avatar img {
+    width: 100%;
+    height: auto;
+  }
+
+  .user-details {
+    width: 70%;
+    float: left;
+  }
+    .name {
+      display: block;
+      height: 20px;
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+
+    .czar-badge {
+      width: 30px;
+      height: 15px;
+      border-radius: 3px;
+      background: #000;
+      color: #fff;
+      float: left;
+      font-size: .8rem;
+      line-height: 15px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .score {
+      font-size: 1.2rem;
+      position: relative;
+      top: -2px;
+    }
+
+  .add-friend-btn {
+    width: 10%;
+    text-align: center;
+    float: left;
+    position: relative;
+    top: 10px;
+  }
+
+    .add-friend-btn i {
+      color: #5cb85c;
+    }
+
+    .add-friend-btn i:hover { cursor: pointer; }
+
+/*modal pop class*/
+.mod-header, .close-btn {
+  background: #074c99;
+  color: white;
+}
+#search-query {
+  width: 100%;
+}
+.invite-btn-pop {
+  background: #074c99;
+  margin-top: 0px;
+}
+
+.row{
+  margin-right: 0px;
+  margin-left: 0px;
+}
+div.deal-cards {
+  min-height: 0px;
+}
+.abandon-na {
+  float: right;
+  margin-right: 15px;
+  font-size: 1.2rem;
+}
+.not-list {
+  right: 80px;
+}
+a, a:hover {
+  color: #000000;
+}
+.loader-land {
+  top: -3px;
+  position: relative;
+}
+.score {
+  top: -3px;
+  left: -9px;
+}
+.other-information {
+  box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.15);
+  max-height: 250px;
+  width: 50%;
+  background: #074c99;
+  border-radius: 15px;
+  color: white;
+  padding: 1%;
+
+}
+
+.info-header {
+  text-align: center;
+  position: relative;
+  top: -4px;
+  font-weight: bold;
+  margin-right: 5px;
+  margin-left: 5px;
+  font-size: 1.7rem;
+}
+
+.real-info {
+  padding-left: 10%;
+
+}
+.wish-img {
+  padding-left: 30%;
+  position: relative;
+  top: 15px;
+}
+.wish-fact {
+  text-align: center;
+}
+.loading-players {
+  margin-left: 240px;
+}
+.gameover {
+  text-align: center;
+  left: -100px;
+}
+div.deal-cards, div.help {
+  background: #ededed;
+}
+.info-body {
+  position: relative;
+}
+.wish-ques {
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+div.card-deck {
+  background-color: inherit;
+}
+.donate-btn {
+  float: center;
+  height: 30px;
+  margin-top: 10px;
+  outline: none;
+  border: 0;
+  border-radius: 5px;
+  width: 50%;
+  background: white;
+  font-weight: bold;
+}
+.donate-div-btn {
+  text-align: center;
+}
+.second-info {
+  padding-left: 0px;
+}

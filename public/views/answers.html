@@ -1,89 +1,67 @@
-<div ng-cloak id="cards-container" ng-hide="game.state === 'game ended' || game.state ==='game dissolved'">
-  <div id="social-bar-container">
-    <player></player>
+<div class="row help">
+  <span class="icon" data-toggle="tooltip" data-placement="right" data-html="true" title="
+    <h3>Game Instructions</h3>
+    <ul>
+    <div class='instruction'>1</div>
+    <li>Each player begins with, and will always have, 10 white answer cards.</li><br>
+    <div class='instruction'>2</div>
+    <li>For each round, one player is randomly chosen as the Card Czar.</li><br>
+    <div class='instruction'>3</div>
+    <li>Everyone else answers the black question card by clicking on the answer card they want to use.</li><br>
+    <div class='instruction'>4</div>
+    <li>The Card Czar then picks a favorite answer, and whoever played that answer wins the round.</li>
+    </ul>">
+    <i class="fa fa-question-circle-o"></i> Game help
+  </span>
+</div>
+<div class="row deal-cards" ng-hide="game.state === 'game ended' || game.state ==='game dissolved'" >
+  <span ng-show="winnerPicked()"></span>
+  <div class="card" ng-style="{'cursor':'pointer'}" ng-click="pickCard(card)" ng-hide="showTable || isCzar()" ng-repeat="card in game.players[game.playerIndex].hand" ng-animate="{enter:'animated fadeInUp', leave: 'animated fadeInOut'}">
+    <img src="/img/cfh-logo.png">
+    <span class="card-no">ANSWER CARD</span>
+    <span class="card-answer" ng-bind-html-unsafe="card.text"> Mount Calvary </span>
+    <span id='selection-number' ng-show="showFirst(card)"> 1 </span>
+    <span id='selection-number' ng-show="showSecond(card)"> 2 </span>
   </div>
-  <div id="cards" class='hand'>
-
-    <span ng-show="winnerPicked()"></span>
-
-    <div ng-style="{'cursor':'pointer'}" class="card smallest" id='answers' ng-click="pickCard(card)" ng-hide="showTable || isCzar()"
-    ng-repeat="card in game.players[game.playerIndex].hand" ng-animate="{enter:'animated fadeInUp', leave: 'animated fadeInOut'}">
-        <span ng-bind-html-unsafe="card.text"></span>
-        <span id='selection-number' ng-show="showFirst(card)"> 1 </span>
-        <span id='selection-number' ng-show="showSecond(card)"> 2 </span>
-    </div>
-
-    <span ng-repeat="answer in game.table">
-        <div class="card smallest" ng-style="pointerCursorStyle()" id='table' ng-click="pickWinning(answer)" ng-show="showTable || isCzar()"
-        ng-repeat="card in answer.card" ng-animate="{enter:'animated bounceInLeft'}" style="background-color:{{winningColor($parent.$index)}}">
-            <span ng-bind-html-unsafe="card.text"></span>
-            <span id='selection-number' ng-show="firstAnswer($index)"> 1 </span>
-            <span id='selection-number' ng-show="secondAnswer($index)"> 2 </span>
-        </div>
-    </span>
-
+  <span ng-repeat="answer in game.table">
+      <div class="card" ng-style="pointerCursorStyle()" id='table' ng-click="pickWinning(answer)" ng-show="showTable || isCzar()" ng-repeat="card in answer.card" ng-animate="{enter:'animated bounceInLeft'}">
+        <img src="/img/cfh-logo.png">
+        <span class="card-no">ANSWERED CARD</span>
+        <span class="card-answer"  ng-bind-html-unsafe="card.text"></span>
+        <span id='selection-number' ng-show="firstAnswer($index)"> 1 </span>
+        <span id='selection-number' ng-show="secondAnswer($index)"> 2 </span>
+      </div>
+  </span>
+</div>
+<div class="other-information" ng-show="isCzar() && game.table.length===0 && game.state !== 'game dissolved' && game.state !== 'awaiting players'">
+  <div class="info-header"> You are the Card Czar. </div>
+  <div class="info-body">
+    <span class="real-info">Players are choosing their answers. Prepare to select a winner. </span>
+    <br>
+    <span class="wish-img"><img ng-src="/img/make-a-wish-logo.png" alt="Avatar"></span>
+    <br>
+    <span class="wish-ques">Did you know?</span> <br>
+    <span class="wish-fact"> {{ makeAWishFact }} </span>
+  </div>
+</div>
+<div class="other-information donate-div" ng-show="game.state === 'game ended' || game.state ==='game dissolved'">
+  <div ng-show="game.state ==='game dissolved' && game.gameWinner === -1">
+    <div class="info-header">What would you like to do now?</div>
+    <br>
+    <span class="real-info">You might consider donating to charity to atone for the horrifying answers you've submitted. Donating will also place a lovely crown on your avatar's head.</span>
+  </div>
+  <div ng-show="game.state === 'game ended' || game.gameWinner !== -1">
+    <div class="info-header">What would you like to do now?</div>
+    <br>
+    <div class="real-info second-info">Help yourself to another game or help a child in need? Donating will also place a lovely crown on your avatar's head.</div>
+  </div>
+  <div class="donate-div-btn">
+    <a href="https://www.crowdrise.com/fundraise-and-volunteer/donate-mobile/project/cfhio/cards4humanity?widget=true&redirect_to=http%3A%2F%2Flocalhost%3A3000%2F%23!%2Fapp&stylesheet=&amounts="><button type="button" class="donate-btn" data-toggle="tooltip" title="Click to donate" data-placement="top">Donate Now</button></a>
   </div>
 </div>
 
-<div id="info-container" ng-show="game.state === 'awaiting players'">
-  <div id="inner-info">
-    <div id="lobby-how-to-play">How To Play</div>
-    <ol id="oh-el">
-      <li>Each player begins with, and will always have, 10 white answer cards.</li>
-      <li>For each round, one player is randomly chosen as the Card Czar.</li>
-      <li>Everyone else answers the black question card by clicking on the answer card they want to use.</li>
-      <li>The Card Czar then picks a favorite answer, and whoever played that answer wins the round.</li>
-      <li>*Want to adorn your avatar with a glorious crown? Donate to charity after the game!</li>
-    </ol>
-  </div>
-</div>
-<div id="game-end-container" ng-show="game.state === 'game ended' || game.state ==='game dissolved'">
-  <div id="inner-info-exit">
-    <div class="game-end-answer-text" ng-show="game.state ==='game dissolved' && game.gameWinner === -1">
-      <h2>What would you like to do now?</h2>
-      You might consider donating to charity to atone for the horrifying answers you've submitted. Donating will also place a lovely crown on your avatar's head.
-    </div>
-    <div class="game-end-answer-text" ng-show="game.state === 'game ended' || game.gameWinner !== -1">
-      <h2>What would you like to do now?</h2>
-      Help yourself to another game or help a child in need? Donating will also place a lovely crown on your avatar's head.
-    </div>
-    <div id='inner-text-container'>
-      <a href='/#!/app'>
-      <div id="join-new-game" ng-click="game.joinGame('joinNewGame')">
-        Join a New Game
-      </div></a>
-      <a href='/'>
-        <div id="exit-match">
-        Return to Lobby
-        </div>
-      </a>
-    </div>
-  </div>
-
-  <div id="charity-widget-container">
-      <!-- This is real -->
-      <a href="http://www.crowdrise.com" id="crowdriseStaticLink-fundraiser-121142" title="Fundraising Websites on Crowdrise">Fundraising Websites - Crowdrise</a>
-      <script type="text/javascript" src="https://www.crowdrise.com/widgets/donate/fundraiser/121142/?callback=userDonationCb"></script>
-      <!-- This is for testing -->
-      <!-- <a href="http://www.crowdrise.com" id="crowdriseStaticLink-project-36715" title="Fundraising Websites on Crowdrise">Fundraising Websites - Crowdrise</a> -->
-      <!-- <script type="text/javascript" src="https://apisandbox.crowdrise.com/widgets/donate/project/36715/?callback=userDonationCb"></script> -->
-  </div>
-</div>
-<div id="czar-blank-container" ng-show="isCzar() && game.table.length===0 && game.state !== 'game dissolved' && game.state !== 'awaiting players'">
-  <div id="czar-blank-inner">
-    You are the Card Czar. <br>
-    <span id="smaller-text">Players are choosing their answers. Prepare to select a winner.</span>
-  </div>
-  <div id='charity-fact-container'>
-    <div id='charity-fact-tagline'>Did you know?</div>
-
-    <div id='charity-fact'>
-       {{ makeAWishFact }}
-    </div>
-
-    <div id='charity-logo-container'>
-      <img src='/img/make-a-wish-logo.png'/>
-    </div>
-
-  </div>
-</div>
+<script type="text/javascript">
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+  })
+</script>

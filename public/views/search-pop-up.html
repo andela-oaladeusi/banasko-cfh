@@ -5,7 +5,7 @@
     role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header mod-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -16,7 +16,7 @@
             <div class="form-group">
               <input type="text" class="form-control" id="search-query"
                 placeholder="search users..." ng-model="searchString"
-                ng-keypress="searchDB(searchString)">
+                ng-change="searchDB(searchString)">
             </div>
           </form>
           <div id="search-result">
@@ -27,9 +27,9 @@
                   <td>{{i.name}} </td>
                   <td ng-if="!checkPlayer(i.email)" title="{{i.email}}">
                     <button ng-click="sendInvite(i.email, i.name)"
-                      class="btn btn-info">Send Invite</button></td>
+                      class="btn btn-info invite-btn-pop">Send Invite</button></td>
                   <td ng-if="checkPlayer(i.email)">
-                    <button ng-disabled="true" class="btn btn-info">invite sent</button></td>
+                    <button ng-disabled="true" class="btn btn-info invite-btn-pop">invite sent</button></td>
                 </tr>
               </tbody>
             </table>
@@ -47,7 +47,7 @@
   <div class="modal fade" id="alertModal">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header mod-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -67,7 +67,7 @@
   <div class="modal fade" id="alertInviteModal">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header mod-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -87,7 +87,7 @@
   <div class="modal fade" id="emailSent">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header mod-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

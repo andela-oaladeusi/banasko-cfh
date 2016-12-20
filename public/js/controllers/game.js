@@ -11,11 +11,12 @@ angular.module('mean.system')
       $scope.modalShown = false;
       $scope.game = game;
       $scope.pickedCards = [];
-      let makeAWishFacts = MakeAWishFactsService.getMakeAWishFacts();
-      $scope.makeAWishFact = makeAWishFacts.pop();
       $scope.numberOfInvite = 1;
       $scope.invitedPlayersList = [];
       $scope.checkExist = true;
+      let makeAWishFacts = MakeAWishFactsService.getMakeAWishFacts();
+      $scope.makeAWishFact = makeAWishFacts.pop();
+      window.user? $scope.currentUser = window.user.name : $scope.currentUser = window.user;
 
       $scope.pickCard = (card) => {
         if (!$scope.hasPickedCards) {
@@ -226,8 +227,9 @@ angular.module('mean.system')
             if (!$scope.modalShown) {
               setTimeout(() => {
                 $scope.link = document.URL;
-                $('#lobby-how-to-play').html('<button class=' +
-                  '"btn btn-info btn-lg" data-toggle="modal" ' +
+                $('.invite').html('<button type="button" '+
+                  'class="invite-btn" data-toggle="modal" '+
+                  'title="Invite friends via email" data-placement="bottom" '+
                   'data-target="#inviteModal">Invite Friends</button>');
               }, 200);
               $scope.modalShown = true;
@@ -237,7 +239,12 @@ angular.module('mean.system')
       });
 
       if ($location.search().game && !(/^\d+$/).test($location.search().game)) {
-        game.joinGame('joinGame', $location.search().game);
+        if (!!window.user) {
+          console.log('joining custom game');
+          game.joinGame('joinGame',$location.search().game);
+        } else {
+          $location.path('/signin');
+        }
       } else if ($location.search().custom) {
         game.joinGame('joinGame', null, true);
       } else {
@@ -260,7 +267,7 @@ angular.module('mean.system')
         if ($scope.numberOfInvite <= game.playerMaxLimit) {
           if ($scope.invitedPlayersList.indexOf(email) === -1) {
             $scope.invitedPlayersList.push(email);
-            sendEmail(email, name, document.URL)
+            sendEmail(email, name, $scope.currentUser, document.URL)
               .then((data) => {
                 emailSent.modal('show');
               });
