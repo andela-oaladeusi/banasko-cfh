@@ -75,7 +75,7 @@ exports.updateRecords = (req, res) => {
   const winner = req.body.winner;
   const rounds = req.body.rounds;
 
-  GameRecords.update({
+  GameRecords.findOneAndUpdate({
     gameID: gameID
   }, {
     $set: {
@@ -83,7 +83,8 @@ exports.updateRecords = (req, res) => {
       rounds: rounds,
       winner: winner
     }
-  }, (err, data) => {
+  }, { new: true},
+  (err, data) => {
     if (err) {
       return res.status(500).send(err);
     }

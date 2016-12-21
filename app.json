@@ -1,0 +1,30 @@
+{
+  "name": "banasko-cfh",
+  "scripts": {},
+  "env": {
+    "MONGODB_URI": {
+      "required": true
+    },
+    "MONGOHQ_URL": {
+      "required": true
+    },
+    "NODE_ENV": {
+      "required": true
+    },
+    "PORT": {
+      "required": true
+    },
+    "SECRET": {
+      "required": true
+    }
+  },
+  "formation": {},
+  "addons": [
+    "mongolab"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}

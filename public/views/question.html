@@ -1,49 +1,53 @@
-<div id="question-container-inner">
-  <div class="card longBlack">
-    <span ng-bind-html-unsafe="game.curQuestion.text" 
-      ng-hide="game.state === 'game ended' || game.state
-       ==='game dissolved' || game.state === 'awaiting players'">
-    </span>
-
-    <div id="notifications" ng-if="game.notification" 
-      ng-animate="{enter:'animated fadeInLeft', leave:'animated fadeOut'}">
-        {{game.notification}}
+<!-- Loading players -->
+<div class="loading-players" ng-show="game.state === 'awaiting players'">
+  <div class="loading">
+    <div class="loader-img"><img class="loader-land" src="/img/default.svg"></div>
+    <div class="text">Finding Players</div>
+    <div class="found">{{game.players.length}}/12</div>
+  </div>
+  <button type="button" class="btn btn-primary" ng-click="startGame()">Start Game</button>
+</div>
+<!-- Game questions -->
+<div ng-hide="game.state === 'game ended' || game.state === 'game dissolved' || game.state === 'awaiting players'">
+  <div class="game-question">
+    <div class="question-label"><i class="fa fa-pencil fa-2x"></i></div>
+    <div class="question">
+      <span  ng-bind-html-unsafe="game.curQuestion.text"></span>
     </div>
-
-    <div id="startGame" ng-show="game.state === 'awaiting players'">
-      <div id="finding-players">Finding Players</div>
-      <div id="player-count-container">
-        <div id="player-count">{{game.players.length}} / 12 </div>
-        <div id="the-word-players"> Players </div>
-      </div>
-      <div id="loading-container">
-        <div id="loading-gif"><img ng-src="../img/loader.gif" /></div>
-      </div>
-      <div id="start-game-container" ng-click="startGame()">
-        <div id='start-game-button'>
-          Start Game</br>with {{game.players.length}} players
-        </div>
-      </div>
+    <div id="notifications" ng-if="game.notification" ng-animate="{enter:'animated fadeInLeft', leave:'animated fadeOut'}"> {{game.notification}} </div>
+  </div>
+</div>
+          <!-- Game over -->
+<div>
+  <div class="gameover" ng-show="game.state ==='game dissolved' && game.gameWinner === -1">
+    <div class="game-end-headline">What the!? The game ended because too many people left! <br> Our sincere apologies.
     </div>
-    
-    <!-- Game Over Stuff -->
-    <div id="game-end-info">
-      <div id="people-left-game-top" ng-show="game.state ==='game dissolved'
-         && game.gameWinner === -1">
-        <div class="game-end-headline">What the!? The game ended because too many people left! </div>
-        Our sincere apologies.
+    <div>
+      <a href='/play?custom'><button ng-if="currentUser" type="button" class="btn btn-success">Start a new game</button></a>
+      <a href='/#!/app'><button type="button" class="btn btn-primary" ng-click="game.joinGame('joinNewGame')">Join a game</button></a>
+    </div>
+  </div>
+  <div ng-show="game.state === 'game ended' && game.gameWinner !== game.playerIndex">
+    <div class="game-end-headline">Aw, shucks! {{game.players[game.gameWinner].username | upperFirstLetter }} won the game!</div>
+  </div>
+  <div class="gameover" ng-show="game.state === 'game ended' && game.gameWinner === game.playerIndex">
+    <div class="question-label">
+      <i class="fa fa-shield fa-2x"></i>
+    </div>
+    <div class="winner">
+      <div>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
       </div>
-      <div ng-show="game.state === 'game ended' && game.gameWinner === game.playerIndex">
-        <div class="game-end-headline">Congratulations! You won the game, 
-          {{game.players[game.playerIndex].username | upperFirstLetter}}!
-        </div>
-        We hope you feel special. If you'd like to share that special feeling with the world,
-         consider donating to charity. Or just horde it all for youself.
-      </div>
-      <div ng-show="game.state === 'game ended' && game.gameWinner !== game.playerIndex">
-        <div class="game-end-headline">Aw, shucks! {{game.players[game.gameWinner].username 
-          | upperFirstLetter }} won the game!</div>
-        That makes you a loser, unfortunately.
+      {{game.players[game.playerIndex].username | upperFirstLetter}} WINS!!!
+      <div>
+        <a href='/play?custom'>
+          <button ng-if="currentUser" type="button" class="btn btn-success">Start a new game</button>
+        </a>
+        <a href='/#!/app'>
+          <button type="button" class="btn btn-primary" ng-click="game.joinGame('joinNewGame')">Join a game</button>
+        </a>
       </div>
     </div>
   </div>

@@ -94,7 +94,7 @@ describe('Game Records', () => {
           winner: gameData.winner
         }
       }, (err, data) => {
-        data.should.equal(1);
+        data.ok.should.equal(1);
         done();
       });
     });

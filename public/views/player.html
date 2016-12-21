@@ -1,21 +1,29 @@
-<div id="player-container" ng-repeat="player in game.players" style="background-color:{{colors[player.color]}}">
-  <div id ="above-czar-container">
-    <div id="avatar_">
-      <span ng-show="isPremium($index)">
-        <img ng-src="img/king.png" id="king">
+<div class="top">
+  <span class="title">
+    <i class="fa fa-circle" ng-class="{'green-online': game.players.length}"></i> Players online
+  </span>
+  <span class="num-of-players">{{game.players.length}}</span>
+</div>
+      <!-- user -->
+<div ng-repeat="player in game.players">
+  <div class="user">
+    <div class="user-avatar"><img ng-src="{{player.avatar}}"/></div>
+    <div class="user-details">
+      <span class="name">{{player.username | upperFirstLetter}}</span>
+      <span class="user-status ustatus-add">
+        <div class="czar-badge" ng-show="currentCzar($index)">CZAR</div>&nbsp;
+        <div class="czar-badge" ng-show="!currentCzar($index) && isPlayer($index)">YOU</div>&nbsp;
+        <span class="score">{{player.points}}/{{game.pointLimit}}</span>
       </span>
-      <img ng-src="{{player.avatar}}"/>
     </div>
-    <div id="player-container-inner">
-      <div id="player-name"><h4>{{player.username | upperFirstLetter}}</h4></div>
-      <div id="player-score"><h2>{{player.points}}/{{game.pointLimit}}</h2></div>
-      <div ng-show="isPlayer($index)" id="player-star">
-        <img src="../img/11.png"/>
-      </div>
+    <div class="add-friend-btn">
+      <i class="fa fa-plus-circle" data-toggle="tooltip" data-html="true" data-placement="bottom" title="<small>Add Friend</small>"></i>
     </div>
-  </div>
-  <div id="czar-container" ng-show="currentCzar($index)">
-    <span id='the-czar'>CZAR</span>
   </div>
 </div>
 
+<script type="text/javascript">
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+  })
+</script>
