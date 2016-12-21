@@ -1199,3 +1199,136 @@
      margin: 0 0 0 4px;
    }
  }
+
+
+.chat {
+  width: 350px;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin-right: 20px;
+  box-shadow: 2px 2px 15px grey;
+  border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
+  color: #fff;
+}
+
+.chat .chat-head {
+  border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
+  background-color: #074c99;
+  font-size: 1em;
+  padding: 2px;
+  cursor: pointer;
+}
+.chat .chat-head p {
+  margin : 10px;
+}
+.chat .chat-head span {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+}
+.chat .chat-body {
+  min-height: 280px;
+  height: 280px;
+  border-bottom: 1px solid gainsboro;
+  padding-bottom: 10px;
+  background-color: #f3f7fb;
+  overflow: auto;
+}
+.chat-body img {
+  width:30px;
+  height: 30px;
+  border-radius: 100%;
+  margin-top: 10px;
+}
+.chat-body .message {
+  clear :both;
+}
+.chat-body .img {
+  float:left;
+  margin : 5px 10px;
+}
+.chat-body .content {
+  width: 70%;
+  float: left;
+  margin-top : 5px;
+  margin-bottom: 5px;
+  padding: 5px;
+  position: relative;
+  border-radius: 5px;
+  background-color: #4080ff;
+  color: #e6e6e6;
+}
+.chat-body .content h4 {
+  font-size:12px;
+  padding-bottom: 5px;
+  margin: 0px 4px;
+}
+.chat-body .content p {
+  font-size: 12px;
+  margin: 0px 4px;
+  word-wrap: break-word;
+}
+
+.chat-body .right .content::before {
+  content: " ";
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 13px solid #074c99;
+  position: absolute;
+  top: 11px;
+  left: -7px
+}
+.chat-body .left .content::before {
+  content: " ";
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 13px solid #ffd695;
+  position: absolute;
+  top: 11px;
+}
+
+.chat .chat-box #chat-form {
+  border: 0px;
+  width: 100%;
+  height: 50px;
+  outline: none;
+  color: #545454;
+  word-wrap: break-word;
+}
+.chat-body .left .img, 
+.chat-body .left .content {
+  float: right;
+  text-align: right;
+}  
+.chat .left .content {
+  background-color: #ffd695;
+  color: #000000;
+}
+
+.chat .right .content {
+  background-color: #074c99;
+}
+
+.chat .chat-box #chat-form {  
+  border: 0px;
+  width: 100%;
+  height: 50px;
+  outline: none;
+  color: #545454;
+  word-wrap: break-word;
+}
+.chat-body .left .img, .chat-body .left .content {
+  float : right;
+}
+
+#social-bar-container {
+  z-index: -1;
+}

@@ -1,0 +1,25 @@
+<div class="chat" ng-controller="ChatCtrl">
+  <div class="chat">
+    <div ng-click="showChat()" class="chat-head">
+      <p>Banasko chat!</p>
+    </div>
+    <div ng-if="chatWindow">
+      <div class="chat-body" id="chat-body">
+        <div class="message" ng-class="{ 'left' : isUser(chat.username), 'right': !isUser(chat.username)  }" ng-repeat="chat in chats.messages">
+          <div class="img">
+            <img src="{{  chat.avatar }}" alt="" />
+          </div>
+          <div class="content">
+            <h4>{{ chat.username }}</h4>
+            <p>{{ chat.message }}</p>
+          </div>
+        </div>
+      </div>
+      <form ng-submit="send()">
+        <div class="chat-box">
+          <input id="chat-form" ng-model="form.message" />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,5 @@
 'use strict';
 
-
 // Karma configuration
 // Generated on Mon Nov 14 2016 18:07:44 GMT+0100 (WAT)
 
@@ -19,13 +18,16 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'public/lib/angular/angular.js',
+      'public/lib/angular-mocks/angular-mocks.js',
+      'public/lib/angular-resource/angular-resource.js',
+      'public/lib/angular-cookies/angular-cookies.min',
+      'public/js/app.js',
       'test/client/**/*.js',
       'test/client/*.js',
+      'jasmine/spec/**/*.js',
       'public/js/**/*.js',
-      'public/js/app.js'
     ],
-
-
 
     // list of files to exclude
     exclude: [
@@ -61,9 +63,10 @@ module.exports = function(config) {
     logLevel: config.LOG_INFO,
 
 
-
-    // enable / disable watching file and
+    // enable / disable watching file and 
     // executing tests whenever any file changes
+    // enable / disable watching file and executing tests
+    // whenever any file changes
     autoWatch: true,
 
 
@@ -73,6 +76,7 @@ module.exports = function(config) {
     browsers: ['Chrome', 'PhantomJS', 'Firefox'],
 
 
+
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
     singleRun: false,
@@ -80,6 +84,5 @@ module.exports = function(config) {
     // Concurrency level
     // how many browser should be started simultaneous
     concurrency: Infinity
-
   });
 };

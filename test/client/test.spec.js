@@ -6,7 +6,7 @@ function square(x) {
 
 describe('simple test ' , function() {
   it('should return square of 4', function() {
-    let sqr = square(4);
+    const sqr = square(4);
     expect(sqr).toEqual(16);
   });
 });

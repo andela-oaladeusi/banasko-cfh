@@ -1,8 +1,10 @@
 'use strict';
+
 angular.module('mean.system')
-  .factory('game', ['socket', '$timeout', '$http',
-    function (socket, $timeout, $http) {
-      let game = {
+  .factory('game', ['socket', '$timeout', '$http', 'Chat',
+    function(socket, $timeout, $http, Chat) {
+
+      const game = {
         id: null, // This player's socket ID, so we know who this player is
         gameID: null,
         players: [],
@@ -21,36 +23,34 @@ angular.module('mean.system')
         curQuestion: null,
         notification: null,
         timeLimits: {},
-        joinOverride: false
+        joinOverride: false,
+        cfhChat: Chat
       };
 
-      let notificationQueue = [];
+      const notificationQueue = [];
       let timeout = false;
-      let self = this;
       let joinOverrideTimeout = 0;
 
-       let setNotification = () => {
-        // If notificationQueue is empty, stop
-        if (notificationQueue.length === 0) {
-          clearInterval(timeout);
-          timeout = false;
-          game.notification = '';
-        } else {
-          // Show a notification and check again in a bit
-          game.notification = notificationQueue.shift();
-          timeout = $timeout(setNotification, 1300);
-        }
-      };
-
-      let addToNotificationQueue = (msg) => {
+      const addToNotificationQueue = (msg) => {
         notificationQueue.push(msg);
         if (!timeout) { // Start a cycle if there isn't one
           setNotification();
         }
       };
+      const setNotification = () => {
+        if (notificationQueue.length === 0) { // If notificationQueue is empty, stop
+          clearInterval(timeout);
+          timeout = false;
+          game.notification = '';
+        } else {
+          game.notification = notificationQueue.shift(); // Show a notification and 
+          //check again in a bit
+          timeout = $timeout(setNotification, 1300);
+        }
+      };
 
       let timeSetViaUpdate = false;
-      let decrementTime = () => {
+      const decrementTime = () => {
         if (game.time > 0 && !timeSetViaUpdate) {
           game.time--;
         } else {
@@ -70,17 +70,15 @@ angular.module('mean.system')
         game.timeLimits = data.timeLimits;
       });
 
-      socket.on('gameUpdate', function (data) {
+      socket.on('gameUpdate', (data) => {
 
         // Update gameID field only if it changed.
         // That way, we don't trigger the $scope.$watch too often
         if (game.gameID !== data.gameID) {
           game.gameID = data.gameID;
         }
-
         game.joinOverride = false;
         clearTimeout(game.joinOverrideTimeout);
-
         let i;
         // Cache the index of the player in the players array
         for (i = 0; i < data.players.length; i++) {
@@ -88,8 +86,17 @@ angular.module('mean.system')
             game.playerIndex = i;
           }
         }
+        const player = data.players[game.playerIndex];
 
-        let newState = (data.state !== game.state);
+        game.cfhChat.setGameId(data.gameID);
+        game.cfhChat.setUsername(player.username);
+        game.cfhChat.setAvatar(player.avatar);
+        game.cfhChat.checkForMessages();
+
+        game.joinOverride = false;
+        clearTimeout(game.joinOverrideTimeout);
+
+        const newState = (data.state !== game.state);
 
         //Handle updating game.time
         if (data.round !== game.round && data.state !== 'awaiting players' &&
@@ -116,9 +123,9 @@ angular.module('mean.system')
         if (data.table.length === 0) {
           game.table = [];
         } else {
-          let added = _.difference(_.pluck(data.table, 'player'),
+          const added = _.difference(_.pluck(data.table, 'player'),
             _.pluck(game.table, 'player'));
-          let removed = _.difference(_.pluck(game.table, 'player'),
+          const removed = _.difference(_.pluck(game.table, 'player'),
             _.pluck(data.table, 'player'));
           for (i = 0; i < added.length; i++) {
             for (let j = 0; j < data.table.length; j++) {
@@ -150,7 +157,7 @@ angular.module('mean.system')
           game.curQuestion = data.curQuestion;
           // Extending the underscore within the question
           game.curQuestion.text = data.curQuestion.text
-          .replace(/_/g, '<u></u>');
+            .replace(/_/g, '<u></u>');
 
           // Set notifications only when entering state
           if (newState) {
@@ -178,6 +185,7 @@ angular.module('mean.system')
         } else if (data.state === 'game dissolved' ||
           data.state === 'game ended') {
           if (data.state === 'game ended') {
+            game.cfhChat.deleteChat();
             $http({
                 method: 'POST',
                 url: `/api/games/${game.gameID}/end`,
@@ -275,4 +283,4 @@ angular.module('mean.system')
 
       return game;
     }
-  ]);
+ ]);

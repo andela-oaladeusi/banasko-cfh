@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/andela/banasko-cfh.svg?branch=chore%2F134249119%2Ftravisci-with-readme)](https://travis-ci.org/andela/banasko-cfh)
-
 [![Coverage Status](https://coveralls.io/repos/github/andela/banasko-cfh/badge.svg?branch=master)](https://coveralls.io/github/andela/banasko-cfh?branch=master)
+
 
 Cards for Humanity - [http://cfh.io](http://cfh.io)
 

@@ -15,10 +15,14 @@
   "trailing": true,
   "nonbsp": false,
   "maxlen": 80,
+  "browser": true,
   "globals": {
     "requirejs": true,
     "require": true,
     "console": true,
-    "jasmineRequire": true
+    "jasmineRequire": true,
+    "angular": true,
+    "jquery": true,
+    "_": true
   }
 }

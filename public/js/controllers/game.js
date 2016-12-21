@@ -1,4 +1,5 @@
 'use strict';
+
 angular.module('mean.system')
   .controller('GameController', ['$scope', 'game',
     '$timeout', 'searchService', 'sendEmail', '$location',
