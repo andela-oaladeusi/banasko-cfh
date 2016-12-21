@@ -28,8 +28,9 @@ angular.module('mean.system')
         $scope.avatars = data;
       });
 
-    $scope.isAuthenticated = tokenAuth.isAuthenticated();
-
+    // $scope.isAuthenticated = tokenAuth.isAuthenticated();
+		$scope.isAuthenticated = window.user;
+		
     $scope.logout = () => {
       tokenAuth.deleteToken('authToken');
       $location.path('/');

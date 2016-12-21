@@ -60,6 +60,7 @@ angular.module('mean.system')
       };
 
       socket.on('id', (data) => {
+				console.log(data);
         game.id = data.id;
       });
 

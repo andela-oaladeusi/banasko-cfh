@@ -1,34 +1,38 @@
-<div class="container-fluid" ng-controller="Auth" style="background: white; height: 100%;">
+<div class="container-fluid" style="background: white; height: 100%;" ng-controller="IndexController">
   <div class="row signup-form-holder">
-    <div class="signup-form-img"><img src="img/logo-blue.png"></div>
-    <div class="title">Sign in to continue</div>
-    <div class="signup-form">
-      <div ng-if="message" class="alert alert-danger"> {{ message }}</div>
-      <form ng-submit="signin()">
-        <div class="form-group">
-          <input name="email" id="email" type="text" placeholder="Email Address" ng-model="signinUser.email" class="form-control" required
-            novalidate>
-          <input name="password" id="password" type="password" placeholder="Password" ng-model="signinUser.password" class="form-control"
-            required novalidate>
-          <button id="sign-up-btn-other" type="submit" ng-click="signin()" class="btn btn-primary">SIGN IN</button>
-        </div>
-      </form>
-    </div>
-    <div class="option">or Signin via social</div>
-    <div class="social-signup">
-      <a href="/auth/facebook">
-        <div class="social fb"><i class="fa fa-facebook fa-2x"></i></div>
-      </a>
-      <a href="/auth/twitter">
-        <div class="social tt"><i class="fa fa-twitter fa-2x"></i></div>
-      </a>
-      <a href="/auth/github">
-        <div class="social git"><i class="fa fa-github fa-2x"></i></div>
-      </a>
-      <a href="/auth/google">
-        <div class="social googl"><i class="fa fa-google fa-2x"></i></div>
-      </a>
-    </div>
+		<div class="col-md-12">
+			<div class="signup-form-img"><img src="img/logo-blue.png"></div>
+			<div class="title">Sign in to continue</div>
+			<div class="signup-form">
+				<div class="sign-error" ng-show="showError() === 'invalid'">
+            Please check your username/password and try again.
+          </div>
+				<form action="/users/session" method="post">
+					<div class="form-group">
+						<input name="email" id="email" type="text" placeholder="Email Address" class="form-control" required
+							novalidate>
+						<input name="password" id="password" type="password" placeholder="Password" class="form-control"
+							required novalidate>
+						<button id="sign-up-btn-other" type="submit" class="btn btn-primary">SIGN IN</button>
+					</div>
+				</form>
+			</div>
+			<div class="option">or Signin via social</div>
+			<div class="social-signup">
+				<a href="/auth/facebook">
+					<div class="social fb"><i class="fa fa-facebook fa-2x"></i></div>
+				</a>
+				<a href="/auth/twitter">
+					<div class="social tt"><i class="fa fa-twitter fa-2x"></i></div>
+				</a>
+				<a href="/auth/github">
+					<div class="social git"><i class="fa fa-github fa-2x"></i></div>
+				</a>
+				<a href="/auth/google">
+					<div class="social googl"><i class="fa fa-google fa-2x"></i></div>
+				</a>
+			</div>
+		</div>
   </div>
   <div class="base-link">
     <span><a href="#!/">Home</a></span>

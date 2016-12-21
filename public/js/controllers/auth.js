@@ -2,9 +2,10 @@ angular.module('mean.system')
   .controller('Auth', ['$scope', '$http', '$location', 'tokenAuth',
   function ($scope, $http, $location, tokenAuth) {
 
-    if(tokenAuth.isAuthenticated()) {
-      $location.path($location.path() + '/app?game=custom');
-    }
+    // if(tokenAuth.isAuthenticated()) {
+    //   $location.path($location.path() + '/app?game=custom');
+    // }
+		console.log($location.search());
 
     $scope.signupUser = {};
 
@@ -14,7 +15,7 @@ angular.module('mean.system')
       $http.post('/api/auth/signup', $scope.signupUser).then((res) => {
         $scope.message = res.data.message;
         tokenAuth.setToken(res.data.token);
-        $location.path('/app?custom');
+        $location.path('/app?game=custom');
       }, (err) => {
         $scope.message = err.data.message;
       });
@@ -26,7 +27,7 @@ angular.module('mean.system')
         .then((res) => {
           $scope.message = 'Login successful';
           tokenAuth.setToken(res.data.token);
-          $location.path('/app?custom');
+        $location.path('/app?game=custom');
         },
         (err) => {
           $scope.message = err.data.message;

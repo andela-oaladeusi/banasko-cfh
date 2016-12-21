@@ -282,5 +282,10 @@ angular.module('mean.system')
       $scope.checkPlayer = (email) => {
         return $scope.invitedPlayersList.includes(email);
       };
+			
+			$scope.Play = () => {
+				const playGa = angular.element('#playModal');
+				playGa.modal('show');
+			};
     }
   ]);

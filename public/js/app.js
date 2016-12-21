@@ -32,9 +32,10 @@ angular.module('mean', ['ngCookies', 'ngResource', 'ui.bootstrap',
             redirectTo: '/'
           });
       }
-  ]).config(['$locationProvider',
-    function($locationProvider) {
+  ]).config(['$locationProvider', '$httpProvider',
+    function($locationProvider, $httpProvider) {
         $locationProvider.hashPrefix("!");
+				$httpProvider.interceptors.push('authInterceptor');
     }
   ]).run(['$rootScope', function($rootScope) {
   $rootScope.safeApply = function(fn) {

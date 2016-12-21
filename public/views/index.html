@@ -8,19 +8,19 @@
     <li><a href="#charity" onClick="scroll(0,2500)">CHARITY</a></li>
     <li ng-show="!isAuthenticated"><a href="#!/signin">SIGN IN</a></li>
     <li ng-show="!isAuthenticated"><a href="#!/signup">SIGN UP</a></li>
-    <li ng-show="isAuthenticated" ng-click="logout()"><a href="">LOGOUT</a></li>
+    <li ng-show="isAuthenticated"><a href="/signout">LOGOUT</a></li>
     </span>
   </ul>
 </nav>
 <!-- header end -->
 
 
-<div class="container">
-  <!-- Modal -->
+<!-- <div class="container">
+  <!-- Modal 
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
 
-      <!-- Modal content-->
+      <!-- Modal content
       <div class="modal-content">
         <div class="close-btn">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -32,7 +32,7 @@
           </div>
           <div class="body">
             <div class="left">
-              <a href="/#!/app?custom"><button>START A NEW GAME</button></a><br>
+              <a href="/play?custom"><button>START A NEW GAME</button></a><br>
               <span>Create a new game and invite friends to play with you</span>
             </div>
             <div class="right">
@@ -45,18 +45,22 @@
 
     </div>
   </div>
-</div>
+</div> -->
+
+<!--<div ng-include="'./views/search-pop-up.html'"></div>-->
 
 
 
 <!-- hero start -->
-<div class="row hero-bg">
+<div class="row hero-bg" ng-controller="GameController">
   <div class="col-sm-12 hero-title">
     <span class="cfh">cfh</span>
     <span class="cfh-full">cards for humanity</span>
     <span class="subtitle">A game for horrible people <em>desperately</em> trying to do good</span><br>
-    <button class="play-btn" data-toggle="modal" data-target="#myModal">PLAY GAME</button>
+    <!--<button class="play-btn" data-toggle="modal" data-target="#myModal">PLAY GAME</button>-->
+		<button class="play-btn" ng-click="Play()">PLAY GAME</button>
   </div>
+	<div ng-include="'./views/search-pop-up.html'"></div>
 </div>
 <!-- hero end -->
 

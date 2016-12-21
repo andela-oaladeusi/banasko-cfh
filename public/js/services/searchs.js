@@ -12,7 +12,6 @@ angular.module('mean.system')
   }])
   .factory('sendEmail', ['$http', '$q', function($http, $q) {
      return function(email, name, currentUser, link) {
-       console.log(currentUser);
        const deferred = $q.defer();
        $http.post('/api/send/user-invite', {
          'email': email,

@@ -1,25 +1,25 @@
-<div class="container-fluid" ng-controller="Auth" style="background: white; height: 100%;">
+<div class="container-fluid" style="background: white; height: 100%;">
   <div class="row signup-form-holder">
     <div class="signup-form-img"><img src="img/logo-blue.png"></div>
     <div class="title">Sign up to continue</div>
     <div class="signup-form">
-      <div ng-if="message" class="alert alert-danger"> {{ message }}</div>
-      <form>
+      <!--<div ng-if="message" class="alert alert-danger"> {{ message }}</div>-->
+      <form action="/users" method="post">
         <div class="form-group">
-          <input type="text" placeholder="Fullname" ng-model="signupUser.name" class="form-control" required novalidate>
-          <input type="text" placeholder="Username" ng-model="signupUser.username" class="form-control" required novalidate>
-          <input name="email" id="email" type="text" placeholder="Email Address" ng-model="signupUser.email" class="form-control" required
+          <input type="text" placeholder="Fullname" name="name" class="form-control" required novalidate>
+          <input type="text" placeholder="Username" name="username" class="form-control" required novalidate>
+          <input name="email" id="email" type="text" placeholder="Email Address"  class="form-control" required
             novalidate>
-          <input name="password" id="password" type="password" placeholder="Password" ng-model="signupUser.password" class="form-control"
+          <input name="password" id="password" type="password" placeholder="Password" class="form-control"
             required novalidate>
           <div class="avatar">Select an Avatar</div>
           <div class="radio-btn" ng-controller="IndexController">
             <label ng-repeat="avatar in avatars">
-            <input type="radio" name="avatar" ng-model="signupUser.avatar" value="{{$index}}">
+            <input type="radio" name="avatar" value="{{$index}}">
             <img src="{{avatar}}">            
           </label>
           </div>
-          <button id="sign-up-btn-other" type="submit" ng-click="signup()" class="btn btn-primary">SIGN UP</button>
+          <button id="sign-up-btn-other" type="submit" class="btn btn-primary">SIGN UP</button>
         </div>
       </form>
     </div>
