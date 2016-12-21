@@ -28,7 +28,7 @@
             <ul>
               <li><a href='/'><i class="fa fa-home"></i> Home</a></li>
               <li ng-click="abandonGame()"><i class="fa fa-close"></i> Abandon Game</li>
-              <li><i class="fa fa-gamepad"></i> Game History</li>
+              <li ng-click="viewGameHistory()"><i class="fa fa-gamepad"></i> Game History</li>
               <li><a href="/signout"><i class="fa fa-sign-out"></i> Sign Out</a></li>
             </ul>
           </div>
@@ -40,7 +40,6 @@
         <button type="button" class="invite-btn abandon-na" data-toggle="tooltip" title="Quit this game" data-placement="bottom" ng-click="abandonGame()">Abandon Game</button>
       </div>
     </div>
-
   </div>
   <div class="row main">
     <div class="col-xs-10 card-deck">
